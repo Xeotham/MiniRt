@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_math.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: xeo <xeo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:26:56 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/11 15:15:25 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/11 21:57:20 by xeo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,14 @@ t_vector3	scalar_div(t_vector3 vector, double scalar)
 	vector.y /= scalar;
 	vector.z /= scalar;
 	return (vector);
+}
+
+t_vector3	cross_product(t_vector3 v1, t_vector3 v2)
+{
+	t_vector3	n_vector;
+	
+	n_vector.x = (v1.y * v2.z) - (v2.y * v1.z);
+	n_vector.y = (v1.z * v2.x) - (v2.z * v1.x);
+	n_vector.z = (v1.x * v2.y) - (v2.x * v1.y);
+	return (n_vector);
 }

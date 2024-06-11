@@ -49,7 +49,8 @@ SRCS = ft_isalpha.c \
 	ft_multi_join.c \
 	ft_join_and_free.c \
 	ft_close.c \
-	ft_strrcmp.c
+	ft_strrcmp.c \
+	ft_atod.c
 #=============== BONUS SOURCES ==============#
 BONUS = ft_lstnew.c \
 	ft_lstadd_front.c \

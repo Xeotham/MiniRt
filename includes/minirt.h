@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: xeo <xeo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/11 16:15:29 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/11 20:07:40 by xeo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <libft.h>
 # include <math.h>
 # include <mrt_vector.h>
-# include <object.h>
-# include <parser.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -41,6 +39,5 @@ typedef struct s_minirt
 	t_obj_list	**light;
 	t_obj_list	**object;
 }	t_minirt;
-
 
 #endif

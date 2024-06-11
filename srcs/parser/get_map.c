@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: xeo <xeo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:26:02 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/11 09:45:49 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/11 21:51:00 by xeo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	replace_space(char *line)
 
 	i = -1;
 	while (line[++i])
-		if (line[i] == '\t')
+		if (line[i] == '\t' || line[i] == ',')
 			line[i] = ' ';
 }
 
@@ -57,7 +57,7 @@ char	**get_map(char *file_name)
 		return (NULL);
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
-		return (NULL); //error
+		return (NULL); // error
 	j_args = read_file(fd);
 	try_close(fd);
 	if (!j_args)

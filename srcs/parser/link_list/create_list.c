@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: xeo <xeo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 09:58:05 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/11 16:38:42 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/11 22:15:08 by xeo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ static int	check_ids(char *id)
 static int	sort_in_struct(char **info, t_minirt *minirt)
 {
 	t_identifier	id;
-	
+	int	(*obj_create[6]) (char **, t_minirt *) {}
+
 	id = check_ids(info[0]);
-	if (info == -1)
+	if (info == -1 || id == MRT_NO_ID)
 		return (0);
-	else if (id == MRT_AMB_LIGHT)
+	else if (!obj_create[id])
 		
 }
 
@@ -42,7 +43,7 @@ static int	*create_obj_node(char *obj, t_minirt *minirt)
 	int		error;
 	info = ft_split(obj, ' ');
 	if (!info)
-		return (NULL); // malloc error
+		return (0); // malloc error
 	error = sort_in_struct(info, minirt);
 	ft_free_2d_array(info, ft_array_len(info));
 	return (error);

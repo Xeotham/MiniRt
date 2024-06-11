@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: xeo <xeo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:50:38 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/05/24 10:35:57 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/11 21:35:20 by xeo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void				ft_multi_free(int n_to_free, ...);
 char				*ft_multi_join(int n_to_free, char *join_to, ...);
 int					ft_strcmp(char *s1, char *s2);
 int					try_close(int fd);
-void				try_free(void *ptr);
+double				ft_atod(char *str);
 int					ft_strcmp(char *s1, char *s2);
 int					ft_strrcmp(const char *s1, const char *s2);
 
