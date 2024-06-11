@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/05/24 10:57:42 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/11 16:15:29 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,33 @@
 # define MINIRT_H
 /*================================== INCLUDES ================================*/
 
+# include <MLX42.h>
+# include <libft.h>
+# include <math.h>
+# include <mrt_vector.h>
+# include <object.h>
+# include <parser.h>
 # include <stdlib.h>
 # include <unistd.h>
 
-# define IS_SPACE " \f\r\t\v"
+typedef enum e_identifier
+{
+	MRT_NO_ID = -1,
+	MRT_AMB_LIGHT,
+	MRT_CAMERA,
+	MRT_LIGHT,
+	MRT_SPHERE,
+	MRT_PLANE,
+	MRT_CYLINDER
+}	t_identifier;
+
+typedef struct s_minirt
+{
+	mlx_t		mlx;
+	t_camera	*camera;
+	t_obj_list	**light;
+	t_obj_list	**object;
+}	t_minirt;
+
 
 #endif

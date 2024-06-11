@@ -1,0 +1,9 @@
+{
+	"files.associations": {
+		"libft.h": "c",
+		"object.h": "c",
+		"mrt_vector.h": "c",
+		"mlx42.h": "c",
+		"parser.h": "c"
+	}
+}
