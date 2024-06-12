@@ -6,32 +6,35 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 21:34:35 by xeo               #+#    #+#             */
-/*   Updated: 2024/06/12 10:50:18 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/12 17:09:40 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-static double	atod_format(char **str)
+static int	atod_format(char **str)
 {
 	char	*tmp;
 	double	sign;
 
 	tmp = *str;
-	sign = 1.0;
+	sign = 1;
 	while (*tmp == ' ' || ('\t' <= *tmp && *tmp <= '\r'))
 		tmp++;
 	if (*tmp == '-' || *tmp == '+')
-		if ((*tmp)++ == '-')
-			sign = -1.0;
+	{
+		if (*tmp == '-')
+			sign *= -1;
+		tmp++;
+	}
 	*str = tmp;
 	return (sign);
 }
 
 double	ft_atod(char *str)
 {
+	int		sign;
 	double	nbr;
-	double	sign;
 	size_t	i;
 
 	nbr = 0.0;

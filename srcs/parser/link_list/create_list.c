@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 09:58:05 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/12 14:50:44 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/12 17:10:49 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_ids(char *id)
 static int	sort_in_struct(char **info, t_minirt *minirt)
 {
 	t_identifier	id;
-	const int (*obj_create[6])(char **, t_minirt *) = {create_amb_light, create_camera,
+	int (*obj_create[6])(char **, t_minirt *) = {create_amb_light, create_camera,
 		create_point_light, create_sphere, create_plane, create_cylinder};
 
 	id = check_ids(info[0]);
@@ -58,9 +58,7 @@ int	get_obj_list(char **map, t_minirt *minirt)
 	if (!map || !(*map))
 		return (0);
 	while (map[++i])
-	{
 		if (!create_obj_node(map[i], minirt))
 			return (0);
-	}
 	return (1);
 }

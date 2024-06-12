@@ -6,7 +6,7 @@
 #    By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 15:55:46 by tde-la-r          #+#    #+#              #
-#    Updated: 2024/06/12 14:47:47 by mhaouas          ###   ########.fr        #
+#    Updated: 2024/06/12 16:54:09 by mhaouas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ INCLUDE_DIR = include/
 INCLUDE = -Iinclude/
 
 CC = clang
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
 
 all : $(NAME)
