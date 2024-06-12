@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   create_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xeo <xeo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 09:58:05 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/11 22:15:08 by xeo              ###   ########.fr       */
+/*   Updated: 2024/06/12 14:50:44 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
-#include <parser.h>
 
 static int	check_ids(char *id)
 {
 	int		i;
-	char	*ids[7] = {"A", "C", "L", "sp", "pl", "cy", NULL};
+	const char	*ids[7] = {"A", "C", "L", "sp", "pl", "cy", NULL};
 
 	i = -1;
 	while (ids[++i])
@@ -28,19 +27,21 @@ static int	check_ids(char *id)
 static int	sort_in_struct(char **info, t_minirt *minirt)
 {
 	t_identifier	id;
-	int	(*obj_create[6]) (char **, t_minirt *) {}
+	const int (*obj_create[6])(char **, t_minirt *) = {create_amb_light, create_camera,
+		create_point_light, create_sphere, create_plane, create_cylinder};
 
 	id = check_ids(info[0]);
-	if (info == -1 || id == MRT_NO_ID)
+	if (id == MRT_NO_ID || !obj_create[id](info, minirt))
 		return (0);
-	else if (!obj_create[id])
-		
+	else
+		return (1);
 }
 
-static int	*create_obj_node(char *obj, t_minirt *minirt)
+static int	create_obj_node(char *obj, t_minirt *minirt)
 {
 	char	**info;
 	int		error;
+
 	info = ft_split(obj, ' ');
 	if (!info)
 		return (0); // malloc error
@@ -49,15 +50,17 @@ static int	*create_obj_node(char *obj, t_minirt *minirt)
 	return (error);
 }
 
-int	get_obj_list(char **map, void *minirt)
+int	get_obj_list(char **map, t_minirt *minirt)
 {
 	size_t	i;
 
 	i = -1;
 	if (!map || !(*map))
-		return (NULL);
+		return (0);
 	while (map[++i])
+	{
 		if (!create_obj_node(map[i], minirt))
 			return (0);
+	}
 	return (1);
 }

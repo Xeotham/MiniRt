@@ -1,24 +1,31 @@
 #================ COMPILATOR ================#
 CC = cc
 #=================== FLAGS ==================#
-FLAGS = -Wall -Wextra -Werror -gdwarf-4
+FLAGS = -Wall -Wextra -Werror -gdwarf-4 -Ofast
 #=================== NAME ===================#
 NAME = miniRT
 #============ MINISHELL SOURCES =============#
 SRCS = \
 	main.c \
+	utils.c \
+	color.c \
 	parser/get_map.c \
 	parser/link_list/create_list.c\
 	parser/link_list/obj_list_utils.c\
 	vector/vector.c \
 	vector/vector_math.c \
+	object/create_light.c \
+	object/create_plane.c \
+	object/create_sphere.c \
+	object/create_camera.c \
+	object/create_cylinder.c \
 #============ TRANSFORM .c TO .o ============#
 LIBFT = libft/libft.a
 LIBMLX = MLX42
 OBJ_DIR = obj/
 SRCS_DIR = srcs/
 INCLUDE_DIR = includes
-MLX_INCLUDE = MLX42/includes
+MLX_INCLUDE = MLX42/include/MLX42
 OBJ = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 INCLUDES = -I$(INCLUDE_DIR) -I$(MLX_INCLUDE)
 
@@ -40,7 +47,7 @@ $(OBJ_DIR)%.o : $(SRCS_DIR)%.c
 	@ $(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME) : $(LIBFT) $(OBJ)
-	@ $(CC) $(OBJ) $(LIBFT) -o $(NAME)
+	@ $(CC) $(FLAGS) $(OBJ) $(LIBFT) -lm -o $(NAME)
 
 clean :
 	@ $(MAKE) -C libft clean --no-print-directory

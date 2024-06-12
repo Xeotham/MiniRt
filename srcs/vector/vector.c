@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xeo <xeo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:02:14 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/11 22:00:13 by xeo              ###   ########.fr       */
+/*   Updated: 2024/06/12 11:37:51 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ double	vector_norm(t_vector3 vector)
 
 t_vector3	normalize_vector(t_vector3 vector)
 {
-	t_vector3	n_vector;
 	double		c_vector_norm;
 
 	c_vector_norm = vector_norm(vector);

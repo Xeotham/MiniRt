@@ -3,11 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xeo <xeo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 20:50:36 by xeo               #+#    #+#             */
-/*   Updated: 2024/06/11 21:36:05 by xeo              ###   ########.fr       */
+/*   Updated: 2024/06/12 10:41:38 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
+
+int	ft_check_range(double value, double min, double max)
+{
+	if (min < value && value < max)
+		return (1);
+	else
+		return (0);
+}

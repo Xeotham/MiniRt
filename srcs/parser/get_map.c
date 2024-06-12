@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xeo <xeo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:26:02 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/11 21:51:00 by xeo              ###   ########.fr       */
+/*   Updated: 2024/06/12 14:44:55 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parser.h>
+#include <minirt.h>
 
 static void	replace_space(char *line)
 {
@@ -53,8 +53,8 @@ char	**get_map(char *file_name)
 
 	args = NULL;
 	j_args = NULL;
-	if (ft_strrcmp(file_name, ".rt"))
-		return (NULL);
+	// if (ft_strrcmp(file_name, ".rt"))
+	// 	return (NULL);
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 		return (NULL); // error

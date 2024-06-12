@@ -1,117 +1,101 @@
-#================ COMPILATOR ================#
-CC = cc
-#=================== FLAGS ==================#
-FLAGS = -Wall -Wextra -Werror -g 	
-#=================== NAME ===================#
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/05/01 15:55:46 by tde-la-r          #+#    #+#              #
+#    Updated: 2024/06/12 14:47:47 by mhaouas          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = libft.a
-#============= MANDATORY SOUCES =============#
-SRCS = ft_isalpha.c \
-	ft_isdigit.c \
-	ft_isalnum.c \
-	ft_isascii.c \
-	ft_isprint.c \
-	ft_strlen.c \
-	ft_memset.c \
-	ft_bzero.c \
-	ft_strlcpy.c \
-	ft_strlcat.c \
-	ft_toupper.c \
-	ft_tolower.c \
-	ft_strchr.c \
-	ft_strrchr.c \
-	ft_strcmp.c \
-	ft_strncmp.c \
-	ft_memchr.c \
-	ft_memmove.c \
-	ft_memcpy.c \
-	ft_memcmp.c \
-	ft_strnstr.c \
-	ft_atoi.c \
-	ft_calloc.c \
-	ft_strdup.c \
-	ft_substr.c \
-	ft_strjoin.c \
-	ft_strtrim.c \
-	ft_itoa.c	\
-	ft_strmapi.c \
-	ft_striteri.c \
-	ft_putchar_fd.c \
-	ft_putstr_fd.c \
-	ft_putendl_fd.c \
-	ft_putnbr_fd.c \
-	ft_split.c \
-	ft_free_2d_array.c \
-	ft_atoi_base.c \
-	ft_abs.c \
-	ft_array_len.c \
-	ft_unsplit.c \
-	ft_multi_free.c \
-	ft_multi_join.c \
-	ft_join_and_free.c \
-	ft_close.c \
-	ft_strrcmp.c \
-	ft_atod.c
-#=============== BONUS SOURCES ==============#
-BONUS = ft_lstnew.c \
-	ft_lstadd_front.c \
-	ft_lstsize.c \
-	ft_lstlast.c \
-	ft_lstadd_back.c \
-	ft_lstdelone.c \
-	ft_lstclear.c \
-	ft_lstiter.c \
-	ft_lstmap.c
+SRCS = get_next_line.c\
+		  ft_printf.c\
+		  ft_fprintf.c\
+		  printf_args.c\
+		  ft_atoi.c\
+		  ft_atoi_radix.c\
+		  ft_bzero.c\
+		  ft_calloc.c\
+		  ft_isalnum.c\
+		  ft_isalpha.c\
+		  ft_isascii.c\
+		  ft_isbase.c\
+		  ft_isdigit.c\
+		  ft_islower.c\
+		  ft_isupper.c\
+		  ft_isprint.c\
+		  ft_itoa.c\
+		  ft_memchr.c\
+		  ft_memcmp.c\
+		  ft_memcpy.c\
+		  ft_memmove.c\
+		  ft_memset.c\
+		  ft_putchar_fd.c\
+		  ft_putendl_fd.c\
+		  ft_putnbr_fd.c\
+		  ft_putstr_fd.c\
+		  ft_strchr.c\
+		  ft_strdup.c\
+		  ft_striteri.c\
+		  ft_strmapi.c\
+		  ft_strjoin.c\
+		  ft_strlcpy.c\
+		  ft_strlcat.c\
+		  ft_strlen.c\
+		  ft_strncmp.c\
+		  ft_strnstr.c\
+		  ft_strrchr.c\
+		  ft_strtrim.c\
+		  ft_split.c\
+		  ft_substr.c\
+		  ft_tolower.c\
+		  ft_toupper.c\
+		  ft_lstnew_bonus.c\
+		  ft_lstadd_front_bonus.c\
+		  ft_lstsize_bonus.c\
+		  ft_lstlast_bonus.c\
+		  ft_lstadd_back_bonus.c\
+		  ft_lstdelone_bonus.c\
+		  ft_lstclear_bonus.c\
+		  ft_lstiter_bonus.c\
+		  ft_lstmap_bonus.c\
+		  ft_lower.c\
+		  ft_superior.c\
+		  ft_free_2d_array.c\
+		  ft_atod.c\
+		  ft_join_and_free.c\
+		  ft_multi_free.c\
+		  ft_array_len.c\
+		  ft_close.c\
 
-#============== PRINTF SOURCES ==============#
-PRINTF = ft_printf.c \
-	printf_char_print.c \
-	printf_nbr_print.c \
-	printf_hex_print.c
+SRCS_DIR = sources/
+OBJS_DIR = objects/
+OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
-#================ GNL SOURCES ===============#
-GNL = gnl/get_next_line.c\
-	gnl/get_next_line_utils.c
+INCLUDE_DIR = include/
+INCLUDE = -Iinclude/
 
-#============ TRANSFORM .c TO .o ============#
-#============== MANDATORY PART ==============#
-OBJM = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
-
-#================ BONUS PART ================#
-OBJB = $(addprefix $(OBJ_DIR), $(BONUS:.c=.o))
-
-#=============== PRINTF PART ================#
-OBJPR = $(addprefix $(OBJ_DIR), $(PRINTF:.c=.o))
-
-#================ GNL PART ==================#
-OBJGNL = $(addprefix $(OBJ_DIR), $(GNL:.c=.o))
-
-OBJ_DIR = obj/
-
-SRCS_DIR = srcs/
-
-INCLUDE_DIR = ../includes/
-
-INCLUDES = -I$(INCLUDE_DIR)
-
-#============== EXECUTABLE PART =============#
+CC = clang
+FLAGS = -Wall -Wextra -Werror
+RM = rm -rf
 
 all : $(NAME)
-	@echo "\033[32;47;1m** libft.a created **\033[0m"
 
-$(NAME) : $(OBJB) $(OBJM) $(OBJPR) $(OBJGNL)
-	@ar rcs $(NAME) $(OBJB) $(OBJM) $(OBJPR) $(OBJGNL)
-	
-$(OBJ_DIR)%.o : $(SRCS_DIR)%.c
-	@ mkdir -p $(dir $@)
-	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
+$(NAME) : $(OBJS)
+	ar rcs $(NAME) $(OBJS)
+
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c
+	@mkdir -p $(OBJS_DIR)
+	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@
 
 clean :
-	@rm -rf $(OBJ_DIR)
-	@echo "\033[32;47;1m** cleaned **\033[0m"
+	$(RM) $(OBJS_DIR)
 
-fclean :
-	@rm -rf $(NAME) $(OBJ_DIR)
-	@echo "\033[32;47;1m** fcleaned **\033[0m"
+fclean : clean
+	$(RM) $(NAME)
 
 re : fclean all
 

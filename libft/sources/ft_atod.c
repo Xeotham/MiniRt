@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xeo <xeo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 21:34:35 by xeo               #+#    #+#             */
-/*   Updated: 2024/06/11 21:34:58 by xeo              ###   ########.fr       */
+/*   Updated: 2024/06/12 10:50:18 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static double	atod_format(char **str)
 		tmp++;
 	if (*tmp == '-' || *tmp == '+')
 		if ((*tmp)++ == '-')
-			sign == -1.0;
+			sign = -1.0;
 	*str = tmp;
 	return (sign);
 }
