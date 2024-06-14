@@ -27,7 +27,7 @@ SRCS_DIR = srcs/
 INCLUDE_DIR = includes
 MLX_INCLUDE = MLX42/include/MLX42
 OBJ = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
-INCLUDES = -I$(INCLUDE_DIR) -I$(MLX_INCLUDE)
+INCLUDES = -I$(INCLUDE_DIR) -I$(MLX_INCLUDE) -Ilibft/include
 
 all : libmlx $(NAME)
 

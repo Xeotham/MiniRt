@@ -5,6 +5,8 @@
 		"mrt_vector.h": "c",
 		"mlx42.h": "c",
 		"parser.h": "c",
-		"minirt.h": "c"
+		"minirt.h": "c",
+		"mrt_matrix.h": "c",
+		"cmath": "c"
 	}
 }
