@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/14 14:43:38 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/17 20:40:26 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINIRT_H
 /*================================== INCLUDES ================================*/
 
-# include "../MLX42/include/MLX42/MLX42.h"
+# include <MLX42.h>
 # include <libft.h>
 # include <math.h>
 # include <mrt_vector.h>
