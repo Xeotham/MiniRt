@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:58:08 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/17 21:36:43 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/18 10:38:48 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_matrix	set_translation_matrix(double t_x, double t_y, double t_z);
 t_matrix	set_r_x_matrix(double teta);
 t_matrix	set_r_y_matrix(double teta);
 t_matrix	set_r_z_matrix(double teta);
+t_matrix	mat_vec_product(t_matrix matrix, t_vector3 vector);
+t_vector3	matrix_to_vector(t_matrix matrix);
 void		identity_matrix(t_matrix matrix);
 
 #endif
