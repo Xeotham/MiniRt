@@ -6,14 +6,14 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:11:00 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/12 14:08:50 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/19 17:29:50 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
 
-int	create_cylinder(char **info, t_minirt *minirt)
+int	create_cylinder(char **info, t_scene *scene)
 {
 	t_obj_list	*obj;
 	t_cylinder	*cylinder;
@@ -44,6 +44,6 @@ int	create_cylinder(char **info, t_minirt *minirt)
 		ft_multi_free(2, obj, cylinder);
 		return (0);
 	}
-	ft_objadd_back(&minirt->object, obj);
+	ft_objadd_back(&scene->object, obj);
 	return (1);
 }

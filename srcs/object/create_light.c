@@ -6,18 +6,18 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:11:00 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/12 14:09:16 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/19 17:29:50 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-int	create_amb_light(char **info, t_minirt *minirt)
+int	create_amb_light(char **info, t_scene *scene)
 {
 	t_obj_list	*obj;
 	t_amb_light	*light;
 
-	if (ft_objfind_id(minirt->light, MRT_AMB_LIGHT) || ft_array_len(info) != 5)
+	if (ft_objfind_id(scene->light, MRT_AMB_LIGHT) || ft_array_len(info) != 5)
 		return (0);
 	obj = ft_calloc(sizeof(t_obj_list), 1);
 	light = ft_calloc(sizeof(t_amb_light), 1);
@@ -35,16 +35,16 @@ int	create_amb_light(char **info, t_minirt *minirt)
 		ft_multi_free(2, obj, light);
 		return (0);
 	}
-	ft_objadd_back(&minirt->light, obj);
+	ft_objadd_back(&scene->light, obj);
 	return (1);
 }
 
-int	create_point_light(char **info, t_minirt *minirt)
+int	create_point_light(char **info, t_scene *scene)
 {
 	t_obj_list		*obj;
 	t_point_light	*light;
 
-	if (ft_objfind_id(minirt->light, MRT_LIGHT) || ft_array_len(info) != 5)
+	if (ft_objfind_id(scene->light, MRT_LIGHT) || ft_array_len(info) != 5)
 		return (0);
 	obj = ft_calloc(sizeof(t_obj_list), 1);
 	light = ft_calloc(sizeof(t_amb_light), 1);
@@ -63,6 +63,6 @@ int	create_point_light(char **info, t_minirt *minirt)
 		ft_multi_free(2, obj, light);
 		return (0);
 	}
-	ft_objadd_back(&minirt->light, obj);
+	ft_objadd_back(&scene->light, obj);
 	return (1);
 }

@@ -7,13 +7,16 @@ NAME = miniRT
 #============ MINISHELL SOURCES =============#
 SRCS = \
 	main.c \
-	utils.c \
 	color.c \
+	utils.c \
 	parser/get_map.c \
-	parser/link_list/create_list.c\
-	parser/link_list/obj_list_utils.c\
+	parser/link_list/create_list.c \
+	parser/link_list/obj_list_utils.c \
 	vector/vector.c \
 	vector/vector_math.c \
+	matrix/matrix.c \
+	matrix/matrix_product.c \
+	matrix/transform_matrix.c \
 	object/create_light.c \
 	object/create_plane.c \
 	object/create_sphere.c \

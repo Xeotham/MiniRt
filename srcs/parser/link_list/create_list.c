@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 09:58:05 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/12 17:10:49 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/19 17:29:50 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ static int	check_ids(char *id)
 	return (-1);
 }
 
-static int	sort_in_struct(char **info, t_minirt *minirt)
+static int	sort_in_struct(char **info, t_scene *scene)
 {
 	t_identifier	id;
-	int (*obj_create[6])(char **, t_minirt *) = {create_amb_light, create_camera,
+	int (*obj_create[6])(char **, t_scene *) = {create_amb_light, create_camera,
 		create_point_light, create_sphere, create_plane, create_cylinder};
 
 	id = check_ids(info[0]);
-	if (id == MRT_NO_ID || !obj_create[id](info, minirt))
+	if (id == MRT_NO_ID || !obj_create[id](info, scene))
 		return (0);
 	else
 		return (1);
 }
 
-static int	create_obj_node(char *obj, t_minirt *minirt)
+static int	create_obj_node(char *obj, t_scene *scene)
 {
 	char	**info;
 	int		error;
@@ -45,12 +45,12 @@ static int	create_obj_node(char *obj, t_minirt *minirt)
 	info = ft_split(obj, ' ');
 	if (!info)
 		return (0); // malloc error
-	error = sort_in_struct(info, minirt);
+	error = sort_in_struct(info, scene);
 	ft_free_2d_array(info, ft_array_len(info));
 	return (error);
 }
 
-int	get_obj_list(char **map, t_minirt *minirt)
+int	get_obj_list(char **map, t_scene *scene)
 {
 	size_t	i;
 
@@ -58,7 +58,7 @@ int	get_obj_list(char **map, t_minirt *minirt)
 	if (!map || !(*map))
 		return (0);
 	while (map[++i])
-		if (!create_obj_node(map[i], minirt))
+		if (!create_obj_node(map[i], scene))
 			return (0);
 	return (1);
 }

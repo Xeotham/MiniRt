@@ -6,17 +6,31 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:57:35 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/13 10:09:24 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/19 17:58:38 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-int	create_camera(char **info, t_minirt *minirt)
+void	update_camera(t_camera *camera)
+{
+	camera->up_vector = normalize_vector(create_vector(camera->center,
+				set_vector(camera->center.x, camera->center.y,
+				camera->center.z + 1)));
+	camera->u = cross_product(camera->up_vector, camera->direction);
+	camera->u = normalize_vector(camera->u);
+	camera->v = cross_product(camera->u, camera->direction);
+	camera->v = normalize_vector(camera->v);
+	camera->center = vector_add(camera->center, camera->direction);
+	camera->u = scalar_prod(camera->u, SCREEN_WIDTH);
+	camera->v = scalar_prod(camera->v, (SCREEN_WIDTH / ASPECT));
+}
+
+int	create_camera(char **info, t_scene *scene)
 {
 	t_camera	*camera;
 
-	if (minirt->camera || ft_array_len(info) != 8)
+	if (scene->camera || ft_array_len(info) != 8)
 		return (0);
 	camera = ft_calloc(sizeof(t_camera), 1);
 	if (!camera)
@@ -34,6 +48,7 @@ int	create_camera(char **info, t_minirt *minirt)
 		free(camera);
 		return (0);
 	}
-	minirt->camera = camera;
+	update_camera(camera);
+	scene->camera = camera;
 	return (1);
 }

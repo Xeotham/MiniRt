@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:39:55 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/12 10:15:51 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/19 17:55:58 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_vector3	normalize_vector(t_vector3 vector);
 t_vector3	cross_product(t_vector3 v1, t_vector3 v2);
 t_vector3	vector_add(t_vector3 v1, t_vector3 v2);
 t_vector3	vector_sub(t_vector3 v1, t_vector3 v2);
-t_vector3	scalar_multi(t_vector3 vector, double scalar);
+t_vector3	scalar_prod(t_vector3 vector, double scalar);
 t_vector3	scalar_div(t_vector3 vector, double scalar);
 double		vector_norm(t_vector3 vector);
 double		dot_product(t_vector3 v1, t_vector3 v2);
