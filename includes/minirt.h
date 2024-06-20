@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/19 17:59:41 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/20 12:40:05 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <mrt_vector.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 /* ==== DEFINE ==== */
 
