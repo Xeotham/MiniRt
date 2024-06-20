@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 21:34:35 by xeo               #+#    #+#             */
-/*   Updated: 2024/06/20 16:42:48 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:44:24 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ double	ft_atod(char *str)
 	i = 0;
 	if (!str)
 		return (0.0);
-	sign = atod_format(&str);
+	sign = atod_format(str);
 	while ((*str >= '0' && *str <= '9') && *str != '.')
 		nbr = nbr * 10 + (*(str++) - '0');
 	if (*str == '.')
