@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:26:02 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/12 14:44:55 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/20 12:56:02 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ static void	replace_space(char *line)
 {
 	int	i;
 
-	i = -1;
-	while (line[++i])
+	i = 0;
+	while (line[i])
+	{
 		if (line[i] == '\t' || line[i] == ',')
 			line[i] = ' ';
+		i++;
+	}
 }
 
 static char	*read_file(int fd)
@@ -39,6 +42,8 @@ static char	*read_file(int fd)
 	while (file)
 	{
 		final = join_and_free(final, file, 1, 1);
+		if (!final)
+			return (NULL);
 		file = get_next_line(fd);
 	}
 	replace_space(final);

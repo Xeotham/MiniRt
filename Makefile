@@ -17,11 +17,11 @@ SRCS = \
 	matrix/matrix.c \
 	matrix/matrix_product.c \
 	matrix/transform_matrix.c \
-	object/create_light.c \
-	object/create_plane.c \
-	object/create_sphere.c \
-	object/create_camera.c \
-	object/create_cylinder.c \
+	elements/create_light.c \
+	elements/create_plane.c \
+	elements/create_sphere.c \
+	elements/create_camera.c \
+	elements/create_cylinder.c \
 #============ TRANSFORM .c TO .o ============#
 LIBFT = libft/libft.a
 LIBMLX = MLX42
@@ -51,6 +51,7 @@ $(OBJ_DIR)%.o : $(SRCS_DIR)%.c
 
 $(NAME) : $(LIBFT) $(OBJ)
 	@ $(CC) $(FLAGS) $(OBJ) $(LIBFT) -lm -o $(NAME)
+	@ echo "miniRT Compiled !"
 
 clean :
 	@ $(MAKE) -C libft clean --no-print-directory

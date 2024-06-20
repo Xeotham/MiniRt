@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/20 12:43:29 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:24:47 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 
 typedef enum e_identifier
 {
-	MRT_NO_ID = -1,
-	MRT_AMB_LIGHT,
-	MRT_CAMERA,
-	MRT_LIGHT,
-	MRT_SPHERE,
-	MRT_PLANE,
-	MRT_CYLINDER
+	NO_ID = -1,
+	ID_AMB_LIGHT,
+	ID_CAMERA,
+	ID_LIGHT,
+	ID_SPHERE,
+	ID_PLANE,
+	ID_CYLINDER
 }						t_identifier;
 
 # define SCREEN_WIDTH 1280

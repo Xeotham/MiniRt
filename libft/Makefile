@@ -6,7 +6,7 @@
 #    By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 15:55:46 by tde-la-r          #+#    #+#              #
-#    Updated: 2024/06/12 16:54:09 by mhaouas          ###   ########.fr        #
+#    Updated: 2024/06/20 13:53:49 by tde-la-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,8 @@ RM = rm -rf
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
+	@echo "libft Compiled"
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)
