@@ -10,8 +10,8 @@ SRCS = \
 	color.c \
 	utils.c \
 	parser/get_map.c \
-	parser/link_list/create_list.c \
-	parser/link_list/obj_list_utils.c \
+	parser/create_list.c \
+	parser/element_list_utils.c \
 	vector/vector.c \
 	vector/vector_math.c \
 	matrix/matrix.c \

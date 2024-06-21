@@ -6,7 +6,7 @@
 /*   By: malbrech <malbrech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:57:55 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/05/01 19:29:42 by malbrech         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:03:26 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ char	*join_and_free(char *s1, char *s2, int f_s1, int f_s2)
 		s2 = "";
 	}
 	buff = ft_strjoin(s1, s2);
-	if (f_s1)
+	if (f_s1 && s1)
 		free(s1);
-	if (f_s2)
+	if (f_s2 && s2)
 		free(s2);
 	return (buff);
 }

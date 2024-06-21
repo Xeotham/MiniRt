@@ -6,13 +6,13 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:26:02 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/20 12:56:02 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:24:48 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-static void	replace_space(char *line)
+/*static void	replace_space(char *line)
 {
 	int	i;
 
@@ -23,30 +23,40 @@ static void	replace_space(char *line)
 			line[i] = ' ';
 		i++;
 	}
+}*/
+
+static int	parse_line(char *line, t_scene *scene)
+{
+	t_identifier	id;
+	char			**info;
+	int				(*element_create[6])(char **, t_scene *);
+
+	info = ft_split(line, ' ');
+	if (!info)
+		return (0);
+	element_create[ID_AMB_LIGHT] = create_amb_light;
+	element_create[ID_CAMERA] = create_camera;
+	element_create[ID_LIGHT] = create_point_light;
+	element_create[ID_SPHERE] = create_sphere;
+	element_create[ID_PLANE] = create_plane;
+	element_create[ID_CYLINDER] = create_cylinder;
+	id = get_element_id(info[0]);
+	if (id == NO_ID || !element_create[id](info, scene))
+		return (0);
+	else
+		return (1);
 }
 
-static char	*read_file(int fd)
+static char	*read_file(int fd, t_scene *scene)
 {
-	char	*file;
-	char	*final;
+	char	*line;
 
-	file = ft_calloc(1, 1);
-	if (!file)
-		return (NULL);
-	final = ft_calloc(1, 1);
-	if (!final)
+	line = get_next_line(fd);
+	while (line)
 	{
-		free(file);
-		return (NULL);
+		parse_line(line, scene);
+		line = get_next_line(fd);
 	}
-	while (file)
-	{
-		final = join_and_free(final, file, 1, 1);
-		if (!final)
-			return (NULL);
-		file = get_next_line(fd);
-	}
-	replace_space(final);
 	return (final);
 }
 
