@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:51:57 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/06/24 15:00:08 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:52:36 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,32 @@ const bool	error = true;
 
 static char	*check_below_1_number(const char *nbr)
 {
-	int	i;
-
-	i = 0;
-	while (nbr[i] == '0')
-		i++;
-	if (nbr[i] && nbr[i] != '.' && nbr[i] != '1')
-		return (nbr + i);
-	if (nbr[i] == '1')
+	while (*nbr == '0')
+		nbr++;
+	if (!*nbr || (*nbr != '.' && *nbr != '1'))
+		return (nbr);
+	if (*nbr == '1')
 	{
-		i++;
-		if (nbr[i] != '.' && nbr[i])
-			return (nbr + i);
-		if (nbr[i] && nbr[i + 1] != '0')
-			return (nbr + i);
-		return (nbr + i);
+		nbr++;
+		if (*nbr != '.')
+			return (nbr);
+		nbr++;
+		while (*nbr == '0')
+			nbr++;
+		return (nbr);
 	}
-	if (nbr[i])
-		i++;
-	while (ft_isdigit(nbr[i]))
-		i++;
-	if (nbr[i])
-		return (nbr + i);
-	return (nbr + i);
+	nbr++;
+	while (ft_isdigit(*nbr))
+		nbr++;
+	return (nbr);
+}
+
+bool	check_light_ratio(const char *ratio)
+{
+	ratio = check_below_1_number(ratio);
+	if (*ratio)
+		return (error);
+	return (false);
 }
 
 static char	*color_proper_format(const char *color)
@@ -59,66 +62,106 @@ static char	*color_proper_format(const char *color)
 
 bool	check_color(const char *color)
 {
-	color = color_proper_format(color)
-	if (!color || !*color)
-		return (error);
-	color++;
-	color = color_proper_format(color)
-	if (!color || !*color)
-		return (error);
-	color++;
+	int	i;
+
+	i = 0;
+	while (i < 2)
+	{
+		color = color_proper_format(color)
+		if (!color || !*color)
+			return (error);
+		color++;
+		i++;
+	}
 	color = color_proper_format(color)
 	if (!color || *color)
 		return (error);
 	return (false);
 }
 
-static char	*check_coordinates(const char *coord)
+static char	*check_measure(const char *coord)
 {
 	int	i;
 
-	if (*coord == '+' || *coord == '-')
-		coord++;
-	while (*coord == '0')
-		coord++;
+	while (*measure == '0')
+		measure++;
 	i = 0;
-	while (ft_isdigit(coord[i]) && i < 10)
+	while (ft_isdigit(measure[i]) && i < 10)
 		i++;
-	if (coord[i] && coord[i] != ',' && coord[i] != '.')
-		return (NULL);
-	if (coord[i] == '.')
+	if (measure[i] != '.')
+		return (measure + i);
+	i++;
+	while (ft_isdigit(measure[i]))
 		i++;
-	while (ft_isdigit(coord[i]))
-		i++;
-	if (coord[i] && coord[i] != ',')
-		return (NULL);
-	return (coord + i);
+	return (measure + i);
 }
 
 bool	check_point(const char *point)
 {
-	point = check_coordinates(point);
-	if (!point || !*point)
-		return (error);
-	point++;
-	point = check_coordinates(point)
-	if (!point || !*point)
-		return (error);
-	point++;
-	point = check_coordinates(point)
-	if (!point || *point)
+	int	i;
+	
+	i = 0;
+	while (i < 2)
+	{
+		if (*point == '+' || *point == '-')
+			point++;
+		point = check_measure(point);
+		if (*point != ',')
+			return (error);
+		point++;
+		i++;
+	}
+	if (*point == '+' || *point == '-')
+		point++;
+	point = check_measure(point)
+	if (*point)
 		return (error);
 	return (false);
 }
 
 bool	check_vector(const char *vector)
 {
-	if (*vector == '-' || vector == '+')
+	int	i;
+	
+	i = 0;
+	while (i < 2)
+	{
+		if (*vector == '-' || *vector == '+')
+			vector++;
+		vector = check_below_1_number(vector);
+		if (*vector != ',')
+			return (error);
+		vector++;
+		i++;
+	}
+	if (*vector == '-' || *vector == '+')
 		vector++;
 	vector = check_below_1_number(vector);
-	if (!vector)
+	if (*vector != '\0')
+		return (error);
+	return (false);
 }
 
-bool	check_fov
+bool	check_fov(const char *fov)
+{
+	int	i;
 
-bool	check_measurement
+	while (*fov == '0')
+		fov++;
+	i = 0;
+	while (ft_isdigit(fov[i]) && i < 3)
+		i++;
+	if (fov[i])
+		return (error);
+	if (ft_strncmp(fov, "180", 3) > 0)
+		return (error);
+	return (false);
+}
+
+bool	check_measure(const char *measure)
+{
+	measure = check_measure(measure);
+	if (*measure)
+		return (error);
+	return (false);
+}
