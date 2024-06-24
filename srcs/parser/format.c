@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:51:57 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/06/24 15:52:36 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:05:33 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 const bool	error = true;
 
-static char	*check_below_1_number(const char *nbr)
+static char	*below_1_format(const char *nbr)
 {
 	while (*nbr == '0')
 		nbr++;
@@ -38,13 +38,13 @@ static char	*check_below_1_number(const char *nbr)
 
 bool	check_light_ratio(const char *ratio)
 {
-	ratio = check_below_1_number(ratio);
+	ratio = below_1_format(ratio);
 	if (*ratio)
 		return (error);
 	return (false);
 }
 
-static char	*color_proper_format(const char *color)
+static char	*color_format(const char *color)
 {
 	int	i;
 
@@ -67,19 +67,19 @@ bool	check_color(const char *color)
 	i = 0;
 	while (i < 2)
 	{
-		color = color_proper_format(color)
+		color = color_format(color)
 		if (!color || !*color)
 			return (error);
 		color++;
 		i++;
 	}
-	color = color_proper_format(color)
+	color = color_format(color)
 	if (!color || *color)
 		return (error);
 	return (false);
 }
 
-static char	*check_measure(const char *coord)
+static char	*mesure_format(const char *coord)
 {
 	int	i;
 
@@ -96,56 +96,61 @@ static char	*check_measure(const char *coord)
 	return (measure + i);
 }
 
-bool	check_point(const char *point)
+bool	get_point(const char *point, t_vector3 *vector)
 {
-	int	i;
-	
-	i = 0;
-	while (i < 2)
-	{
-		if (*point == '+' || *point == '-')
-			point++;
-		point = check_measure(point);
-		if (*point != ',')
-			return (error);
-		point++;
-		i++;
-	}
+	vector->x = ft_atod(point);
 	if (*point == '+' || *point == '-')
 		point++;
-	point = check_measure(point)
+	point = measure_format(point);
+	if (*point != ',')
+		return (error);
+	point++;
+	vector->y = ft_atod(point);
+	if (*point == '+' || *point == '-')
+		point++;
+	point = measure_format(point);
+	if (*point != ',')
+		return (error);
+	point++;
+	vector->z = ft_atod(point);
+	if (*point == '+' || *point == '-')
+		point++;
+	point = measure_format(point);
 	if (*point)
 		return (error);
 	return (false);
 }
 
-bool	check_vector(const char *vector)
+bool	get_vector(const char *vector, t_vector3 *result)
 {
-	int	i;
-	
-	i = 0;
-	while (i < 2)
-	{
-		if (*vector == '-' || *vector == '+')
-			vector++;
-		vector = check_below_1_number(vector);
-		if (*vector != ',')
-			return (error);
-		vector++;
-		i++;
-	}
+	result->x = ft_atod(vector);
 	if (*vector == '-' || *vector == '+')
 		vector++;
-	vector = check_below_1_number(vector);
+	vector = below_1_number_format(vector);
+	if (*vector != ',')
+		return (error);
+	vector++;
+	result->y = ft_atod(vector);
+	if (*vector == '-' || *vector == '+')
+		vector++;
+	vector = below_1_number_format(vector);
+	if (*vector != ',')
+		return (error);
+	vector++;
+	result->z = ft_atod(vector);
+	if (*vector == '-' || *vector == '+')
+		vector++;
+	vector = below_1_number_format(vector);
 	if (*vector != '\0')
 		return (error);
 	return (false);
 }
 
-bool	check_fov(const char *fov)
+bool	check_fov(const char *fov, int *result)
 {
 	int	i;
 
+	*result = ft_atoi(fov);
 	while (*fov == '0')
 		fov++;
 	i = 0;
@@ -160,7 +165,7 @@ bool	check_fov(const char *fov)
 
 bool	check_measure(const char *measure)
 {
-	measure = check_measure(measure);
+	measure = measure_format(measure);
 	if (*measure)
 		return (error);
 	return (false);

@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/21 14:47:35 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:00:43 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ typedef struct s_scene
 
 /* ==== MAP ==== */
 
-char					**get_map(char *file_name);
+void	create_scene(char *file_name, t_scene *scene)
 
 /* ==== UTILS ==== */
 

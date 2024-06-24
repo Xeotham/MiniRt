@@ -6,26 +6,11 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 09:58:05 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/21 15:23:56 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:01:45 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
-
-t_identifier	get_element_id(char *element)
-{
-	int			i;
-	const char	*ids[7] = {"A", "C", "L", "sp", "pl", "cy", NULL};
-
-	i = 0;
-	while (ids[i])
-	{
-		if (!ft_strncmp(ids[i], element, ft_strlen(ids[i]) + 1))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
 
 static int	create_obj_node(char *obj, t_scene *scene)
 {

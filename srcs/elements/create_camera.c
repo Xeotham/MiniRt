@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:57:35 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/19 17:58:38 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/24 17:05:36 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,17 @@ int	create_camera(char **info, t_scene *scene)
 {
 	t_camera	*camera;
 
-	if (scene->camera || ft_array_len(info) != 8)
+	if (scene->camera || ft_array_len(info) != 3)
 		return (0);
 	camera = ft_calloc(sizeof(t_camera), 1);
 	if (!camera)
 		return (0); // malloc error
-	camera->coord = set_vector(ft_atod(info[1]), ft_atod(info[2]),
-			ft_atod(info[3]));
-	camera->direction = set_vector(ft_atoi(info[4]), ft_atoi(info[5]),
-			ft_atoi(info[6]));
-	camera->fov = ft_atoi(info[7]);
-	if (!ft_check_range(camera->direction.x, -1, 1)
-		|| !ft_check_range(camera->direction.y, -1, 1)
-		|| !ft_check_range(camera->direction.z, -1, 1)
-		|| !ft_check_range(camera->fov, 0.0, 180.0))
-	{
-		free(camera);
+	if (get_point(info[1], &camera->coord))
 		return (0);
-	}
+	if (get_vector(info[2], &camera->direction))
+		return (0);
+	if (get_fov(info[3], &camera->fov);
+		return (0);
 	update_camera(camera);
 	scene->camera = camera;
 	return (1);

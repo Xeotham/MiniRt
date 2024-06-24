@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:26:02 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/21 15:24:48 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:02:56 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,21 @@
 		i++;
 	}
 }*/
+
+t_identifier	get_element_id(char *element)
+{
+	int			i;
+	const char	*ids[7] = {"A", "C", "L", "sp", "pl", "cy", NULL};
+
+	i = 0;
+	while (ids[i])
+	{
+		if (!ft_strncmp(ids[i], element, ft_strlen(ids[i]) + 1))
+			return (i);
+		i++;
+	}
+	return (-1);
+}
 
 static int	parse_line(char *line, t_scene *scene)
 {
@@ -60,7 +75,7 @@ static char	*read_file(int fd, t_scene *scene)
 	return (final);
 }
 
-char	**get_map(char *file_name)
+void	create_scene(char *file_name, t_scene *scene)
 {
 	int		fd;
 	char	**args;
