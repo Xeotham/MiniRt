@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/24 16:00:43 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:20:35 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_camera
 typedef struct s_point_light
 {
 	t_vector3			coord;
-	double				brightness;
+	double				ratio;
 }						t_point_light;
 
 typedef struct s_amb_light

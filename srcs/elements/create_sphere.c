@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:11:00 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/20 16:28:51 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:21:15 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	create_sphere(char **info, t_scene *scene)
 	t_obj_list	*obj;
 	t_sphere	*sphere;
 
-	if (ft_array_len(info) != 8)
+	if (ft_array_len(info) != 4)
 		return (0);
 	obj = ft_calloc(sizeof(t_obj_list), 1);
 	sphere = ft_calloc(sizeof(t_sphere), 1);
@@ -28,15 +28,12 @@ int	create_sphere(char **info, t_scene *scene)
 	}
 	obj->obj_id = ID_SPHERE;
 	obj->obj_struct = sphere;
-	sphere->coord = set_vector(ft_atod(info[1]), ft_atod(info[2]),
-			ft_atod(info[3]));
-	sphere->diameter = ft_atod(info[4]);
-	if (!set_color(&sphere->color, ft_atoi(info[5]), ft_atoi(info[6]),
-			ft_atoi(info[7])))
-	{
-		ft_multi_free(2, obj, sphere);
+	if (get_point(info[1], &sphere->coord))
 		return (0);
-	}
+	if (get_measure(info[2], &sphere->diameter))
+		return (0);
+	if (get_color(info[3], &sphere->color))
+		return (0);
 	ft_objadd_back(&scene->object, obj);
 	return (1);
 }

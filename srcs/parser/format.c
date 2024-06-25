@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:51:57 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/06/24 17:05:33 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:07:01 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ static char	*below_1_format(const char *nbr)
 	return (nbr);
 }
 
-bool	check_light_ratio(const char *ratio)
+bool	get_light_ratio(const char *ratio, int *result)
 {
+	*result = ft_atoi(ratio);
 	ratio = below_1_format(ratio);
 	if (*ratio)
 		return (error);
@@ -60,26 +61,26 @@ static char	*color_format(const char *color)
 	return (color + i);
 }
 
-bool	check_color(const char *color)
+bool	get_color(const char *color, t_color *result)
 {
-	int	i;
-
-	i = 0;
-	while (i < 2)
-	{
-		color = color_format(color)
-		if (!color || !*color)
-			return (error);
-		color++;
-		i++;
-	}
+	result->red = ft_atoi(color);
+	color = color_format(color)
+	if (!color || !*color)
+		return (error);
+	color++;
+	result->green = ft_atoi(color);
+	color = color_format(color)
+	if (!color || !*color)
+		return (error);
+	color++;
+	result->blue = ft_atoi(color);
 	color = color_format(color)
 	if (!color || *color)
 		return (error);
 	return (false);
 }
 
-static char	*mesure_format(const char *coord)
+static char	*measure_format(const char *measure)
 {
 	int	i;
 
@@ -146,7 +147,7 @@ bool	get_vector(const char *vector, t_vector3 *result)
 	return (false);
 }
 
-bool	check_fov(const char *fov, int *result)
+bool	get_fov(const char *fov, int *result)
 {
 	int	i;
 
@@ -163,8 +164,9 @@ bool	check_fov(const char *fov, int *result)
 	return (false);
 }
 
-bool	check_measure(const char *measure)
+bool	get_measure(const char *measure, double *result)
 {
+	*result = ft_atod(measure);
 	measure = measure_format(measure);
 	if (*measure)
 		return (error);

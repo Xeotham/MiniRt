@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:11:00 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/20 16:28:31 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:16:47 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	create_plane(char **info, t_scene *scene)
 	t_obj_list	*obj;
 	t_plane		*plane;
 
-	if (ft_array_len(info) != 10)
+	if (ft_array_len(info) != 4)
 		return (0);
 	obj = ft_calloc(sizeof(t_obj_list), 1);
 	plane = ft_calloc(sizeof(t_plane), 1);
@@ -28,19 +28,12 @@ int	create_plane(char **info, t_scene *scene)
 	}
 	obj->obj_id = ID_PLANE;
 	obj->obj_struct = plane;
-	plane->coord = set_vector(ft_atod(info[1]), ft_atod(info[2]),
-			ft_atod(info[3]));
-	plane->normal = set_vector(ft_atod(info[4]), ft_atod(info[5]),
-			ft_atod(info[6]));
-	if (!ft_check_range(plane->normal.x, -1.0, 1.0)
-		|| !ft_check_range(plane->normal.y, -1.0, 1.0)
-		|| !ft_check_range(plane->normal.z, -1.0, 1.0)
-		|| !set_color(&plane->color, ft_atoi(info[7]), ft_atoi(info[8]),
-			ft_atoi(info[9])))
-	{
-		ft_multi_free(2, obj, plane);
+	if (get_point(info[1], &plane->coord))
 		return (0);
-	}
+	if (get_vector(info[2], &plane->normal))
+		return (0);
+	if (get_color(info[3], &plane->color))
+		return (0);
 	ft_objadd_back(&scene->object, obj);
 	return (1);
 }
