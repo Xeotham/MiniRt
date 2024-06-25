@@ -6,13 +6,13 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:57:35 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/24 17:05:36 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:12:33 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-void	update_camera(t_camera *camera)
+static void	update_camera(t_camera *camera)
 {
 	camera->up_vector = normalize_vector(create_vector(camera->center,
 				set_vector(camera->center.x, camera->center.y,
@@ -26,22 +26,24 @@ void	update_camera(t_camera *camera)
 	camera->v = scalar_prod(camera->v, (SCREEN_WIDTH / ASPECT));
 }
 
-int	create_camera(char **info, t_scene *scene)
+t_error	create_camera(char **info, t_scene *scene)
 {
 	t_camera	*camera;
 
-	if (scene->camera || ft_array_len(info) != 3)
-		return (0);
+	if (scene->camera)
+		return (ERR_CAM_NB);
+	if (ft_array_len(info) != 4)
+		return (ERR_CAM_INFO);
 	camera = ft_calloc(sizeof(t_camera), 1);
-	if (!camera)
-		return (0); // malloc error
-	if (get_point(info[1], &camera->coord))
-		return (0);
-	if (get_vector(info[2], &camera->direction))
-		return (0);
-	if (get_fov(info[3], &camera->fov);
-		return (0);
-	update_camera(camera);
 	scene->camera = camera;
-	return (1);
+	if (!camera)
+		destroy_scene(scene, ERR_MALLOC);
+	if (get_point(info[1], &camera->coord))
+		return (ERR_CAM_COORD);
+	if (get_vector(info[2], &camera->direction))
+		return (ERR_CAM_DIR);
+	if (get_fov(info[3], &camera->fov);
+		return (ERR_CAM_FOV);
+	update_camera(camera);
+	return (NO_ERR);
 }

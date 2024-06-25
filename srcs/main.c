@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:47:52 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/24 15:55:40 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:23:01 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int ac, char **av)
 		return (EXIT_FAILURE);
 	scene = ft_calloc(sizeof(t_scene), 1);
 	if (!scene)
-		return (EXIT_FAILURE); //error
+		destroy_scene(NULL, ERR_MALLOC)
 	create_scene(av[1], scene);
 	if (!get_obj_list(map, scene))
 		return (EXIT_FAILURE);

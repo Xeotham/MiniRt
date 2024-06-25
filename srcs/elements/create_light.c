@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:11:00 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/25 14:14:09 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:11:00 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int	create_amb_light(char **info, t_scene *scene)
 	t_obj_list	*obj;
 	t_amb_light	*light;
 
-	if (ft_objfind_id(scene->light, ID_AMB_LIGHT) || ft_array_len(info) != 3)
-		return (0);
+	if (ft_objfind_id(scene->light, ID_AMB_LIGHT))
+		return (ERR_);
+	if (ft_array_len(info) != 3)
 	obj = ft_calloc(sizeof(t_obj_list), 1);
 	light = ft_calloc(sizeof(t_amb_light), 1);
 	if (!obj || !light)

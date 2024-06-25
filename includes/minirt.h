@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/25 14:20:35 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:30:46 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@ typedef enum e_identifier
 	ID_PLANE,
 	ID_CYLINDER
 }						t_identifier;
+
+typedef enum e_error
+{
+	NO_ERR,
+	ERR_MALLOC,
+	ERR_OPEN,
+	ERR_NO_ID,
+	ERR_CAM_NB,
+}t_error;
 
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
