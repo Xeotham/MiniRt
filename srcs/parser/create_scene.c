@@ -6,13 +6,28 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:26:02 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/27 15:24:25 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:46:01 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-t_identifier	get_element_id(char *element)
+static void	format_spaces(char *line)
+{
+	char *tmp;
+
+	tmp = ft_strchr(line, '\t');
+	while (tmp)
+	{
+		*tmp = ' ';
+		tmp = ft_strchr(tmp, '\t');
+	}
+	tmp = ft_strrchr(line, '\n');
+	if (tmp)
+		*tmp = 0;
+}
+
+static t_identifier	get_element_id(char *element)
 {
 	int			i;
 	const char	*ids[7] = {"A", "C", "L", "sp", "pl", "cy", NULL};
@@ -34,6 +49,7 @@ static t_error	parse_line(char *line, t_scene *scene)
 	char			**info;
 	t_error			(*element_create[6])(char **, t_scene *);
 
+	format_spaces(line);
 	info = ft_split(line, ' ');
 	if (!info)
 		return (ERR_MALLOC);

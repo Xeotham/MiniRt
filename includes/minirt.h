@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/27 15:43:56 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:26:15 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,6 @@ int						ft_objfind_id(t_obj_list *lst, t_identifier id);
 /* ==== LINK LIST ==== */
 
 int						get_obj_list(char **map, t_scene *scene);
-t_identifier			get_element_id(char *id);
 
 /* ==== COLOR ==== */
 
