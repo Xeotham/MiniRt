@@ -6,7 +6,7 @@
 #    By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/01 15:55:46 by tde-la-r          #+#    #+#              #
-#    Updated: 2024/06/20 13:53:49 by tde-la-r         ###   ########.fr        #
+#    Updated: 2024/06/27 15:14:41 by tde-la-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ SRCS = get_next_line.c\
 		  ft_multi_free.c\
 		  ft_array_len.c\
 		  ft_close.c\
+		  ft_destroy_ptr.c\
 
 SRCS_DIR = sources/
 OBJS_DIR = objects/

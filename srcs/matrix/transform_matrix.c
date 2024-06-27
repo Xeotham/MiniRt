@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:58:02 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/17 20:45:32 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/27 14:44:30 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_matrix	set_translation_matrix(double t_x, double t_y, double t_z)
 t_matrix	set_r_x_matrix(double teta)
 {
 	t_matrix	matrix;
-	
+
 	matrix = create_matrix(4, 4);
 	if (!matrix)
 		return (NULL);
@@ -60,7 +60,7 @@ t_matrix	set_r_x_matrix(double teta)
 t_matrix	set_r_y_matrix(double teta)
 {
 	t_matrix	matrix;
-	
+
 	matrix = create_matrix(4, 4);
 	if (!matrix)
 		return (NULL);
@@ -75,7 +75,7 @@ t_matrix	set_r_y_matrix(double teta)
 t_matrix	set_r_z_matrix(double teta)
 {
 	t_matrix	matrix;
-	
+
 	matrix = create_matrix(4, 4);
 	if (!matrix)
 		return (NULL);

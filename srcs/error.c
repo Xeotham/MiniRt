@@ -6,33 +6,71 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:55:41 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/06/25 16:31:57 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:43:43 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-char	*err_msg(int code)
+static char	*err_msg2(t_error code, char *msg[31])
 {
-	if (code == ERR_MALLOC || code == ERR_OPEN)
-		return (strerror(errno));
-	if (code == ERR_NO_ID)
-		return ("Element identifier misconfigurated");
-	if (code == ERR_CAM_NB)
-		return ("There can be no more than one camera");
-	if (code == ERR_CAM_INFO)
-		return ("There must be four camera informations");
-	if (code == ERR_CAM_COORD)
-		return ("Camera point coordinates misconfigurated");
-	if (code == ERR_CAM_DIR)
-		return ("Camera orientation vector misconfigurated");
-	if (code == ERR_CAM_FOV)
-		return ("Camera field of view misconfigurated");
+	msg[ERR_SP_INFO] = "There must be four sphere informations";
+	msg[ERR_SP_COORD] = "Sphere coordinates misconfigurated";
+	msg[ERR_SP_DIAM] = "Sphere diameter misconfigurated";
+	msg[ERR_SP_COLOR] = "Sphere color misconfigurated";
+	msg[ERR_CYL_INFO] = "There must be six cylinder informations";
+	msg[ERR_CYL_COORD] = "Cylinder coordinates misconfigurated";
+	msg[ERR_CYL_AXIS] = "Cylinder axis vector misconfigurated";
+	msg[ERR_CYL_DIAM] = "Cylinder diameter misconfigurated";
+	msg[ERR_CYL_HGT] = "Cylinder height misconfigurated";
+	msg[ERR_CYL_COLOR] = "Cylinder color misconfigurated";
+	return (msg[code]);
+}
+
+static char	*err_msg(t_error code)
+{
+	char	*msg[31];
+
+	if (code > 20)
+		return (err_msg2(code, msg));
+	msg[ERR_MALLOC] = strerror(errno);
+	msg[ERR_OPEN] = strerror(errno);
+	msg[ERR_NO_ID] = "Element identifier misconfigurated";
+	msg[ERR_CAM_NB] = "There can be no more than one camera";
+	msg[ERR_CAM_INFO] = "There must be four camera informations";
+	msg[ERR_CAM_COORD] = "Camera point coordinates misconfigurated";
+	msg[ERR_CAM_DIR] = "Camera orientation vector misconfigurated";
+	msg[ERR_CAM_FOV] = "Camera field of view misconfigurated";
+	msg[ERR_ALGT_NB] = "There can be no more han one ambient lightning";
+	msg[ERR_ALGT_INFO] = "There must be three ambient lightning informations";
+	msg[ERR_ALGT_RATIO] = "Ambient lightning ratio misconfigurated";
+	msg[ERR_ALGT_COLOR] = "Ambient lightning color misconfigurated";
+	msg[ERR_LGT_NB] = "There can be no more than one light point";
+	msg[ERR_LGT_INFO] = "There must be three light point informations";
+	msg[ERR_LGT_COORD] = "Light point coordinates misconfigurated";
+	msg[ERR_LGT_RATIO] = "Light point ratio misconfigurated";
+	msg[ERR_PL_INFO] = "There must be four plane informations";
+	msg[ERR_PL_COORD] = "Plane coordinates misconfigurated";
+	msg[ERR_PL_NORM] = "Plane normal vector misconfigurated";
+	msg[ERR_PL_COLOR] = "Plane color misconfigurated";
+	return (msg[code]);
+}
+
+void	free_scene(t_scene *scene)
+{
+	if (!scene)
+		return ;
+	ft_destroy_ptr(scene->camera, &free);
+	ft_objclear(&scene->object);
+	ft_objclear(&scene->light);
+	free(scene);
+	scene = NULL;
 }
 
 void	destroy_scene(t_scene *scene, int line_index, int code)
 {
 	free_scene(scene);
-	ft_fprintf("Error\nLine: %d: %s\n", line_index, err_msg(code));
+	ft_fprintf(STDERR_FILENO, \
+			"Error\nLine: %d: %s\n", line_index, err_msg(code));
 	exit (EXIT_FAILURE);
 }

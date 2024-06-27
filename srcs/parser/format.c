@@ -6,15 +6,15 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:51:57 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/06/25 14:07:01 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:38:33 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-const bool	error = true;
+static const bool	g_error = true;
 
-static char	*below_1_format(const char *nbr)
+static char	*below_1_format(char *nbr)
 {
 	while (*nbr == '0')
 		nbr++;
@@ -36,16 +36,16 @@ static char	*below_1_format(const char *nbr)
 	return (nbr);
 }
 
-bool	get_light_ratio(const char *ratio, int *result)
+bool	get_light_ratio(char *ratio, double *result)
 {
-	*result = ft_atoi(ratio);
+	*result = ft_atod(ratio);
 	ratio = below_1_format(ratio);
 	if (*ratio)
-		return (error);
+		return (g_error);
 	return (false);
 }
 
-static char	*color_format(const char *color)
+static char	*color_format(char *color)
 {
 	int	i;
 
@@ -61,26 +61,26 @@ static char	*color_format(const char *color)
 	return (color + i);
 }
 
-bool	get_color(const char *color, t_color *result)
+bool	get_color(char *color, t_color *result)
 {
 	result->red = ft_atoi(color);
-	color = color_format(color)
+	color = color_format(color);
 	if (!color || !*color)
-		return (error);
+		return (g_error);
 	color++;
 	result->green = ft_atoi(color);
-	color = color_format(color)
+	color = color_format(color);
 	if (!color || !*color)
-		return (error);
+		return (g_error);
 	color++;
 	result->blue = ft_atoi(color);
-	color = color_format(color)
+	color = color_format(color);
 	if (!color || *color)
-		return (error);
+		return (g_error);
 	return (false);
 }
 
-static char	*measure_format(const char *measure)
+static char	*measure_format(char *measure)
 {
 	int	i;
 
@@ -97,57 +97,57 @@ static char	*measure_format(const char *measure)
 	return (measure + i);
 }
 
-bool	get_point(const char *point, t_vector3 *vector)
+bool	get_point(char *point, t_vector3 *vector)
 {
 	vector->x = ft_atod(point);
 	if (*point == '+' || *point == '-')
 		point++;
 	point = measure_format(point);
 	if (*point != ',')
-		return (error);
+		return (g_error);
 	point++;
 	vector->y = ft_atod(point);
 	if (*point == '+' || *point == '-')
 		point++;
 	point = measure_format(point);
 	if (*point != ',')
-		return (error);
+		return (g_error);
 	point++;
 	vector->z = ft_atod(point);
 	if (*point == '+' || *point == '-')
 		point++;
 	point = measure_format(point);
 	if (*point)
-		return (error);
+		return (g_error);
 	return (false);
 }
 
-bool	get_vector(const char *vector, t_vector3 *result)
+bool	get_vector(char *vector, t_vector3 *result)
 {
 	result->x = ft_atod(vector);
 	if (*vector == '-' || *vector == '+')
 		vector++;
-	vector = below_1_number_format(vector);
+	vector = below_1_format(vector);
 	if (*vector != ',')
-		return (error);
+		return (g_error);
 	vector++;
 	result->y = ft_atod(vector);
 	if (*vector == '-' || *vector == '+')
 		vector++;
-	vector = below_1_number_format(vector);
+	vector = below_1_format(vector);
 	if (*vector != ',')
-		return (error);
+		return (g_error);
 	vector++;
 	result->z = ft_atod(vector);
 	if (*vector == '-' || *vector == '+')
 		vector++;
-	vector = below_1_number_format(vector);
+	vector = below_1_format(vector);
 	if (*vector != '\0')
-		return (error);
+		return (g_error);
 	return (false);
 }
 
-bool	get_fov(const char *fov, int *result)
+bool	get_fov(char *fov, int *result)
 {
 	int	i;
 
@@ -158,17 +158,17 @@ bool	get_fov(const char *fov, int *result)
 	while (ft_isdigit(fov[i]) && i < 3)
 		i++;
 	if (fov[i])
-		return (error);
+		return (g_error);
 	if (ft_strncmp(fov, "180", 3) > 0)
-		return (error);
+		return (g_error);
 	return (false);
 }
 
-bool	get_measure(const char *measure, double *result)
+bool	get_measure(char *measure, double *result)
 {
 	*result = ft_atod(measure);
 	measure = measure_format(measure);
 	if (*measure)
-		return (error);
+		return (g_error);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/25 16:30:46 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:43:56 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <MLX42.h>
 # include <libft.h>
 # include <math.h>
+# include <errno.h>
+# include <string.h>
 # include <mrt_matrix.h>
 # include <mrt_vector.h>
 # include <fcntl.h>
@@ -41,6 +43,32 @@ typedef enum e_error
 	ERR_OPEN,
 	ERR_NO_ID,
 	ERR_CAM_NB,
+	ERR_CAM_INFO,
+	ERR_CAM_COORD,
+	ERR_CAM_DIR,
+	ERR_CAM_FOV,
+	ERR_ALGT_NB,
+	ERR_ALGT_INFO,
+	ERR_ALGT_RATIO,
+	ERR_ALGT_COLOR,
+	ERR_LGT_NB,
+	ERR_LGT_INFO,
+	ERR_LGT_COORD,
+	ERR_LGT_RATIO,
+	ERR_CYL_INFO,
+	ERR_CYL_COORD,
+	ERR_CYL_AXIS,
+	ERR_CYL_DIAM,
+	ERR_CYL_HGT,
+	ERR_CYL_COLOR,
+	ERR_PL_INFO,
+	ERR_PL_COORD,
+	ERR_PL_NORM,
+	ERR_PL_COLOR,
+	ERR_SP_INFO,
+	ERR_SP_COORD,
+	ERR_SP_DIAM,
+	ERR_SP_COLOR,
 }t_error;
 
 # define SCREEN_WIDTH 1280
@@ -132,7 +160,7 @@ typedef struct s_scene
 
 /* ==== MAP ==== */
 
-void	create_scene(char *file_name, t_scene *scene)
+void	create_scene(char *file_name, t_scene *scene);
 
 /* ==== UTILS ==== */
 
@@ -152,16 +180,27 @@ int						set_color(t_color *color, int red, int green, int blue);
 
 /* ==== SET OBJECT ==== */
 
-int						create_amb_light(char **info, t_scene *scene);
-int						create_point_light(char **info, t_scene *scene);
-int						create_camera(char **info, t_scene *scene);
-int						create_sphere(char **info, t_scene *scene);
-int						create_plane(char **info, t_scene *scene);
-int						create_cylinder(char **info, t_scene *scene);
+t_error					create_amb_light(char **info, t_scene *scene);
+t_error					create_point_light(char **info, t_scene *scene);
+t_error					create_camera(char **info, t_scene *scene);
+t_error					create_sphere(char **info, t_scene *scene);
+t_error					create_plane(char **info, t_scene *scene);
+t_error					create_cylinder(char **info, t_scene *scene);
 void					update_camera(t_camera *camera);
 
 /* ==== UTILS ==== */
 
 int						ft_check_range(double value, double min, double max);
 
+void	destroy_scene(t_scene *scene, int line_index, int code);
+void	free_scene(t_scene *scene);
+
+/* ==== PARSER ==== */
+
+bool	get_light_ratio(char *ratio, double *result);
+bool	get_color(char *color, t_color *result);
+bool	get_point(char *point, t_vector3 *vector);
+bool	get_vector(char *vector, t_vector3 *result);
+bool	get_fov(char *fov, int *result);
+bool	get_measure(char *measure, double *result);
 #endif

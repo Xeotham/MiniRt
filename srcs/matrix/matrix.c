@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:57:13 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/20 13:50:34 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:45:56 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	identity_matrix(t_matrix matrix)
 	i = 0;
 	j = 0;
 	while (i < 4 && j < 4)
-		matrix[i++][j++] = 1;
+	{
+		matrix[i][j] = 1;
+		i++;
+		j++;
+	}
 }
 
 t_matrix	create_matrix(size_t x, size_t y)

@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 20:23:36 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/06/12 14:48:50 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/06/27 15:14:17 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ char	*join_and_free(char *s1, char *s2, int f_s1, int f_s2);
 int		try_close(int fd);
 size_t	ft_array_len(void *array);
 void	ft_multi_free(int n_to_free, ...);
+void	ft_destroy_ptr(void *ptr, void (*f)(void *));
 
 #endif

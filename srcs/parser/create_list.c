@@ -6,13 +6,13 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 09:58:05 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/24 16:01:45 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:25:08 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-static int	create_obj_node(char *obj, t_scene *scene)
+/*static int	create_obj_node(char *obj, t_scene *scene)
 {
 	char	**info;
 	int		error;
@@ -39,4 +39,4 @@ int	get_obj_list(char **map, t_scene *scene)
 		i++;
 	}
 	return (1);
-}
+}*/

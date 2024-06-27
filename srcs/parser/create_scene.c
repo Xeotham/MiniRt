@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_map.c                                          :+:      :+:    :+:   */
+/*   create_scene.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:26:02 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/25 16:38:00 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:24:25 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
-
-/*static void	replace_space(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\t' || line[i] == ',')
-			line[i] = ' ';
-		i++;
-	}
-}*/
 
 t_identifier	get_element_id(char *element)
 {
@@ -45,7 +32,7 @@ static t_error	parse_line(char *line, t_scene *scene)
 	t_identifier	id;
 	t_error			error;
 	char			**info;
-	int				(*element_create[6])(char **, t_scene *);
+	t_error			(*element_create[6])(char **, t_scene *);
 
 	info = ft_split(line, ' ');
 	if (!info)
@@ -76,16 +63,16 @@ void	create_scene(char *file_name, t_scene *scene)
 	// 	return (NULL);
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
-		destroy_scene(scene, ERR_OPEN);
+		destroy_scene(scene, 0, ERR_OPEN);
 	error = NO_ERR;
 	line_index = 1;
 	line = get_next_line(fd);
 	while (line)
 	{
-		error = parse_line(line, line_index, scene);
+		error = parse_line(line, scene);
 		free(line);
 		if (error)
-			break;
+			break ;
 		line_index++;
 		line = get_next_line(fd);
 	}

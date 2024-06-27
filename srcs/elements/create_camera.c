@@ -6,17 +6,17 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:57:35 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/25 16:12:33 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:33:43 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-static void	update_camera(t_camera *camera)
+void	update_camera(t_camera *camera)
 {
 	camera->up_vector = normalize_vector(create_vector(camera->center,
 				set_vector(camera->center.x, camera->center.y,
-				camera->center.z + 1)));
+					camera->center.z + 1)));
 	camera->u = cross_product(camera->up_vector, camera->direction);
 	camera->u = normalize_vector(camera->u);
 	camera->v = cross_product(camera->u, camera->direction);
@@ -37,12 +37,12 @@ t_error	create_camera(char **info, t_scene *scene)
 	camera = ft_calloc(sizeof(t_camera), 1);
 	scene->camera = camera;
 	if (!camera)
-		destroy_scene(scene, ERR_MALLOC);
+		return (ERR_MALLOC);
 	if (get_point(info[1], &camera->coord))
 		return (ERR_CAM_COORD);
 	if (get_vector(info[2], &camera->direction))
 		return (ERR_CAM_DIR);
-	if (get_fov(info[3], &camera->fov);
+	if (get_fov(info[3], &camera->fov))
 		return (ERR_CAM_FOV);
 	update_camera(camera);
 	return (NO_ERR);
