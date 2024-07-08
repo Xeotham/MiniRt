@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:11:00 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/27 13:36:47 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:01:23 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_error	create_point_light(char **info, t_scene *scene)
 
 	if (ft_objfind_id(scene->light, ID_LIGHT))
 		return (ERR_LGT_NB);
-	if (ft_array_len(info) != 4)
+	if (ft_array_len(info) != 4 && ft_array_len(info) != 3)
 		return (ERR_LGT_INFO);
 	obj = ft_calloc(sizeof(t_obj_list), 1);
 	light = ft_calloc(sizeof(t_amb_light), 1);

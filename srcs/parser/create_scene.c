@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:26:02 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/27 16:46:01 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:04:09 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_identifier	get_element_id(char *element)
 			return (i);
 		i++;
 	}
-	return (-1);
+	return (NO_ID);
 }
 
 static t_error	parse_line(char *line, t_scene *scene)
@@ -50,6 +50,8 @@ static t_error	parse_line(char *line, t_scene *scene)
 	t_error			(*element_create[6])(char **, t_scene *);
 
 	format_spaces(line);
+	if (!*line)
+		return (NO_ERR);
 	info = ft_split(line, ' ');
 	if (!info)
 		return (ERR_MALLOC);
@@ -60,12 +62,25 @@ static t_error	parse_line(char *line, t_scene *scene)
 	element_create[ID_PLANE] = create_plane;
 	element_create[ID_CYLINDER] = create_cylinder;
 	id = get_element_id(info[0]);
-	if (id > NO_ID)
+	if (id != NO_ID)
 		error = element_create[id](info, scene);
 	ft_free_2d_array(info, ft_array_len(info));
 	if (id == NO_ID)
 		return (ERR_NO_ID);
 	return (error);
+}
+
+void	close_file(int fd)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
 }
 
 void	create_scene(char *file_name, t_scene *scene)
@@ -92,7 +107,7 @@ void	create_scene(char *file_name, t_scene *scene)
 		line_index++;
 		line = get_next_line(fd);
 	}
-	close(fd);
+	close_file(fd);
 	if (error)
 		destroy_scene(scene, line_index, error);
 }

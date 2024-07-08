@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:55:41 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/06/27 15:43:43 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:39:20 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*err_msg(t_error code)
 {
 	char	*msg[31];
 
-	if (code > 20)
+	if (code > ERR_PL_COLOR)
 		return (err_msg2(code, msg));
 	msg[ERR_MALLOC] = strerror(errno);
 	msg[ERR_OPEN] = strerror(errno);
@@ -71,6 +71,6 @@ void	destroy_scene(t_scene *scene, int line_index, int code)
 {
 	free_scene(scene);
 	ft_fprintf(STDERR_FILENO, \
-			"Error\nLine: %d: %s\n", line_index, err_msg(code));
+			"Error\nLine %d: %s\n", line_index, err_msg(code));
 	exit (EXIT_FAILURE);
 }

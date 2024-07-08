@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/27 16:26:15 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:35:44 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,6 @@ typedef enum e_error
 	ERR_LGT_INFO,
 	ERR_LGT_COORD,
 	ERR_LGT_RATIO,
-	ERR_CYL_INFO,
-	ERR_CYL_COORD,
-	ERR_CYL_AXIS,
-	ERR_CYL_DIAM,
-	ERR_CYL_HGT,
-	ERR_CYL_COLOR,
 	ERR_PL_INFO,
 	ERR_PL_COORD,
 	ERR_PL_NORM,
@@ -69,6 +63,12 @@ typedef enum e_error
 	ERR_SP_COORD,
 	ERR_SP_DIAM,
 	ERR_SP_COLOR,
+	ERR_CYL_INFO,
+	ERR_CYL_COORD,
+	ERR_CYL_AXIS,
+	ERR_CYL_DIAM,
+	ERR_CYL_HGT,
+	ERR_CYL_COLOR,
 }t_error;
 
 # define SCREEN_WIDTH 1280
@@ -167,7 +167,7 @@ void	create_scene(char *file_name, t_scene *scene);
 void					ft_objclear(t_obj_list **lst);
 void					ft_objadd_back(t_obj_list **lst, t_obj_list *new);
 t_obj_list				*ft_objlast(t_obj_list *lst);
-int						ft_objfind_id(t_obj_list *lst, t_identifier id);
+bool					ft_objfind_id(t_obj_list *lst, t_identifier id);
 
 /* ==== LINK LIST ==== */
 

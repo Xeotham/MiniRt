@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:11:00 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/27 14:36:32 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:23:51 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ t_error	create_cylinder(char **info, t_scene *scene)
 		return (ERR_CYL_HGT);
 	if (get_color(info[5], &cylinder->color))
 		return (ERR_CYL_COLOR);
-	return (1);
+	return (NO_ERR);
 }

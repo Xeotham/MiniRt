@@ -1,7 +1,8 @@
 #================ COMPILATOR ================#
 CC = cc
 #=================== FLAGS ==================#
-FLAGS = -Wall -Wextra -Werror -gdwarf-4 -Ofast
+FLAGS = -Wall -Wextra -Werror -g -Ofast
+DEBUG_FLAGS = -Wall -Wextra -Werror -g
 #=================== NAME ===================#
 NAME = miniRT
 #============ MINISHELL SOURCES =============#
@@ -32,6 +33,8 @@ INCLUDE_DIR = includes
 MLX_INCLUDE = MLX42/include/MLX42
 OBJ = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 INCLUDES = -I$(INCLUDE_DIR) -I$(MLX_INCLUDE) -Ilibft/include
+TEST_SCENE = test.rt
+V_FLAGS = --leak-check=full --show-leak-kinds=all --track-fds=yes
 
 all : libmlx $(NAME)
 
@@ -48,11 +51,20 @@ $(LIBFT) :
 
 $(OBJ_DIR)%.o : $(SRCS_DIR)%.c
 	@ mkdir -p $(dir $@)
-	@ $(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
+	@ $(CC) $(DEBUG_FLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME) : $(LIBFT) $(OBJ)
-	@ $(CC) $(FLAGS) $(OBJ) $(LIBFT) -lm -o $(NAME)
+	@ $(CC) $(DEBUG_FLAGS) $(OBJ) $(LIBFT) -lm -o $(NAME)
 	@ echo "miniRT Compiled !"
+
+run : all
+	@ ./$(NAME) $(TEST_SCENE)
+
+gdb : all
+	@ gdb --tui $(NAME) -ex 'start $(TEST_SCENE)'
+
+valgrind : all
+	@ valgrind $(V_FLAGS) ./$(NAME) $(TEST_SCENE)
 
 clean :
 	@ $(MAKE) -C libft clean --no-print-directory
@@ -64,4 +76,4 @@ fclean :
 
 re : fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re run gdb valgrind

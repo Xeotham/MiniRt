@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:51:57 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/06/27 15:38:33 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:20:35 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*color_format(char *color)
 		i++;
 	if (color[i] && color[i] != ',')
 		return (NULL);
-	if (ft_strncmp(color, "255", 3) > 0)
+	if (i == 3 && ft_strncmp(color, "255", 3) > 0)
 		return (NULL);
 	return (color + i);
 }
@@ -159,7 +159,7 @@ bool	get_fov(char *fov, int *result)
 		i++;
 	if (fov[i])
 		return (g_error);
-	if (ft_strncmp(fov, "180", 3) > 0)
+	if (i == 3 && ft_strncmp(fov, "180", 3) > 0)
 		return (g_error);
 	return (false);
 }
