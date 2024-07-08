@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/08 16:35:44 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/08 23:33:29 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ typedef enum e_error
 	ERR_CYL_DIAM,
 	ERR_CYL_HGT,
 	ERR_CYL_COLOR,
+	ERR_NO_CAM,
+	ERR_NO_LIGHT,
+	ERR_EMPTY_FILE,
+	ERR_FILE_NAME
 }t_error;
 
 # define SCREEN_WIDTH 1280
@@ -191,8 +195,8 @@ void					update_camera(t_camera *camera);
 
 int						ft_check_range(double value, double min, double max);
 
-void	destroy_scene(t_scene *scene, int line_index, int code);
-void	free_scene(t_scene *scene);
+void	exit_scene(t_scene *scene, int line_index, int code);
+void	destroy_scene(t_scene *scene);
 
 /* ==== PARSER ==== */
 

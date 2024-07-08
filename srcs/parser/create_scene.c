@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:26:02 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/08 16:04:09 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/08 23:57:03 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	format_spaces(char *line)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = ft_strchr(line, '\t');
 	while (tmp)
@@ -70,7 +70,7 @@ static t_error	parse_line(char *line, t_scene *scene)
 	return (error);
 }
 
-void	close_file(int fd)
+static void	close_file(int fd)
 {
 	char	*line;
 
@@ -83,6 +83,14 @@ void	close_file(int fd)
 	close(fd);
 }
 
+void	check_scene_implementability(t_scene *scene, int line_index)
+{
+	if (!scene->camera)
+		exit_scene(scene, line_index, ERR_NO_CAM);
+	if (!scene->light)
+		exit_scene(scene, line_index, ERR_NO_LIGHT);
+}
+
 void	create_scene(char *file_name, t_scene *scene)
 {
 	int		fd;
@@ -90,24 +98,23 @@ void	create_scene(char *file_name, t_scene *scene)
 	char	*line;
 	int		line_index;
 
-	// if (ft_strrcmp(file_name, ".rt"))
-	// 	return (NULL);
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
-		destroy_scene(scene, 0, ERR_OPEN);
-	error = NO_ERR;
-	line_index = 1;
+		exit_scene(scene, 0, ERR_OPEN);
+	line_index = 0;
+	error = ERR_EMPTY_FILE;
 	line = get_next_line(fd);
 	while (line)
 	{
 		error = parse_line(line, scene);
 		free(line);
+		line_index++;
 		if (error)
 			break ;
-		line_index++;
 		line = get_next_line(fd);
 	}
 	close_file(fd);
 	if (error)
-		destroy_scene(scene, line_index, error);
+		exit_scene(scene, line_index, error);
+	check_scene_implementability(scene, line_index);
 }

@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:51:57 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/08 15:20:35 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/08 22:01:40 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,27 @@ static const bool	g_error = true;
 
 static char	*below_1_format(char *nbr)
 {
-	while (*nbr == '0')
-		nbr++;
-	if (!*nbr || (*nbr != '.' && *nbr != '1'))
-		return (nbr);
-	if (*nbr == '1')
+	int	i;
+
+	i = 0;
+	while (nbr[i] == '0')
+		i++;
+	if (!nbr[i] || (!i && nbr[i] != '1') || (nbr[i] != '.' && nbr[i] != '1'))
+		return (nbr + i);
+	if (nbr[i] == '1')
 	{
-		nbr++;
-		if (*nbr != '.')
-			return (nbr);
-		nbr++;
-		while (*nbr == '0')
-			nbr++;
-		return (nbr);
+		i++;
+		if (nbr[i] != '.')
+			return (nbr + i);
+		i++;
+		while (nbr[i] == '0')
+			i++;
+		return (nbr + i);
 	}
-	nbr++;
-	while (ft_isdigit(*nbr))
-		nbr++;
-	return (nbr);
+	i++;
+	while (ft_isdigit(nbr[i]))
+		i++;
+	return (nbr + i);
 }
 
 bool	get_light_ratio(char *ratio, double *result)
@@ -89,7 +92,7 @@ static char	*measure_format(char *measure)
 	i = 0;
 	while (ft_isdigit(measure[i]) && i < 10)
 		i++;
-	if (measure[i] != '.')
+	if (!i || measure[i] != '.')
 		return (measure + i);
 	i++;
 	while (ft_isdigit(measure[i]))

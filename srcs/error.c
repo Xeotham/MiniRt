@@ -6,13 +6,13 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:55:41 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/08 16:39:20 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/08 23:08:10 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static char	*err_msg2(t_error code, char *msg[31])
+static char	*err_msg2(t_error code, char *msg[35])
 {
 	msg[ERR_SP_INFO] = "There must be four sphere informations";
 	msg[ERR_SP_COORD] = "Sphere coordinates misconfigurated";
@@ -24,12 +24,16 @@ static char	*err_msg2(t_error code, char *msg[31])
 	msg[ERR_CYL_DIAM] = "Cylinder diameter misconfigurated";
 	msg[ERR_CYL_HGT] = "Cylinder height misconfigurated";
 	msg[ERR_CYL_COLOR] = "Cylinder color misconfigurated";
+	msg[ERR_NO_CAM] = "Scene cannot be displayed without camera";
+	msg[ERR_NO_LIGHT] = "Scene cannot be displayed without any kind of light";
+	msg[ERR_EMPTY_FILE] = "Empty file";
+	msg[ERR_FILE_NAME] = "Wrong file name extension.";
 	return (msg[code]);
 }
 
 static char	*err_msg(t_error code)
 {
-	char	*msg[31];
+	char	*msg[35];
 
 	if (code > ERR_PL_COLOR)
 		return (err_msg2(code, msg));
@@ -41,7 +45,7 @@ static char	*err_msg(t_error code)
 	msg[ERR_CAM_COORD] = "Camera point coordinates misconfigurated";
 	msg[ERR_CAM_DIR] = "Camera orientation vector misconfigurated";
 	msg[ERR_CAM_FOV] = "Camera field of view misconfigurated";
-	msg[ERR_ALGT_NB] = "There can be no more han one ambient lightning";
+	msg[ERR_ALGT_NB] = "There can be no more than one ambient lightning";
 	msg[ERR_ALGT_INFO] = "There must be three ambient lightning informations";
 	msg[ERR_ALGT_RATIO] = "Ambient lightning ratio misconfigurated";
 	msg[ERR_ALGT_COLOR] = "Ambient lightning color misconfigurated";
@@ -56,7 +60,7 @@ static char	*err_msg(t_error code)
 	return (msg[code]);
 }
 
-void	free_scene(t_scene *scene)
+void	destroy_scene(t_scene *scene)
 {
 	if (!scene)
 		return ;
@@ -67,9 +71,9 @@ void	free_scene(t_scene *scene)
 	scene = NULL;
 }
 
-void	destroy_scene(t_scene *scene, int line_index, int code)
+void	exit_scene(t_scene *scene, int line_index, int code)
 {
-	free_scene(scene);
+	destroy_scene(scene);
 	ft_fprintf(STDERR_FILENO, \
 			"Error\nLine %d: %s\n", line_index, err_msg(code));
 	exit (EXIT_FAILURE);
