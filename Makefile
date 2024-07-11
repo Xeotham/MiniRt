@@ -9,9 +9,7 @@ NAME = miniRT
 SRCS = \
 	main.c \
 	error.c \
-	utils.c \
 	parser/create_scene.c \
-	parser/create_list.c \
 	parser/element_list_utils.c \
 	parser/format.c \
 	vector/vector.c \

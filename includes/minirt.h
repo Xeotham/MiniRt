@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/08 23:33:29 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:56:29 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,12 @@ typedef struct s_color
 
 typedef struct s_camera
 {
-	t_vector3			coord;
+	t_vector3			orig;
 	t_vector3			direction;
 	t_vector3			up_vector;
 	t_vector3			u;
 	t_vector3			v;
-	t_vector3			center;
+	t_vector3			screen_center;
 	int					fov;
 }						t_camera;
 
