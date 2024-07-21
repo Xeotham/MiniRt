@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:51:57 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/21 18:28:01 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:47:00 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static char	*measure_format(char *measure)
 	j = 0;
 	while (ft_isdigit(measure[i + j]) && j < 10)
 		j++;
-	if (!i + j || measure[i] != '.')
+	if (!(i + j) || measure[i + j] != '.')
 		return (measure + i + j);
 	i++;
 	while (ft_isdigit(measure[i + j]))
