@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:26:42 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/21 19:02:00 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/21 22:49:44 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,18 @@ static double	compute_solution(double b, double discriminant)
 	return (no_solution);
 }
 
-static double	compute_equation(t_ray ray, double radius)
+static double	compute_equation(t_ray ray, double radius, t_sphere *sphere)
 {
 	double	b;
 	double	origin_norm;
 	double	c;
 	double	discriminant;
 	double	solution;
-
+	
+	ray.dir.x += (sphere->coord.x / 10);
+	ray.dir.y += (sphere->coord.y / 10);
+	ray.dir.z += (sphere->coord.z / 10); 
+	ray.dir = normalize_vector(ray.dir);
 	b = 2 * dot_product(ray.origin, ray.dir);
 	origin_norm = vector_norm(ray.origin);
 	c = pow(origin_norm, 2) - pow(radius, 2);
@@ -55,7 +59,7 @@ t_inter	test_sphere(t_ray ray, void *element)
 	t_vector3		poi_normal;
 
 	sphere = (t_sphere *) element;
-	result.distance = compute_equation(ray, sphere->radius);
+	result.distance = compute_equation(ray, sphere->radius, sphere);
 	if (result.distance == no_solution)
 		return (result);
 	result.point = compute_poi(ray, result.distance);
