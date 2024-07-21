@@ -6,26 +6,11 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:26:02 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/08 23:57:03 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:10:01 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
-
-static void	format_spaces(char *line)
-{
-	char	*tmp;
-
-	tmp = ft_strchr(line, '\t');
-	while (tmp)
-	{
-		*tmp = ' ';
-		tmp = ft_strchr(tmp, '\t');
-	}
-	tmp = ft_strrchr(line, '\n');
-	if (tmp)
-		*tmp = 0;
-}
 
 static t_identifier	get_element_id(char *element)
 {
@@ -42,12 +27,27 @@ static t_identifier	get_element_id(char *element)
 	return (NO_ID);
 }
 
+static void	format_spaces(char *line)
+{
+	char	*tmp;
+
+	tmp = ft_strchr(line, '\t');
+	while (tmp)
+	{
+		*tmp = ' ';
+		tmp = ft_strchr(tmp, '\t');
+	}
+	tmp = ft_strrchr(line, '\n');
+	if (tmp)
+		*tmp = 0;
+}
+
 static t_error	parse_line(char *line, t_scene *scene)
 {
 	t_identifier	id;
 	t_error			error;
 	char			**info;
-	t_error			(*element_create[6])(char **, t_scene *);
+	t_error (*element_create[6])(char **, t_scene *);
 
 	format_spaces(line);
 	if (!*line)
@@ -83,11 +83,11 @@ static void	close_file(int fd)
 	close(fd);
 }
 
-void	check_scene_implementability(t_scene *scene, int line_index)
+static void	check_scene_implementability(t_scene *scene, int line_index)
 {
 	if (!scene->camera)
 		exit_scene(scene, line_index, ERR_NO_CAM);
-	if (!scene->light)
+	if (!scene->lights)
 		exit_scene(scene, line_index, ERR_NO_LIGHT);
 }
 

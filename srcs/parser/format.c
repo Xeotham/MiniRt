@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:51:57 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/08 22:01:40 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:28:01 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,20 @@ bool	get_color(char *color, t_color *result)
 static char	*measure_format(char *measure)
 {
 	int	i;
+	int	j;
 
-	while (*measure == '0')
-		measure++;
 	i = 0;
-	while (ft_isdigit(measure[i]) && i < 10)
+	while (measure[i] == '0')
 		i++;
-	if (!i || measure[i] != '.')
-		return (measure + i);
+	j = 0;
+	while (ft_isdigit(measure[i + j]) && j < 10)
+		j++;
+	if (!i + j || measure[i] != '.')
+		return (measure + i + j);
 	i++;
-	while (ft_isdigit(measure[i]))
+	while (ft_isdigit(measure[i + j]))
 		i++;
-	return (measure + i);
+	return (measure + i + j);
 }
 
 bool	get_point(char *point, t_vector3 *vector)
@@ -147,6 +149,7 @@ bool	get_vector(char *vector, t_vector3 *result)
 	vector = below_1_format(vector);
 	if (*vector != '\0')
 		return (g_error);
+	*result = normalize_vector(*result);
 	return (false);
 }
 

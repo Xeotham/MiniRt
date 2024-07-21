@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/11 12:56:29 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:13:04 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ typedef enum e_error
 	ERR_NO_CAM,
 	ERR_NO_LIGHT,
 	ERR_EMPTY_FILE,
-	ERR_FILE_NAME
+	ERR_FILE_NAME,
+	ERR_MLX
 }t_error;
 
 # define SCREEN_WIDTH 1280
@@ -101,20 +102,36 @@ typedef struct s_obj_list
 	struct s_obj_list	*next;
 }						t_obj_list;
 
+typedef struct	s_ray
+{
+	t_vector3	origin;
+	t_vector3	dest;
+	t_vector3	dir;
+}				t_ray;
+
 typedef struct s_color
 {
-	double				red;
-	double				green;
-	double				blue;
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
 }						t_color;
+
+typedef struct	s_inter
+{
+	t_vector3		point;
+	t_vector3		normal;
+	double			distance;
+	t_obj_list		*element;
+	t_color			color;
+}					t_inter;
 
 typedef struct s_camera
 {
 	t_vector3			orig;
 	t_vector3			direction;
 	t_vector3			up_vector;
-	t_vector3			u;
-	t_vector3			v;
+	t_vector3			u_screen;
+	t_vector3			v_screen;
 	t_vector3			screen_center;
 	int					fov;
 }						t_camera;
@@ -128,38 +145,42 @@ typedef struct s_point_light
 typedef struct s_amb_light
 {
 	double				ratio;
-	t_color				color;
+	t_color			color;
 }						t_amb_light;
 
 typedef struct s_sphere
 {
-	t_vector3			coord;
-	double				diameter;
-	t_color				color;
+	t_vector3		coord;
+	double			radius;
+	t_color			color;
+	t_obj_transform	*matrix;
 }						t_sphere;
 
 typedef struct s_plane
 {
-	t_vector3			coord;
-	t_vector3			normal;
-	t_color				color;
+	t_vector3		coord;
+	t_vector3		normal;
+	t_color			color;
+	t_obj_transform	*matrix;
 }						t_plane;
 
 typedef struct s_cylinder
 {
-	t_vector3			coord;
-	t_vector3			axis;
-	double				diameter;
-	double				height;
-	t_color				color;
+	t_vector3		coord;
+	t_vector3		axis;
+	double			diameter;
+	double			height;
+	t_color			color;
+	t_obj_transform	*matrix;
 }						t_cylinder;
 
 typedef struct s_scene
 {
-	mlx_t				mlx;
+	mlx_t				*display;
+	mlx_image_t			*image;
 	t_camera			*camera;
-	t_obj_list			*light;
-	t_obj_list			*object;
+	t_obj_list			*lights;
+	t_obj_list			*objects;
 }						t_scene;
 
 /* ==== MAP ==== */
@@ -178,8 +199,7 @@ bool					ft_objfind_id(t_obj_list *lst, t_identifier id);
 int						get_obj_list(char **map, t_scene *scene);
 
 /* ==== COLOR ==== */
-
-int						set_color(t_color *color, int red, int green, int blue);
+int	set_rgba(int r, int g, int b, int a);
 
 /* ==== SET OBJECT ==== */
 
@@ -193,8 +213,6 @@ void					update_camera(t_camera *camera);
 
 /* ==== UTILS ==== */
 
-int						ft_check_range(double value, double min, double max);
-
 void	exit_scene(t_scene *scene, int line_index, int code);
 void	destroy_scene(t_scene *scene);
 
@@ -206,4 +224,16 @@ bool	get_point(char *point, t_vector3 *vector);
 bool	get_vector(char *vector, t_vector3 *result);
 bool	get_fov(char *fov, int *result);
 bool	get_measure(char *measure, double *result);
+
+/* ==== DOUBLE ==== */
+
+bool	doubles_are_equals(double a, double b);
+double	double_abs(double nb);
+
+/* ==== RAY ==== */
+t_ray	cast_ray(t_camera *camera, double coord_x, double coord_y);
+
+void		draw_scene(t_scene *scene);
+t_inter		test_sphere(t_ray ray, void *element);
+t_vector3	compute_poi(t_ray ray, double distance);
 #endif

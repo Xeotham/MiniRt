@@ -6,12 +6,12 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:57:13 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/18 10:30:05 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/07/18 16:39:54 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minirt.h>
 #include <mrt_matrix.h>
+#include <minirt.h>
 
 static double	product_result(t_matrix matrix1, t_matrix matrix2, size_t ligne,
 		size_t column)

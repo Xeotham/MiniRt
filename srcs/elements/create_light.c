@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:11:00 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/08 16:01:23 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:11:33 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ t_error	create_amb_light(char **info, t_scene *scene)
 	t_obj_list	*obj;
 	t_amb_light	*light;
 
-	if (ft_objfind_id(scene->light, ID_AMB_LIGHT))
+	if (ft_objfind_id(scene->lights, ID_AMB_LIGHT))
 		return (ERR_ALGT_NB);
 	if (ft_array_len(info) != 3)
 		return (ERR_ALGT_INFO);
 	obj = ft_calloc(sizeof(t_obj_list), 1);
-	light = ft_calloc(sizeof(t_amb_light), 1);
+	light = ft_calloc(sizeof(*light), 1);
 	if (!obj || !light)
 	{
 		ft_multi_free(2, obj, light);
@@ -30,7 +30,7 @@ t_error	create_amb_light(char **info, t_scene *scene)
 	}
 	obj->obj_id = ID_AMB_LIGHT;
 	obj->obj_struct = light;
-	ft_objadd_back(&scene->light, obj);
+	ft_objadd_back(&scene->lights, obj);
 	if (get_light_ratio(info[1], &light->ratio))
 		return (ERR_ALGT_RATIO);
 	if (get_color(info[2], &light->color))
@@ -43,12 +43,12 @@ t_error	create_point_light(char **info, t_scene *scene)
 	t_obj_list		*obj;
 	t_point_light	*light;
 
-	if (ft_objfind_id(scene->light, ID_LIGHT))
+	if (ft_objfind_id(scene->lights, ID_LIGHT))
 		return (ERR_LGT_NB);
 	if (ft_array_len(info) != 4 && ft_array_len(info) != 3)
 		return (ERR_LGT_INFO);
 	obj = ft_calloc(sizeof(t_obj_list), 1);
-	light = ft_calloc(sizeof(t_amb_light), 1);
+	light = ft_calloc(sizeof(*light), 1);
 	if (!obj || !light)
 	{
 		ft_multi_free(2, obj, light);
@@ -56,7 +56,7 @@ t_error	create_point_light(char **info, t_scene *scene)
 	}
 	obj->obj_id = ID_LIGHT;
 	obj->obj_struct = light;
-	ft_objadd_back(&scene->light, obj);
+	ft_objadd_back(&scene->lights, obj);
 	if (get_point(info[1], &light->coord))
 		return (ERR_LGT_COORD);
 	if (get_light_ratio(info[2], &light->ratio))

@@ -9,6 +9,8 @@ NAME = miniRT
 SRCS = \
 	main.c \
 	error.c \
+	draw_scene.c \
+	color.c \
 	parser/create_scene.c \
 	parser/element_list_utils.c \
 	parser/format.c \
@@ -22,27 +24,31 @@ SRCS = \
 	elements/create_sphere.c \
 	elements/create_camera.c \
 	elements/create_cylinder.c \
+	Ray/ray.c \
+	intersection_test/sphere.c \
+	intersection_test/intersection_utils.c
 #============ TRANSFORM .c TO .o ============#
-LIBFT = libft/libft.a
-LIBMLX = MLX42
+MLX_DIR = MLX42
 OBJ_DIR = obj/
 SRCS_DIR = srcs/
 INCLUDE_DIR = includes
-MLX_INCLUDE = MLX42/include/MLX42
+MLX_INCLUDE = $(MLX_DIR)/include/MLX42
 OBJ = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 INCLUDES = -I$(INCLUDE_DIR) -I$(MLX_INCLUDE) -Ilibft/include
+LIBFT = libft/libft.a
+LIBMLX = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 TEST_SCENE = test.rt
 V_FLAGS = --leak-check=full --show-leak-kinds=all --track-fds=yes
 
 all : libmlx $(NAME)
 
 libmlx:
-	@if [ ! -d "$(LIBMLX)" ]; then \
-		echo "Directory $(LIBMLX) does not exist. Cloning the repository..."; \
-		git clone https://github.com/codam-coding-college/MLX42.git; \
+	@if [ ! -d "$(MLX_DIR)" ]; then \
+		echo "Directory $(MLX_DIR) does not exist. Cloning the repository..."; \
+		git clone https://github.com/codam-coding-college/MLX42.git $(MLX_DIR); \
     fi
-	@cmake $(LIBMLX) -B $(LIBMLX)/build
-	@make -C $(LIBMLX)/build --no-print-directory -j$(nproc)
+	@cmake $(MLX_DIR) -B $(MLX_DIR)/build
+	@make -C $(MLX_DIR)/build --no-print-directory -j$(nproc)
 
 $(LIBFT) :
 	@ $(MAKE) -C libft all --no-print-directory
@@ -52,7 +58,7 @@ $(OBJ_DIR)%.o : $(SRCS_DIR)%.c
 	@ $(CC) $(DEBUG_FLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME) : $(LIBFT) $(OBJ)
-	@ $(CC) $(DEBUG_FLAGS) $(OBJ) $(LIBFT) -lm -o $(NAME)
+	@ $(CC) $(DEBUG_FLAGS) $(OBJ) -o $(NAME) $(LIBFT) $(LIBMLX)
 	@ echo "miniRT Compiled !"
 
 run : all
@@ -70,8 +76,10 @@ clean :
 
 fclean :
 	@ $(MAKE) -C libft fclean --no-print-directory
-	@ rm -rf $(NAME) $(OBJ_DIR) MLX42
+	@ rm -rf $(NAME) $(OBJ_DIR) $(MLX_DIR)
 
 re : fclean all
 
-.PHONY : all clean fclean re run gdb valgrind
+new : clean all
+
+.PHONY : all clean fclean re run gdb valgrind new

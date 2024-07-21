@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:57:35 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/11 12:57:05 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:41:49 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	update_camera(t_camera *camera)
 	camera->up_vector = normalize_vector(create_vector(camera->orig,
 				set_vector(camera->orig.x, camera->orig.y,
 					camera->orig.z + 1)));
-	camera->u = cross_product(camera->up_vector, camera->direction);
-	camera->u = normalize_vector(camera->u);
-	camera->v = cross_product(camera->u, camera->direction);
-	camera->v = normalize_vector(camera->v);
+	camera->u_screen = cross_product(camera->direction, camera->up_vector);
+	camera->u_screen = normalize_vector(camera->u_screen);
+	camera->v_screen = cross_product(camera->u_screen, camera->direction);
+	camera->v_screen = normalize_vector(camera->v_screen);
 	camera->screen_center = vector_add(camera->orig, camera->direction);
-	camera->u = scalar_prod(camera->u, SCREEN_WIDTH);
-	camera->v = scalar_prod(camera->v, (SCREEN_WIDTH / ASPECT));
+	camera->u_screen = scalar_prod(camera->u_screen, SCREEN_WIDTH);
+	camera->v_screen = scalar_prod(camera->v_screen, (SCREEN_WIDTH / ASPECT));
 }
 
 t_error	create_camera(char **info, t_scene *scene)

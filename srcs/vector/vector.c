@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:02:14 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/19 17:32:56 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/07/18 17:14:26 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ t_vector3	normalize_vector(t_vector3 vector)
 	double		c_vector_norm;
 
 	c_vector_norm = vector_norm(vector);
+	if (!c_vector_norm)
+		return (vector);
 	return (scalar_div(vector, c_vector_norm));
 }
 

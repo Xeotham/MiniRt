@@ -6,12 +6,35 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:57:13 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/06/27 14:45:56 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/17 09:06:28 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mrt_matrix.h>
 #include <minirt.h>
+
+t_matrix	copy_matrix(t_matrix matrix)
+{
+	t_matrix	copy;
+	size_t		i;
+	size_t		j;
+
+	i = 0;
+	copy = create_matrix(4, 4);
+	if (!copy)
+		return (NULL);
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			copy[i][j] = matrix[i][j];
+			j++;
+		}
+		i++;
+	}
+	return (copy);
+}
 
 void	identity_matrix(t_matrix matrix)
 {
@@ -59,6 +82,8 @@ t_vector3	matrix_to_vector(t_matrix matrix)
 	ft_free_2d_array(matrix, 4);
 	return (vector);
 }
+
+
 /*
 #include <stdio.h>
 

@@ -6,13 +6,13 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:55:41 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/08 23:08:10 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/20 23:23:57 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static char	*err_msg2(t_error code, char *msg[35])
+static char	*err_msg2(t_error code, char *msg[36])
 {
 	msg[ERR_SP_INFO] = "There must be four sphere informations";
 	msg[ERR_SP_COORD] = "Sphere coordinates misconfigurated";
@@ -28,12 +28,13 @@ static char	*err_msg2(t_error code, char *msg[35])
 	msg[ERR_NO_LIGHT] = "Scene cannot be displayed without any kind of light";
 	msg[ERR_EMPTY_FILE] = "Empty file";
 	msg[ERR_FILE_NAME] = "Wrong file name extension.";
+	msg[ERR_MLX] = (char *) mlx_strerror(mlx_errno);
 	return (msg[code]);
 }
 
 static char	*err_msg(t_error code)
 {
-	char	*msg[35];
+	char	*msg[36];
 
 	if (code > ERR_PL_COLOR)
 		return (err_msg2(code, msg));
@@ -65,8 +66,12 @@ void	destroy_scene(t_scene *scene)
 	if (!scene)
 		return ;
 	ft_destroy_ptr(scene->camera, &free);
-	ft_objclear(&scene->object);
-	ft_objclear(&scene->light);
+	ft_objclear(&scene->objects);
+	ft_objclear(&scene->lights);
+	if (scene->image)
+		mlx_delete_image(scene->display, scene->image);
+	if (scene->display)
+		mlx_terminate(scene->display);
 	free(scene);
 	scene = NULL;
 }
@@ -74,7 +79,9 @@ void	destroy_scene(t_scene *scene)
 void	exit_scene(t_scene *scene, int line_index, int code)
 {
 	destroy_scene(scene);
-	ft_fprintf(STDERR_FILENO, \
-			"Error\nLine %d: %s\n", line_index, err_msg(code));
+	ft_fprintf(STDERR_FILENO, "Error\n");
+	if (code >= ERR_NO_ID && code <= ERR_CYL_COLOR)
+		ft_fprintf(STDERR_FILENO, "Line %d: ", line_index);
+	ft_fprintf(STDERR_FILENO, "%s\n", err_msg(code));
 	exit (EXIT_FAILURE);
 }
