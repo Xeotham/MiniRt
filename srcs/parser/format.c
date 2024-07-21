@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:51:57 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/21 19:47:00 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:05:54 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ bool	get_fov(char *fov, int *result)
 	i = 0;
 	while (ft_isdigit(fov[i]) && i < 3)
 		i++;
-	if (fov[i])
+	if (!i || fov[i])
 		return (g_error);
 	if (i == 3 && ft_strncmp(fov, "180", 3) > 0)
 		return (g_error);
