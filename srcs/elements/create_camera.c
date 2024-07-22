@@ -6,25 +6,22 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:57:35 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/21 22:27:05 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/07/22 18:45:22 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
-#include <stdio.h>
 
-void	update_camera(t_camera *camera)
+static void	update_camera(t_camera *camera)
 {
-	camera->up_vector = normalize_vector(create_vector(camera->orig,
-				set_vector(camera->orig.x, camera->orig.y,
-					camera->orig.z + 1)));
-	camera->u_screen = cross_product(camera->direction, camera->up_vector);
+	camera->up_vector = set_vector(0, 0, 1);
+	camera->u_screen = cross_product(camera->up_vector, camera->direction);
 	camera->u_screen = normalize_vector(camera->u_screen);
 	camera->v_screen = cross_product(camera->u_screen, camera->direction);
 	camera->v_screen = normalize_vector(camera->v_screen);
 	camera->screen_center = vector_add(camera->orig, camera->direction);
 	camera->u_screen = scalar_prod(camera->u_screen, 1);
-	camera->v_screen = scalar_prod(camera->v_screen, 1 / ASPECT);
+	camera->v_screen = scalar_prod(camera->v_screen, (1 / ASPECT));
 }
 
 t_error	create_camera(char **info, t_scene *scene)

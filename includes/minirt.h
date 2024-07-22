@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/21 18:13:04 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/22 12:50:31 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,6 @@ t_error					create_camera(char **info, t_scene *scene);
 t_error					create_sphere(char **info, t_scene *scene);
 t_error					create_plane(char **info, t_scene *scene);
 t_error					create_cylinder(char **info, t_scene *scene);
-void					update_camera(t_camera *camera);
 
 /* ==== UTILS ==== */
 
