@@ -11,6 +11,7 @@ SRCS = \
 	error.c \
 	draw_scene.c \
 	color.c \
+	double.c \
 	parser/create_scene.c \
 	parser/element_list_utils.c \
 	parser/format.c \
@@ -26,6 +27,7 @@ SRCS = \
 	elements/create_cylinder.c \
 	Ray/ray.c \
 	intersection_test/sphere.c \
+	intersection_test/plane.c \
 	intersection_test/intersection_utils.c
 #============ TRANSFORM .c TO .o ============#
 MLX_DIR = MLX42

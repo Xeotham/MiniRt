@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:57:13 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/18 16:39:54 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:34:53 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ static double	product_result(t_matrix matrix1, t_matrix matrix2, size_t ligne,
 	size_t	i;
 	double	result;
 
-	i = -1;
+	i = 0;
 	result = 0;
-	while (++i < 4)
+	while (i < 4)
+	{
 		result += matrix1[column][i] * matrix2[i][ligne];
+		i++;
+	}
 	return (result);
 }
 
@@ -92,22 +95,25 @@ static t_matrix	do_mat_vec_product(t_matrix matrix, t_matrix vector)
 	return (result);
 }
 
-t_matrix	mat_vec_product(t_matrix matrix, t_vector3 vector)
+bool	mat_vec_product(t_matrix matrix, t_vector3 *vector)
 {
 	t_matrix	tmp_vector;
-	t_matrix	result;
+	t_matrix	product;
+	const bool	error = true;
+	const bool	no_error = false;
 
 	tmp_vector = create_matrix(1, 4);
 	if (!tmp_vector)
-		return (NULL);
-	tmp_vector[0][0] = vector.x;
-	tmp_vector[1][0] = vector.y;
-	tmp_vector[2][0] = vector.z;
+		return (error);
+	tmp_vector[0][0] = vector->x;
+	tmp_vector[1][0] = vector->y;
+	tmp_vector[2][0] = vector->z;
 	tmp_vector[3][0] = 1;
-	result = do_mat_vec_product(matrix, tmp_vector);
+	product = do_mat_vec_product(matrix, tmp_vector);
 	ft_free_2d_array(tmp_vector, 4);
-	ft_free_2d_array(matrix, 4);
-	if (!result)
-		return (NULL);
-	return (result);
+	if (!product)
+		return (error);
+	*vector = set_vector(product[0][0], product[1][0], product[2][0]);
+	ft_free_2d_array(product, 4);
+	return (no_error);
 }

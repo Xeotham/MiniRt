@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:49:04 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/20 19:06:57 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/23 20:46:31 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static	t_ray   create_ray(t_vector3 point_1, t_vector3 point_2)
     ray.origin = point_1;
     ray.dest = point_2;
     ray.dir = create_vector(point_1, point_2);
+	ray.dir = normalize_vector(ray.dir);
 	return (ray);
 }
 

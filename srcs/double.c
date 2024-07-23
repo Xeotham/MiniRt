@@ -9,7 +9,7 @@ double	double_abs(double nb)
 	return (nb);
 }
 
-bool	doubles_are_equals(double a, double b)
+bool	doubles_equals(double a, double b)
 {
 	if (double_abs(a - b) <= double_abs(b / 1000))
 		return (true);
