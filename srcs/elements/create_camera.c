@@ -6,22 +6,44 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:57:35 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/22 18:45:22 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/23 00:50:02 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
+#include <stdio.h>
+
+// static double	focal_len(double fov)
+// {
+// 	double	f_len;
+	
+// 	f_len = (SCREEN_WIDTH / 2) / tan((fov / 2) * (PIE / 180));
+// 	printf("Focal Len : %lf\n", f_len);
+// 	return (f_len);
+// }
+
+static double	screen_horz(double fov)
+{
+	double	horz_size;
+
+	horz_size = tan((fov * (PIE / 180)) / 2) * 2;
+	printf("Horz_size : %lf\n", horz_size);
+	return (horz_size);
+}
 
 static void	update_camera(t_camera *camera)
 {
+	double		horz_size;
+
+	horz_size = screen_horz(camera->fov);
 	camera->up_vector = set_vector(0, 0, 1);
 	camera->u_screen = cross_product(camera->up_vector, camera->direction);
 	camera->u_screen = normalize_vector(camera->u_screen);
 	camera->v_screen = cross_product(camera->u_screen, camera->direction);
 	camera->v_screen = normalize_vector(camera->v_screen);
 	camera->screen_center = vector_add(camera->orig, camera->direction);
-	camera->u_screen = scalar_prod(camera->u_screen, 1);
-	camera->v_screen = scalar_prod(camera->v_screen, (1 / ASPECT));
+	camera->u_screen = scalar_prod(camera->u_screen, horz_size);
+	camera->v_screen = scalar_prod(camera->v_screen, (horz_size / ASPECT));
 }
 
 t_error	create_camera(char **info, t_scene *scene)
