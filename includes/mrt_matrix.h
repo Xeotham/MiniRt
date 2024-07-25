@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:58:08 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/17 09:09:01 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/07/23 15:49:23 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <mrt_vector.h>
 # include <stddef.h>
+# include <stdbool.h>
 # include <math.h>
 
 # define PIE 3.14159265
@@ -29,7 +30,7 @@ t_matrix	set_translation_matrix(double t_x, double t_y, double t_z);
 t_matrix	set_r_x_matrix(double teta);
 t_matrix	set_r_y_matrix(double teta);
 t_matrix	set_r_z_matrix(double teta);
-t_matrix	mat_vec_product(t_matrix matrix, t_vector3 vector);
+bool		mat_vec_product(t_matrix matrix, t_vector3 *vector);
 t_vector3	matrix_to_vector(t_matrix matrix);
 void		identity_matrix(t_matrix matrix);
 void	swap_rows(t_matrix matrix, int row1, int row2);

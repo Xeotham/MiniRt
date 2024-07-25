@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:46:14 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/21 18:19:33 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/23 20:24:13 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int	compute_pixel(t_ray ray, t_obj_list *elements)
 	{
 		if (elements->obj_id == ID_SPHERE)
 			test = test_sphere(ray, elements->obj_struct);
+		if (elements->obj_id == ID_PLANE)
+			test = test_plane(ray, elements->obj_struct);
 		if (nearest.distance == no_point || (test.distance != no_point && test.distance < nearest.distance))
 			nearest = test;
 		elements = elements->next;

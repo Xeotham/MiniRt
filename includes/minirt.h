@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/22 12:50:31 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/23 20:22:07 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ bool	get_measure(char *measure, double *result);
 
 /* ==== DOUBLE ==== */
 
-bool	doubles_are_equals(double a, double b);
+bool	doubles_equals(double a, double b);
 double	double_abs(double nb);
 
 /* ==== RAY ==== */
@@ -234,5 +234,6 @@ t_ray	cast_ray(t_camera *camera, double coord_x, double coord_y);
 
 void		draw_scene(t_scene *scene);
 t_inter		test_sphere(t_ray ray, void *element);
+t_inter	test_plane(t_ray ray, void *element);
 t_vector3	compute_poi(t_ray ray, double distance);
 #endif
