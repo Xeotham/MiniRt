@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:11:00 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/21 18:08:25 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:59:08 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_error	create_plane(char **info, t_scene *scene)
 	}
 	obj->obj_id = ID_PLANE;
 	obj->obj_struct = plane;
+	obj->test_inter = test_plane;
 	ft_objadd_back(&scene->objects, obj);
 	if (get_point(info[1], &plane->coord))
 		return (ERR_PL_COORD);

@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:26:42 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/25 09:57:13 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/07/26 17:40:23 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static double	compute_equation(t_ray ray, t_vector3 center, double radius)
 	b = 2 * dot_product(ray.origin, ray.dir);
 	c = dot_product(ray.origin, ray.origin) - pow(radius, 2);
 	discriminant = pow(b, 2) - 4 * c;
-	if (discriminant < 0)
+	if (discriminant < 0 || doubles_equals(discriminant, 0))
 		return (no_solution);
 	solution = compute_solution(b, discriminant);
 	return (solution);

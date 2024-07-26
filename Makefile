@@ -25,10 +25,11 @@ SRCS = \
 	elements/create_sphere.c \
 	elements/create_camera.c \
 	elements/create_cylinder.c \
-	Ray/ray.c \
+	ray/ray.c \
 	intersection_test/sphere.c \
 	intersection_test/plane.c \
-	intersection_test/intersection_utils.c
+	intersection_test/intersection_utils.c \
+	light/light_intersection.c
 #============ TRANSFORM .c TO .o ============#
 MLX_DIR = MLX42
 OBJ_DIR = obj/

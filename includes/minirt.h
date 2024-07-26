@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/23 20:22:07 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:18:04 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ typedef enum e_error
 	ERR_MLX
 }t_error;
 
+enum e_color
+{
+	RED,
+	GREEN,
+	BLUE
+};
+
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
 # define ASPECT (16.0 / 9.0)
@@ -95,19 +102,21 @@ typedef struct s_obj_transform
 	double				teta_z;
 }						t_obj_transform;
 
-typedef struct s_obj_list
-{
-	t_identifier		obj_id;
-	void				*obj_struct;
-	struct s_obj_list	*next;
-}						t_obj_list;
-
 typedef struct	s_ray
 {
 	t_vector3	origin;
 	t_vector3	dest;
 	t_vector3	dir;
 }				t_ray;
+
+typedef struct s_obj_list
+{
+	t_identifier		obj_id;
+	void				*obj_struct;
+	struct s_inter		(*test_inter)(t_ray, void*);
+	struct s_obj_list	*next;
+}						t_obj_list;
+
 
 typedef struct s_color
 {
@@ -144,7 +153,7 @@ typedef struct s_point_light
 
 typedef struct s_amb_light
 {
-	double				ratio;
+	double			ratio;
 	t_color			color;
 }						t_amb_light;
 
@@ -192,7 +201,7 @@ void	create_scene(char *file_name, t_scene *scene);
 void					ft_objclear(t_obj_list **lst);
 void					ft_objadd_back(t_obj_list **lst, t_obj_list *new);
 t_obj_list				*ft_objlast(t_obj_list *lst);
-bool					ft_objfind_id(t_obj_list *lst, t_identifier id);
+t_obj_list				*ft_objfind_id(t_obj_list *lst, t_identifier id);
 
 /* ==== LINK LIST ==== */
 
@@ -230,10 +239,14 @@ bool	doubles_equals(double a, double b);
 double	double_abs(double nb);
 
 /* ==== RAY ==== */
+t_ray   create_ray(t_vector3 point_1, t_vector3 point_2);
 t_ray	cast_ray(t_camera *camera, double coord_x, double coord_y);
+
+/* ==== LIGHT ==== */
+int light_test_inter(t_inter poi, t_scene *scene);
 
 void		draw_scene(t_scene *scene);
 t_inter		test_sphere(t_ray ray, void *element);
-t_inter	test_plane(t_ray ray, void *element);
+t_inter		test_plane(t_ray ray, void *element);
 t_vector3	compute_poi(t_ray ray, double distance);
 #endif
