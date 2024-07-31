@@ -6,33 +6,11 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:00:20 by tde-la-r          #+#    #+#             */
-/*   Updated: 2023/11/19 20:14:00 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:10:40 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int	ft_numlen(int n)
-{
-	int	count;
-
-	if (!n)
-		return (1);
-	if (n == -2147483648)
-		return (11);
-	count = 0;
-	if (n < 0)
-	{
-		n *= -1;
-		count++;
-	}
-	while (n > 0)
-	{
-		n /= 10;
-		count++;
-	}
-	return (count);
-}
 
 static char	*convert_digits(int n, char *result, int i, int numlen)
 {

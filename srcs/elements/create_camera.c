@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:57:35 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/25 19:44:32 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/07/28 11:33:07 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,17 @@ static double	screen_horz(double fov)
 	double	horz_size;
 
 	horz_size = tan((fov * (PIE / 180)) / 2) * 1;
-	printf("Horz_size : %lf\n", horz_size);
 	return (horz_size);
 }
 
-static void	update_camera(t_camera *camera)
+void	update_camera(t_camera *camera)
 {
-	double	horz_size = 1;
+	double		horz_size;
+	t_vector3	up_vector;
 
-	(void)camera;
 	horz_size = screen_horz(camera->fov);
-	camera->up_vector = set_vector(0, 0, 1);
-	camera->u_screen = cross_product(camera->up_vector, camera->direction);
+	up_vector = set_vector(0, 0, 1);
+	camera->u_screen = cross_product(up_vector, camera->direction);
 	camera->u_screen = normalize_vector(camera->u_screen);
 	camera->v_screen = cross_product(camera->u_screen, camera->direction);
 	camera->v_screen = normalize_vector(camera->v_screen);

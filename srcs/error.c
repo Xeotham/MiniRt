@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:55:41 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/20 23:23:57 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:21:41 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*err_msg2(t_error code, char *msg[36])
 	msg[ERR_NO_CAM] = "Scene cannot be displayed without camera";
 	msg[ERR_NO_LIGHT] = "Scene cannot be displayed without any kind of light";
 	msg[ERR_EMPTY_FILE] = "Empty file";
-	msg[ERR_FILE_NAME] = "Wrong file name extension.";
+	msg[ERR_FILE_NAME] = "";
 	msg[ERR_MLX] = (char *) mlx_strerror(mlx_errno);
 	return (msg[code]);
 }

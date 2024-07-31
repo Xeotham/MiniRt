@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/26 18:18:04 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/07/31 20:23:27 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <mrt_matrix.h>
 # include <mrt_vector.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 /* ==== DEFINE ==== */
 
@@ -76,13 +77,6 @@ typedef enum e_error
 	ERR_MLX
 }t_error;
 
-enum e_color
-{
-	RED,
-	GREEN,
-	BLUE
-};
-
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
 # define ASPECT (16.0 / 9.0)
@@ -120,9 +114,9 @@ typedef struct s_obj_list
 
 typedef struct s_color
 {
-	unsigned char	red;
-	unsigned char	green;
-	unsigned char	blue;
+	uint8_t	red;
+	uint8_t	green;
+	uint8_t	blue;
 }						t_color;
 
 typedef struct	s_inter
@@ -138,7 +132,6 @@ typedef struct s_camera
 {
 	t_vector3			orig;
 	t_vector3			direction;
-	t_vector3			up_vector;
 	t_vector3			u_screen;
 	t_vector3			v_screen;
 	t_vector3			screen_center;
@@ -177,7 +170,7 @@ typedef struct s_cylinder
 {
 	t_vector3		coord;
 	t_vector3		axis;
-	double			diameter;
+	double			radius;
 	double			height;
 	t_color			color;
 	t_obj_transform	*matrix;
@@ -185,16 +178,17 @@ typedef struct s_cylinder
 
 typedef struct s_scene
 {
-	mlx_t				*display;
-	mlx_image_t			*image;
-	t_camera			*camera;
-	t_obj_list			*lights;
-	t_obj_list			*objects;
+	mlx_t		*display;
+	mlx_image_t	*image;
+	t_camera	*camera;
+	t_obj_list	*lights;
+	t_obj_list	*objects;
+	int			pixelation;
 }						t_scene;
 
 /* ==== MAP ==== */
 
-void	create_scene(char *file_name, t_scene *scene);
+t_scene	*create_scene(char **argv);
 
 /* ==== UTILS ==== */
 
@@ -218,9 +212,12 @@ t_error					create_camera(char **info, t_scene *scene);
 t_error					create_sphere(char **info, t_scene *scene);
 t_error					create_plane(char **info, t_scene *scene);
 t_error					create_cylinder(char **info, t_scene *scene);
+void					update_camera(t_camera *camera);
+
 
 /* ==== UTILS ==== */
 
+int	ft_clamp(int min, int max, int value);
 void	exit_scene(t_scene *scene, int line_index, int code);
 void	destroy_scene(t_scene *scene);
 
@@ -239,14 +236,40 @@ bool	doubles_equals(double a, double b);
 double	double_abs(double nb);
 
 /* ==== RAY ==== */
+
 t_ray   create_ray(t_vector3 point_1, t_vector3 point_2);
 t_ray	cast_ray(t_camera *camera, double coord_x, double coord_y);
 
 /* ==== LIGHT ==== */
-int light_test_inter(t_inter poi, t_scene *scene);
 
-void		draw_scene(t_scene *scene);
+int 	light_test_inter(t_inter poi, t_obj_list *lights, t_obj_list *objects);
+bool	test_shadow(t_ray int_to_light, t_inter poi, t_obj_list *objs);
+t_color	compute_amb_light(t_obj_list *lights, t_color color);
+t_color	compute_point_light(double angle, t_obj_list *lights, t_color color);
+
+
+/* ==== SPHERE INTERSECTION ====*/
+
 t_inter		test_sphere(t_ray ray, void *element);
+
+/* ==== PLANE INTERSECTION ==== */
+
 t_inter		test_plane(t_ray ray, void *element);
+
+/* ==== CYLINDER INTERSECTION ====*/
+
+t_inter		test_cylinder(t_ray ray, void *element);
+double		test_cylinder_height(t_ray ray, t_cylinder *cylinder, double t);
+void		swap_double(double *to_swap_1, double *to_swap_2);
+
 t_vector3	compute_poi(t_ray ray, double distance);
+
+/* ==== HOOKS ====*/
+void	end_display(void *param);
+void	key_pressed(mlx_key_data_t keydata, void *param);
+void	mouse_scrolling(double xdelta, double ydelta, void* param);
+bool	rotate_key(keys_t key, t_camera *camera, mlx_t *display);
+
+void	draw_scene(t_scene *scene, int pixelation);
+
 #endif

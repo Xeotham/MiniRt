@@ -12,6 +12,9 @@ SRCS = \
 	draw_scene.c \
 	color.c \
 	double.c \
+	hooks.c \
+	rotate.c \
+	utils.c \
 	parser/create_scene.c \
 	parser/element_list_utils.c \
 	parser/format.c \
@@ -28,8 +31,12 @@ SRCS = \
 	ray/ray.c \
 	intersection_test/sphere.c \
 	intersection_test/plane.c \
+	intersection_test/cylinder.c \
 	intersection_test/intersection_utils.c \
-	light/light_intersection.c
+	light/shadow.c \
+	light/light_intersection.c \
+	light/point_light_intersection.c \
+	light/ambiant_light_intersection.c \
 #============ TRANSFORM .c TO .o ============#
 MLX_DIR = MLX42
 OBJ_DIR = obj/
@@ -38,9 +45,10 @@ INCLUDE_DIR = includes
 MLX_INCLUDE = $(MLX_DIR)/include/MLX42
 OBJ = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 INCLUDES = -I$(INCLUDE_DIR) -I$(MLX_INCLUDE) -Ilibft/include
+FSANITIZE = -fsanitize=address
 LIBFT = libft/libft.a
 LIBMLX = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
-TEST_SCENE = test.rt
+TEST_ARGS = test.rt 5
 V_FLAGS = --leak-check=full --show-leak-kinds=all --track-fds=yes
 
 all : libmlx $(NAME)
@@ -61,17 +69,21 @@ $(OBJ_DIR)%.o : $(SRCS_DIR)%.c
 	@ $(CC) $(DEBUG_FLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME) : $(LIBFT) $(OBJ)
-	@ $(CC) $(DEBUG_FLAGS) $(OBJ) -o $(NAME) $(LIBFT) $(LIBMLX)
+	@ $(CC) $(OBJ) -o $(NAME) $(LIBFT) $(LIBMLX)
+	@ echo "miniRT Compiled !"
+
+fsanitize : new
+	@ $(CC) $(FSANITIZE) $(OBJ) -o $(NAME) $(LIBFT) $(LIBMLX)
 	@ echo "miniRT Compiled !"
 
 run : all
-	@ ./$(NAME) $(TEST_SCENE)
+	@ ./$(NAME) $(TEST_ARGS)
 
 gdb : all
-	@ gdb --tui $(NAME) -ex 'start $(TEST_SCENE)'
+	@ gdb --tui $(NAME) -ex 'start $(TEST_ARGS)'
 
 valgrind : all
-	@ valgrind $(V_FLAGS) ./$(NAME) $(TEST_SCENE)
+	@ valgrind $(V_FLAGS) ./$(NAME) $(TEST_ARGS)
 
 clean :
 	@ $(MAKE) -C libft clean --no-print-directory
@@ -85,4 +97,4 @@ re : fclean all
 
 new : clean all
 
-.PHONY : all clean fclean re run gdb valgrind new
+.PHONY : all clean fclean re run gdb valgrind new fsanitize

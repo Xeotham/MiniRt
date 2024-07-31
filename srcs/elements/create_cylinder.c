@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:11:00 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/21 18:09:23 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/28 17:58:10 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_error	get_informations(char **info, t_cylinder *cylinder)
 		return (ERR_CYL_COORD);
 	if (get_vector(info[2], &cylinder->axis))
 		return (ERR_CYL_AXIS);
-	if (get_measure(info[3], &cylinder->diameter))
+	if (get_measure(info[3], &cylinder->radius))
 		return (ERR_CYL_DIAM);
 	if (get_measure(info[4], &cylinder->height))
 		return (ERR_CYL_HGT);
@@ -44,7 +44,9 @@ t_error	create_cylinder(char **info, t_scene *scene)
 	}
 	obj->obj_id = ID_CYLINDER;
 	obj->obj_struct = cylinder;
+	obj->test_inter = test_cylinder;
 	ft_objadd_back(&scene->objects, obj);
 	ret = get_informations(info, cylinder);
+	cylinder->radius /= 2;
 	return (ret);
 }
