@@ -12,31 +12,39 @@ SRCS = \
 	draw_scene.c \
 	color.c \
 	double.c \
-	hooks.c \
 	rotate.c \
 	utils.c \
-	parser/create_scene.c \
-	parser/element_list_utils.c \
-	parser/format.c \
-	vector/vector.c \
-	vector/vector_math.c \
-	matrix/matrix.c \
-	matrix/matrix_product.c \
-	matrix/transform_matrix.c \
 	elements/create_light.c \
 	elements/create_plane.c \
 	elements/create_sphere.c \
 	elements/create_camera.c \
 	elements/create_cylinder.c \
-	ray/ray.c \
+	hooks/hooks.c \
+	hooks/hooks_utils.c \
+	hooks/light_hooks.c \
+	hooks/plane_hooks.c \
+	hooks/sphere_hooks.c \
+	hooks/camera_hooks.c \
+	hooks/cylinder_hooks.c\
+	hooks/hooks_object_utils.c \
 	intersection_test/sphere.c \
 	intersection_test/plane.c \
 	intersection_test/cylinder.c \
+	intersection_test/cylinder_caps.c \
 	intersection_test/intersection_utils.c \
 	light/shadow.c \
 	light/light_intersection.c \
 	light/point_light_intersection.c \
 	light/ambiant_light_intersection.c \
+	matrix/matrix.c \
+	matrix/matrix_product.c \
+	matrix/transform_matrix.c \
+	parser/create_scene.c \
+	parser/element_list_utils.c \
+	parser/format.c \
+	ray/ray.c \
+	vector/vector.c \
+	vector/vector_math.c \
 #============ TRANSFORM .c TO .o ============#
 MLX_DIR = MLX42
 OBJ_DIR = obj/

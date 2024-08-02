@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/31 20:23:27 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/02 14:19:51 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct s_obj_list
 	t_identifier		obj_id;
 	void				*obj_struct;
 	struct s_inter		(*test_inter)(t_ray, void*);
+	struct s_obj_list	*prev;
 	struct s_obj_list	*next;
 }						t_obj_list;
 
@@ -117,6 +118,9 @@ typedef struct s_color
 	uint8_t	red;
 	uint8_t	green;
 	uint8_t	blue;
+	double	d_red;
+	double	d_green;
+	double	d_blue;
 }						t_color;
 
 typedef struct	s_inter
@@ -196,6 +200,7 @@ void					ft_objclear(t_obj_list **lst);
 void					ft_objadd_back(t_obj_list **lst, t_obj_list *new);
 t_obj_list				*ft_objlast(t_obj_list *lst);
 t_obj_list				*ft_objfind_id(t_obj_list *lst, t_identifier id);
+void	set_prev(t_obj_list *lst, t_obj_list *actual_prev);
 
 /* ==== LINK LIST ==== */
 
@@ -217,7 +222,9 @@ void					update_camera(t_camera *camera);
 
 /* ==== UTILS ==== */
 
-int	ft_clamp(int min, int max, int value);
+int		ft_clamp(int min, int max, int value);
+double	ft_dclamp(double min, double max, double value);
+void	create_double_color(t_color *color);
 void	exit_scene(t_scene *scene, int line_index, int code);
 void	destroy_scene(t_scene *scene);
 
@@ -244,8 +251,8 @@ t_ray	cast_ray(t_camera *camera, double coord_x, double coord_y);
 
 int 	light_test_inter(t_inter poi, t_obj_list *lights, t_obj_list *objects);
 bool	test_shadow(t_ray int_to_light, t_inter poi, t_obj_list *objs);
-t_color	compute_amb_light(t_obj_list *lights, t_color color);
-t_color	compute_point_light(double angle, t_obj_list *lights, t_color color);
+t_color	compute_amb_light(t_obj_list *lights);
+t_color	compute_point_light(double angle, t_obj_list *lights);
 
 
 /* ==== SPHERE INTERSECTION ====*/
@@ -261,6 +268,7 @@ t_inter		test_plane(t_ray ray, void *element);
 t_inter		test_cylinder(t_ray ray, void *element);
 double		test_cylinder_height(t_ray ray, t_cylinder *cylinder, double t);
 void		swap_double(double *to_swap_1, double *to_swap_2);
+double		compute_cap(t_ray ray, t_cylinder *cylinder, t_vector3 *normal);
 
 t_vector3	compute_poi(t_ray ray, double distance);
 
@@ -269,6 +277,19 @@ void	end_display(void *param);
 void	key_pressed(mlx_key_data_t keydata, void *param);
 void	mouse_scrolling(double xdelta, double ydelta, void* param);
 bool	rotate_key(keys_t key, t_camera *camera, mlx_t *display);
+bool	modify_lights(keys_t key, t_obj_list *lights, mlx_t *display);
+void	modify_sphere(keys_t key, void **ptr, mlx_t *display);
+void	modify_cylinder(keys_t key, void **ptr, mlx_t *display);
+void	modify_plane(keys_t key, void **ptr, mlx_t *display);
+void	check_axis_state(keys_t key, bool *axis);
+void	check_normal_state(keys_t key, bool *axis);
+bool	change_fov(keys_t key, t_camera *camera);
+bool	change_pixelation(keys_t key, int *pixelation);
+bool	translate_cam_hold(keys_t key, t_camera *camera);
+bool	translate_cam_press(keys_t key, t_camera *camera);
+bool	type_to_move(keys_t key, action_t action, bool *light, bool *object);
+void	print_actual_obj(t_obj_list *obj, t_obj_list *list);
+bool	modify_objs(keys_t key, t_obj_list *objs, mlx_t *display);
 
 void	draw_scene(t_scene *scene, int pixelation);
 

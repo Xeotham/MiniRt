@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 09:05:32 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/30 14:54:14 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/02 11:44:59 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,23 @@ static int	test_light(t_ray int_to_light, t_inter poi, t_obj_list *lights,
 	t_color	point_light_color;
 
 	color = 0xff;
-	angle = acos(dot_product(poi.normal, int_to_light.dir));
+	angle = dot_product(poi.normal, int_to_light.dir);
+	if (angle < 0)
+		angle = 0;
 	if (!test_shadow(int_to_light, poi, objects))
 		ft_bzero(&point_light_color, sizeof(t_color));
 	else
-		point_light_color = compute_point_light(angle, lights, poi.color);
-	amb_light_color = compute_amb_light(lights, poi.color);
-	color = point_light_color.red + amb_light_color.red;
+		point_light_color = compute_point_light(angle, lights);
+	amb_light_color = compute_amb_light(lights);
+	color = poi.color.red *
+		(point_light_color.d_red + amb_light_color.d_red);
 	poi.color.red = ft_clamp(0, 255, color);
-	color = point_light_color.green + amb_light_color.green;
+	color = poi.color.green *
+		(point_light_color.d_green + amb_light_color.d_green);
 	poi.color.green = ft_clamp(0, 255, color);
-	color = point_light_color.blue + amb_light_color.blue;
+	color = poi.color.blue *
+		(point_light_color.d_blue + amb_light_color.d_blue);
 	poi.color.blue = ft_clamp(0, 255, color);
-	// poi.color.red = point_light_color.red + amb_light_color.red;
-	// poi.color.green = point_light_color.green + amb_light_color.green;
-	// poi.color.blue = point_light_color.blue + amb_light_color.blue;
 	color = set_rgba(poi.color.red, poi.color.green, poi.color.blue, 0xff);
 	return (color);
 }

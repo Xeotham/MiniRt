@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:26:02 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/28 16:14:38 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:18:54 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ static t_error	read_file(int fd, t_scene *scene, int *line_index)
 			return (error);
 		line = get_next_line(fd);
 	}
+	if (error == NO_ERR)
+		set_prev(scene->objects, NULL);
 	return (error);
 }
 

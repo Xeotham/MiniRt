@@ -6,11 +6,25 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:10:19 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/26 18:15:04 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/02 14:24:13 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
+
+void	set_prev(t_obj_list *lst, t_obj_list *actual_prev)
+{
+	if (!actual_prev)
+	{
+		lst->prev = NULL;
+		set_prev(lst->next, lst);
+	}
+	else if (lst)
+	{
+		lst->prev = actual_prev;
+		set_prev(lst->next, actual_prev->next);
+	}
+}
 
 t_obj_list	*ft_objlast(t_obj_list *lst)
 {
