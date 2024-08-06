@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:08:18 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/02 12:20:55 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/06 08:56:08 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void modify_sphere_color(keys_t key, t_sphere **sphere,
 {
     if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_1)
 		&& (*sphere)->color.red - 1 >= 0)
-		(*sphere)->color.red += 0.5;
+		(*sphere)->color.red--;
 	else if (key == MLX_KEY_RIGHT && mlx_is_key_down(display, MLX_KEY_1)
 		&& (*sphere)->color.red + 1 <= 255)
 		(*sphere)->color.red++;

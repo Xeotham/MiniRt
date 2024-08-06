@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/02 14:19:51 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/06 09:19:48 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,7 +277,7 @@ void	end_display(void *param);
 void	key_pressed(mlx_key_data_t keydata, void *param);
 void	mouse_scrolling(double xdelta, double ydelta, void* param);
 bool	rotate_key(keys_t key, t_camera *camera, mlx_t *display);
-bool	modify_lights(keys_t key, t_obj_list *lights, mlx_t *display);
+bool	modify_lights(keys_t key, t_obj_list *lights, t_scene *scene);
 void	modify_sphere(keys_t key, void **ptr, mlx_t *display);
 void	modify_cylinder(keys_t key, void **ptr, mlx_t *display);
 void	modify_plane(keys_t key, void **ptr, mlx_t *display);
@@ -288,9 +288,18 @@ bool	change_pixelation(keys_t key, int *pixelation);
 bool	translate_cam_hold(keys_t key, t_camera *camera);
 bool	translate_cam_press(keys_t key, t_camera *camera);
 bool	type_to_move(keys_t key, action_t action, bool *light, bool *object);
-void	print_actual_obj(t_obj_list *obj, t_obj_list *list);
-bool	modify_objs(keys_t key, t_obj_list *objs, mlx_t *display);
+bool	modify_objs(keys_t key, t_obj_list *objs, t_scene *scene);
 
 void	draw_scene(t_scene *scene, int pixelation);
+
+/* ==== MENU ==== */
+void	print_menu(t_scene *scene, t_obj_list *obj);
+void	print_gauge(int max, double value, char *color, char *value_name);
+void	print_amb_light(void *obj);
+void	print_point_light(void *obj);
+size_t	get_actual_obj_nb(t_obj_list *obj, t_obj_list *list);
+void	print_sphere_info(t_obj_list *obj, t_obj_list *lst);
+void	print_plane_info(t_obj_list *obj, t_obj_list *lst);
+void	print_cylinder_info(t_obj_list *obj, t_obj_list *lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:03:36 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/08/02 14:20:24 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/06 08:52:23 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,12 @@ void	key_pressed(mlx_key_data_t keydata, void *param)
 	else if (mods[LIGHT] == true && action != MLX_RELEASE
 		&& (key == MLX_KEY_COMMA || key == MLX_KEY_PERIOD
 		|| key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT))
-		draw = modify_lights(key, scene->lights, scene->display);
+		draw = modify_lights(key, scene->lights, scene);
 	else if (mods[OBJ] == true && action != MLX_RELEASE
 		&& (key == MLX_KEY_COMMA || key == MLX_KEY_PERIOD
 		|| key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT || key == MLX_KEY_M))
-		draw = modify_objs(key, scene->objects, scene->display);
+		draw = modify_objs(key, scene->objects, scene);
+	print_menu(scene, NULL);
 	if (draw)
 		draw_scene(scene, scene->pixelation);
 }

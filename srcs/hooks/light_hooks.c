@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:33:21 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/01 09:37:25 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/05 15:09:54 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@ static const bool g_draw = true;
 static const bool g_no_draw = false;
 #define LIGHT	0
 #define OBJ		1
-
-
-static void	print_actual_light(t_identifier id)
-{
-	if (id == ID_AMB_LIGHT)
-		printf("Currently modifying the Ambiant Light.\n");
-	else if (id == ID_LIGHT)
-		printf("Currently modifying the Point Light.\n");
-}
 
 static void	modify_point_light(keys_t key, void **ptr, mlx_t *display)
 {
@@ -82,27 +73,29 @@ static void	modify_ambiant_light(keys_t key, void **ptr, mlx_t *display)
 		(*light)->ratio += 0.1;
 }
 
-bool	modify_lights(keys_t key, t_obj_list *lights, mlx_t *display)
+bool	modify_lights(keys_t key, t_obj_list *lights, t_scene *scene)
 {
 	static t_obj_list	**actual_light = NULL;
+	bool				ret;
 
+	ret = g_draw;
 	if (!actual_light || ((key == MLX_KEY_PERIOD || key == MLX_KEY_COMMA)
 		&& !(*actual_light)->next))
 	{
 		actual_light = &lights;
-		print_actual_light((*actual_light)->obj_id);
-		return (g_no_draw);
+		ret = g_no_draw;
 	}
 	else if ((key == MLX_KEY_PERIOD || key == MLX_KEY_COMMA)
 		&& (*actual_light)->next)
 	{
 		actual_light = &lights->next;
-		print_actual_light((*actual_light)->obj_id);
-		return (g_no_draw);
+		ret = g_no_draw;
 	}
 	else if ((*actual_light)->obj_id == ID_LIGHT)
-		modify_point_light(key, &(*actual_light)->obj_struct, display);
+		modify_point_light(key, &(*actual_light)->obj_struct, scene->display);
 	else if ((*actual_light)->obj_id == ID_AMB_LIGHT)
-		modify_ambiant_light(key, &(*actual_light)->obj_struct, display);
+		modify_ambiant_light(key, &(*actual_light)->obj_struct, scene->display);
+	if (*actual_light)
+		print_menu(scene, (*actual_light));
 	return (g_draw);
 }

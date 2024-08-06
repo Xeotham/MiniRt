@@ -45,6 +45,10 @@ SRCS = \
 	ray/ray.c \
 	vector/vector.c \
 	vector/vector_math.c \
+	menu/menu.c \
+	menu/menu_light.c \
+	menu/menu_utils.c \
+	menu/menu_obj.c \
 #============ TRANSFORM .c TO .o ============#
 MLX_DIR = MLX42
 OBJ_DIR = obj/
