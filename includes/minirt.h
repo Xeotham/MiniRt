@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/06 09:19:48 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/22 23:16:25 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ typedef enum e_error
 	ERR_EMPTY_FILE,
 	ERR_FILE_NAME,
 	ERR_MLX
-}t_error;
+}	t_error;
 
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
-# define ASPECT (16.0 / 9.0)
+# define ASPECT 1.77778
 
 /* ==== STRUCT ==== */
 
@@ -96,7 +96,7 @@ typedef struct s_obj_transform
 	double				teta_z;
 }						t_obj_transform;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
 	t_vector3	origin;
 	t_vector3	dest;
@@ -112,7 +112,6 @@ typedef struct s_obj_list
 	struct s_obj_list	*next;
 }						t_obj_list;
 
-
 typedef struct s_color
 {
 	uint8_t	red;
@@ -123,7 +122,7 @@ typedef struct s_color
 	double	d_blue;
 }						t_color;
 
-typedef struct	s_inter
+typedef struct s_inter
 {
 	t_vector3		point;
 	t_vector3		normal;
@@ -159,7 +158,6 @@ typedef struct s_sphere
 	t_vector3		coord;
 	double			radius;
 	t_color			color;
-	t_obj_transform	*matrix;
 }						t_sphere;
 
 typedef struct s_plane
@@ -167,17 +165,16 @@ typedef struct s_plane
 	t_vector3		coord;
 	t_vector3		normal;
 	t_color			color;
-	t_obj_transform	*matrix;
 }						t_plane;
 
 typedef struct s_cylinder
 {
-	t_vector3		coord;
+	t_vector3		center;
+	t_vector3		bot_center;
 	t_vector3		axis;
 	double			radius;
 	double			height;
 	t_color			color;
-	t_obj_transform	*matrix;
 }						t_cylinder;
 
 typedef struct s_scene
@@ -192,68 +189,67 @@ typedef struct s_scene
 
 /* ==== MAP ==== */
 
-t_scene	*create_scene(char **argv);
+t_scene		*create_scene(char **argv);
 
 /* ==== UTILS ==== */
 
-void					ft_objclear(t_obj_list **lst);
-void					ft_objadd_back(t_obj_list **lst, t_obj_list *new);
-t_obj_list				*ft_objlast(t_obj_list *lst);
-t_obj_list				*ft_objfind_id(t_obj_list *lst, t_identifier id);
-void	set_prev(t_obj_list *lst, t_obj_list *actual_prev);
+void		ft_objclear(t_obj_list **lst);
+void		ft_objadd_back(t_obj_list **lst, t_obj_list *new);
+t_obj_list	*ft_objlast(t_obj_list *lst);
+t_obj_list	*ft_objfind_id(t_obj_list *lst, t_identifier id);
+void		set_prev(t_obj_list *lst, t_obj_list *actual_prev);
 
 /* ==== LINK LIST ==== */
 
-int						get_obj_list(char **map, t_scene *scene);
+int			get_obj_list(char **map, t_scene *scene);
 
 /* ==== COLOR ==== */
-int	set_rgba(int r, int g, int b, int a);
+int			set_rgba(int r, int g, int b, int a);
 
 /* ==== SET OBJECT ==== */
 
-t_error					create_amb_light(char **info, t_scene *scene);
-t_error					create_point_light(char **info, t_scene *scene);
-t_error					create_camera(char **info, t_scene *scene);
-t_error					create_sphere(char **info, t_scene *scene);
-t_error					create_plane(char **info, t_scene *scene);
-t_error					create_cylinder(char **info, t_scene *scene);
-void					update_camera(t_camera *camera);
-
+t_error		create_amb_light(char **info, t_scene *scene);
+t_error		create_point_light(char **info, t_scene *scene);
+t_error		create_camera(char **info, t_scene *scene);
+t_error		create_sphere(char **info, t_scene *scene);
+t_error		create_plane(char **info, t_scene *scene);
+t_error		create_cylinder(char **info, t_scene *scene);
+void		update_camera(t_camera *camera);
 
 /* ==== UTILS ==== */
 
-int		ft_clamp(int min, int max, int value);
-double	ft_dclamp(double min, double max, double value);
-void	create_double_color(t_color *color);
-void	exit_scene(t_scene *scene, int line_index, int code);
-void	destroy_scene(t_scene *scene);
+int			ft_clamp(int min, int max, int value);
+double		ft_dclamp(double min, double max, double value);
+void		exit_scene(t_scene *scene, int line_index, int code);
+void		destroy_scene(t_scene *scene);
+char		*get_line_trim(int fd, char *set);
 
 /* ==== PARSER ==== */
 
-bool	get_light_ratio(char *ratio, double *result);
-bool	get_color(char *color, t_color *result);
-bool	get_point(char *point, t_vector3 *vector);
-bool	get_vector(char *vector, t_vector3 *result);
-bool	get_fov(char *fov, int *result);
-bool	get_measure(char *measure, double *result);
+bool		get_light_ratio(char *ratio, double *result);
+bool		get_color(char *color, t_color *result);
+bool		get_point(char *point, t_vector3 *vector);
+bool		get_vector(char *vector, t_vector3 *result);
+bool		get_fov(char *fov, int *result);
+bool		get_measure(char *measure, double *result);
 
 /* ==== DOUBLE ==== */
 
-bool	doubles_equals(double a, double b);
-double	double_abs(double nb);
+bool		doubles_equals(double a, double b);
+double		double_abs(double nb);
 
 /* ==== RAY ==== */
 
-t_ray   create_ray(t_vector3 point_1, t_vector3 point_2);
-t_ray	cast_ray(t_camera *camera, double coord_x, double coord_y);
+t_ray		create_ray(t_vector3 point_1, t_vector3 point_2);
+t_ray		cast_ray(t_camera *camera, double coord_x, double coord_y);
 
 /* ==== LIGHT ==== */
 
-int 	light_test_inter(t_inter poi, t_obj_list *lights, t_obj_list *objects);
-bool	test_shadow(t_ray int_to_light, t_inter poi, t_obj_list *objs);
-t_color	compute_amb_light(t_obj_list *lights);
-t_color	compute_point_light(double angle, t_obj_list *lights);
-
+int			light_test_inter(t_inter poi, t_obj_list *lights,
+				t_obj_list *objects);
+bool		test_shadow(t_ray int_to_light, t_inter poi, t_obj_list *objs);
+t_color		compute_amb_light(t_obj_list *lights);
+t_color		compute_point_light(double angle, t_obj_list *lights);
 
 /* ==== SPHERE INTERSECTION ====*/
 
@@ -262,44 +258,46 @@ t_inter		test_sphere(t_ray ray, void *element);
 /* ==== PLANE INTERSECTION ==== */
 
 t_inter		test_plane(t_ray ray, void *element);
+double		compute_plane_equation(t_vector3 point, t_vector3 normal, t_ray ray);
 
 /* ==== CYLINDER INTERSECTION ====*/
 
 t_inter		test_cylinder(t_ray ray, void *element);
 double		test_cylinder_height(t_ray ray, t_cylinder *cylinder, double t);
 void		swap_double(double *to_swap_1, double *to_swap_2);
-double		compute_cap(t_ray ray, t_cylinder *cylinder, t_vector3 *normal);
+t_inter		compute_cap(t_ray ray, t_cylinder *cylinder);
 
-t_vector3	compute_poi(t_ray ray, double distance);
+t_vector3	compute_point(t_vector3 orig, t_vector3 dir, double distance);
 
 /* ==== HOOKS ====*/
-void	end_display(void *param);
-void	key_pressed(mlx_key_data_t keydata, void *param);
-void	mouse_scrolling(double xdelta, double ydelta, void* param);
-bool	rotate_key(keys_t key, t_camera *camera, mlx_t *display);
-bool	modify_lights(keys_t key, t_obj_list *lights, t_scene *scene);
-void	modify_sphere(keys_t key, void **ptr, mlx_t *display);
-void	modify_cylinder(keys_t key, void **ptr, mlx_t *display);
-void	modify_plane(keys_t key, void **ptr, mlx_t *display);
-void	check_axis_state(keys_t key, bool *axis);
-void	check_normal_state(keys_t key, bool *axis);
-bool	change_fov(keys_t key, t_camera *camera);
-bool	change_pixelation(keys_t key, int *pixelation);
-bool	translate_cam_hold(keys_t key, t_camera *camera);
-bool	translate_cam_press(keys_t key, t_camera *camera);
-bool	type_to_move(keys_t key, action_t action, bool *light, bool *object);
-bool	modify_objs(keys_t key, t_obj_list *objs, t_scene *scene);
+void		end_display(void *param);
+void		key_pressed(mlx_key_data_t keydata, void *param);
+void		mouse_scrolling(double xdelta, double ydelta, void *param);
+bool		rotate_key(keys_t key, t_camera *camera, mlx_t *display);
+bool		modify_lights(keys_t key, t_obj_list *lights, t_scene *scene);
+void		modify_sphere(keys_t key, void **ptr, mlx_t *display);
+void		modify_cylinder(keys_t key, void **ptr, mlx_t *display);
+void		modify_plane(keys_t key, void **ptr, mlx_t *display);
+void		check_axis_state(keys_t key, bool *axis);
+void		check_normal_state(keys_t key, bool *axis);
+bool		change_fov(keys_t key, t_camera *camera);
+bool		change_pixelation(keys_t key, int *pixelation);
+bool		translate_cam_hold(keys_t key, t_camera *camera);
+bool		translate_cam_press(keys_t key, t_camera *camera);
+bool		type_to_move(keys_t key, action_t action, bool *light,
+				bool *object);
+bool		modify_objs(keys_t key, t_obj_list *objs, t_scene *scene);
 
-void	draw_scene(t_scene *scene, int pixelation);
+void		draw_scene(t_scene *scene, int pixelation);
 
 /* ==== MENU ==== */
-void	print_menu(t_scene *scene, t_obj_list *obj);
-void	print_gauge(int max, double value, char *color, char *value_name);
-void	print_amb_light(void *obj);
-void	print_point_light(void *obj);
-size_t	get_actual_obj_nb(t_obj_list *obj, t_obj_list *list);
-void	print_sphere_info(t_obj_list *obj, t_obj_list *lst);
-void	print_plane_info(t_obj_list *obj, t_obj_list *lst);
-void	print_cylinder_info(t_obj_list *obj, t_obj_list *lst);
+void		print_menu(t_scene *scene, t_obj_list *obj, bool *mods);
+void		print_gauge(int max, double value, char *color, char *value_name);
+void		print_amb_light(void *obj);
+void		print_point_light(void *obj);
+size_t		get_actual_obj_nb(t_obj_list *obj, t_obj_list *list);
+void		print_sphere_info(t_obj_list *obj, t_obj_list *lst);
+void		print_plane_info(t_obj_list *obj, t_obj_list *lst);
+void		print_cylinder_info(t_obj_list *obj, t_obj_list *lst);
 
 #endif

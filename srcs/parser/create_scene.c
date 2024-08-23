@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:26:02 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/02 14:18:54 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/22 23:43:15 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_error	parse_line(char *line, t_scene *scene)
 	t_identifier	id;
 	t_error			error;
 	char			**info;
-	t_error (*element_create[6])(char **, t_scene *);
+	t_error 		(*element_create[6])(char **, t_scene *);
 
 	format_spaces(line);
 	if (!*line)
@@ -90,7 +90,7 @@ static t_error	read_file(int fd, t_scene *scene, int *line_index)
 
 	*line_index = 0;
 	error = ERR_EMPTY_FILE;
-	line = get_next_line(fd);
+	line = get_line_trim(fd, "\a\b\t\n\v\f\r ");
 	while (line)
 	{
 		error = parse_line(line, scene);
@@ -98,10 +98,15 @@ static t_error	read_file(int fd, t_scene *scene, int *line_index)
 		(*line_index)++;
 		if (error)
 			return (error);
-		line = get_next_line(fd);
+		line = get_line_trim(fd, "\a\b\t\n\v\f\r ");
 	}
 	if (error == NO_ERR)
-		set_prev(scene->objects, NULL);
+	{
+		if (scene->objects)
+			set_prev(scene->objects, NULL);
+		if (scene->lights)
+			set_prev(scene->lights, NULL);
+	}
 	return (error);
 }
 

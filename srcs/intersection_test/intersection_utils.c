@@ -6,20 +6,20 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:07:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/29 19:17:52 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/22 14:23:36 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
+#include <mrt_vector.h>
 
-t_vector3	compute_poi(t_ray ray, double distance)
+t_vector3	compute_point(t_vector3 orig, t_vector3 dir, double distance)
 {
-	t_vector3	dir;
-	t_vector3	poi;
+	t_vector3	point;
 
-	dir = scalar_prod(ray.dir, distance);
-	poi = vector_add(ray.origin, dir);
-	return (poi);
+	point = scalar_prod(dir, distance);
+	point = vector_add(orig, point);
+	return (point);
 }
 
 void	swap_double(double *to_swap_1, double *to_swap_2)
@@ -31,15 +31,11 @@ void	swap_double(double *to_swap_1, double *to_swap_2)
 	(*to_swap_2) = tmp;
 }
 
-double	test_cylinder_height(t_ray ray, t_cylinder *cylinder, double t)
+bool	vector_equals(t_vector3 v1, t_vector3 v2)
 {
-	double	h_test;
-
-	if (t < 0)
-		return (-1);
-	h_test = ray.origin.z + (t * ray.dir.z);
-	if (h_test < cylinder->height)
-		return (t);
-	else
-		return (-1);
+	if (doubles_equals(v1.x, v2.x))
+		if (doubles_equals(v1.y, v2.y))
+			if (doubles_equals(v1.z, v2.z))
+				return (true);
+	return (false);
 }

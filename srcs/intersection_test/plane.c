@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 19:06:34 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/23 21:01:49 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/08/16 21:20:22 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,16 @@ static double	compute_equation(double z_orig, double z_dir)
 	return (-z_orig / z_dir);
 }*/
 
-static double	compute_equation(t_plane *plane, t_ray ray)
+double	compute_plane_equation(t_vector3 point, t_vector3 normal, t_ray ray)
 {
-	double		denom;
-	double		solution;
-	t_vector3	trans_origin;
+	const double	denom = dot_product(normal, ray.dir);
+	t_vector3		plane_to_orig;
+	double			solution;
 
-	denom = dot_product(plane->normal, ray.dir);
 	if (doubles_equals(denom, 0))
 		return (g_no_solution);
-	trans_origin = vector_sub(plane->coord, ray.origin);
-	solution = dot_product(trans_origin, plane->normal) / denom;
+	plane_to_orig = vector_sub(point, ray.origin);
+	solution = dot_product(plane_to_orig, normal) / denom;
 	if (solution < 0 || doubles_equals(solution, 0))
 		return (g_no_solution);
 	return (solution);
@@ -94,16 +93,14 @@ static double	compute_equation(t_plane *plane, t_ray ray)
 
 t_inter	test_plane(t_ray ray, void *element)
 {
-	t_plane	*plane;
-	t_inter	result;
+	const t_plane	*plane = (t_plane *) element;
+	t_inter			result;
 
-	plane = (t_plane *) element;
-	result.distance = compute_equation(plane, ray);
+	result.distance = compute_plane_equation(plane->coord, plane->normal, ray);
 	if (result.distance == g_no_solution)
 		return (result);
-	result.point = compute_poi(ray, result.distance);
+	result.point = compute_point(ray.origin, ray.dir, result.distance);
 	result.normal = plane->normal;
-	result.normal = normalize_vector(result.normal);
 	result.color = plane->color;
 	result.element = element;
 	return (result);

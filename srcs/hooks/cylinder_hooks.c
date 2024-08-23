@@ -6,49 +6,49 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:21:09 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/05 14:00:01 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/15 18:24:16 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-static void modify_cylinder_coordinate(keys_t key, t_cylinder **cylinder,
-    mlx_t *display)
+static void	modify_cylinder_coordinate(keys_t key, t_cylinder **cylinder,
+	mlx_t *display)
 {
-    if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_Z))
-		(*cylinder)->coord.z -= 0.1;
+	if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_Z))
+		(*cylinder)->bot_center.z -= 0.1;
 	else if (key == MLX_KEY_RIGHT && mlx_is_key_down(display, MLX_KEY_Z))
-		(*cylinder)->coord.z += 0.1;
+		(*cylinder)->bot_center.z += 0.1;
 	else if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_X))
-		(*cylinder)->coord.x -= 0.1;
+		(*cylinder)->bot_center.x -= 0.1;
 	else if (key == MLX_KEY_RIGHT && mlx_is_key_down(display, MLX_KEY_X))
-		(*cylinder)->coord.x += 0.1;
+		(*cylinder)->bot_center.x += 0.1;
 	else if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_C))
-		(*cylinder)->coord.y -= 0.1;
+		(*cylinder)->bot_center.y -= 0.1;
 	else if (key == MLX_KEY_RIGHT && mlx_is_key_down(display, MLX_KEY_C))
-		(*cylinder)->coord.y += 0.1;
+		(*cylinder)->bot_center.y += 0.1;
 }
 
-static void modify_cylinder_axis(keys_t key, t_cylinder **cylinder,
-    mlx_t *display)
+static void	modify_cylinder_axis(keys_t key, t_cylinder **cylinder,
+	mlx_t *display)
 {
-    if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_Z))
-		(*cylinder)->coord.z -= 0.1;
+	if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_Z))
+		(*cylinder)->axis.z -= 0.1;
 	else if (key == MLX_KEY_RIGHT && mlx_is_key_down(display, MLX_KEY_Z))
-		(*cylinder)->coord.z += 0.1;
+		(*cylinder)->axis.z += 0.1;
 	else if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_X))
-		(*cylinder)->coord.x -= 0.1;
+		(*cylinder)->axis.x -= 0.1;
 	else if (key == MLX_KEY_RIGHT && mlx_is_key_down(display, MLX_KEY_X))
-		(*cylinder)->coord.x += 0.1;
+		(*cylinder)->axis.x += 0.1;
 	else if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_C))
-		(*cylinder)->coord.y -= 0.1;
+		(*cylinder)->axis.y -= 0.1;
 	else if (key == MLX_KEY_RIGHT && mlx_is_key_down(display, MLX_KEY_C))
-		(*cylinder)->coord.y += 0.1;
+		(*cylinder)->axis.y += 0.1;
 	(*cylinder)->axis = normalize_vector((*cylinder)->axis);
 }
 
-static void modify_cylinder_size(keys_t key, t_cylinder **cylinder,
-    mlx_t *display)
+static void	modify_cylinder_size(keys_t key, t_cylinder **cylinder,
+	mlx_t *display)
 {
 	if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_R)
 		&& (*cylinder)->radius - 0.2 > 0)
@@ -63,7 +63,7 @@ static void modify_cylinder_size(keys_t key, t_cylinder **cylinder,
 }
 
 static void	modify_cylinder_color(keys_t key, t_cylinder **cylinder,
-    mlx_t *display)
+	mlx_t *display)
 {
 	if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_1)
 		&& (*cylinder)->color.red - 1 >= 0)
@@ -88,27 +88,27 @@ static void	modify_cylinder_color(keys_t key, t_cylinder **cylinder,
 void	modify_cylinder(keys_t key, void **ptr, mlx_t *display)
 {
 	static bool	axis = false;
-	t_cylinder		**cylinder;
+	t_cylinder	**cylinder;
 
 	cylinder = (t_cylinder **)ptr;
 	check_axis_state(key, &axis);
 	if (!axis && ((key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
-        && (mlx_is_key_down(display, MLX_KEY_Z)
-        || mlx_is_key_down(display, MLX_KEY_X)
-        || mlx_is_key_down(display, MLX_KEY_C))))
+			&& (mlx_is_key_down(display, MLX_KEY_Z)
+				|| mlx_is_key_down(display, MLX_KEY_X)
+				|| mlx_is_key_down(display, MLX_KEY_C))))
 		modify_cylinder_coordinate(key, cylinder, display);
 	else if (axis && ((key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
-        && (mlx_is_key_down(display, MLX_KEY_Z)
-        || mlx_is_key_down(display, MLX_KEY_X)
-        || mlx_is_key_down(display, MLX_KEY_C))))
-        modify_cylinder_axis(key, cylinder, display);
+			&& (mlx_is_key_down(display, MLX_KEY_Z)
+				|| mlx_is_key_down(display, MLX_KEY_X)
+				|| mlx_is_key_down(display, MLX_KEY_C))))
+		modify_cylinder_axis(key, cylinder, display);
 	else if ((key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
-        && (mlx_is_key_down(display, MLX_KEY_R)
-        || mlx_is_key_down(display, MLX_KEY_H)))
+		&& (mlx_is_key_down(display, MLX_KEY_R)
+			|| mlx_is_key_down(display, MLX_KEY_H)))
 		modify_cylinder_size(key, cylinder, display);
 	else if ((key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
-        && (mlx_is_key_down(display, MLX_KEY_1)
-        || mlx_is_key_down(display, MLX_KEY_2)
-        || mlx_is_key_down(display, MLX_KEY_3)))
+		&& (mlx_is_key_down(display, MLX_KEY_1)
+			|| mlx_is_key_down(display, MLX_KEY_2)
+			|| mlx_is_key_down(display, MLX_KEY_3)))
 		modify_cylinder_color(key, cylinder, display);
 }

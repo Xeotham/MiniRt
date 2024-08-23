@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:58:08 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/23 15:49:23 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:05:30 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # define PIE 3.14159265
 
-typedef double** t_matrix;
+typedef double**	t_matrix;
 
 t_matrix	create_matrix(size_t x, size_t y);
 t_matrix	copy_matrix(t_matrix matrix);
@@ -33,10 +33,11 @@ t_matrix	set_r_z_matrix(double teta);
 bool		mat_vec_product(t_matrix matrix, t_vector3 *vector);
 t_vector3	matrix_to_vector(t_matrix matrix);
 void		identity_matrix(t_matrix matrix);
-void	swap_rows(t_matrix matrix, int row1, int row2);
-void	mult_to_row(t_matrix matrix[2], int row, double mult);
-void	mult_and_add_to_row(t_matrix matrix[2], int row1, int row2, double mult);
-int		is_identity(t_matrix matrix);
-int	get_max_elem_row(t_matrix matrix, int collumn);
+void		swap_rows(t_matrix matrix, int row1, int row2);
+void		mult_to_row(t_matrix matrix[2], int row, double mult);
+void		mult_and_add_to_row(t_matrix matrix[2], int row1,
+				int row2, double mult);
+int			is_identity(t_matrix matrix);
+int			get_max_elem_row(t_matrix matrix, int collumn);
 
 #endif

@@ -6,24 +6,28 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:11:00 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/28 17:58:10 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/15 18:29:10 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-static t_error	get_informations(char **info, t_cylinder *cylinder)
+static t_error	get_informations(char **info, t_cylinder *cyl)
 {
-	if (get_point(info[1], &cylinder->coord))
+	double		cyl_diameter;
+
+	if (get_point(info[1], &cyl->center))
 		return (ERR_CYL_COORD);
-	if (get_vector(info[2], &cylinder->axis))
+	if (get_vector(info[2], &cyl->axis))
 		return (ERR_CYL_AXIS);
-	if (get_measure(info[3], &cylinder->radius))
+	if (get_measure(info[3], &cyl_diameter))
 		return (ERR_CYL_DIAM);
-	if (get_measure(info[4], &cylinder->height))
+	if (get_measure(info[4], &cyl->height))
 		return (ERR_CYL_HGT);
-	if (get_color(info[5], &cylinder->color))
+	if (get_color(info[5], &cyl->color))
 		return (ERR_CYL_COLOR);
+	cyl->radius = cyl_diameter / 2;
+	cyl->bot_center = compute_point(cyl->center, cyl->axis, cyl->height / -2);
 	return (NO_ERR);
 }
 
@@ -47,6 +51,5 @@ t_error	create_cylinder(char **info, t_scene *scene)
 	obj->test_inter = test_cylinder;
 	ft_objadd_back(&scene->objects, obj);
 	ret = get_informations(info, cylinder);
-	cylinder->radius /= 2;
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:10:19 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/02 14:24:13 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/22 23:36:42 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	set_prev(t_obj_list *lst, t_obj_list *actual_prev)
 {
-	if (!actual_prev)
+	if (!actual_prev && lst)
 	{
 		lst->prev = NULL;
 		set_prev(lst->next, lst);

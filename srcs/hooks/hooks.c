@@ -6,14 +6,14 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:03:36 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/08/06 08:52:23 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/13 15:01:20 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include <minirt.h>
 
-// static const bool g_draw = true;
-static const bool g_no_draw = false;
+#define DRAW 	true
+#define NO_DRAW	false
 #define LIGHT	0
 #define OBJ		1
 
@@ -41,18 +41,11 @@ static void	render_scene(t_scene *scene)
 	}
 }
 
-void	key_pressed(mlx_key_data_t keydata, void *param)
+static bool	check_cam_key(keys_t key, action_t action, t_scene *scene)
 {
-	const keys_t	key = keydata.key;
-	const action_t	action = keydata.action;
-	bool			draw;
-	t_scene			*scene;
-	static bool		mods[2] = {false, false};
+	bool	draw;
 
-	scene = (t_scene *) param;
-	draw = g_no_draw;
-	if (!type_to_move(key, action, &mods[LIGHT], &mods[OBJ]))
-		return ;
+	draw = NO_DRAW;
 	if (key == MLX_KEY_ESCAPE && action == MLX_RELEASE)
 		end_display(scene->display);
 	else if (key == MLX_KEY_W || key == MLX_KEY_S
@@ -66,28 +59,52 @@ void	key_pressed(mlx_key_data_t keydata, void *param)
 	}
 	else if (key == MLX_KEY_ENTER && action == MLX_PRESS)
 		render_scene(scene);
-	else if (action == MLX_PRESS && (key == MLX_KEY_EQUAL || key == MLX_KEY_MINUS))
+	else if ((key == MLX_KEY_PAGE_UP || key == MLX_KEY_PAGE_DOWN)
+		&& (action == MLX_PRESS || (action == MLX_REPEAT
+				&& scene->pixelation > 4)))
+		draw = change_fov(key, scene->camera);
+	else if ((key == MLX_KEY_Q || key == MLX_KEY_E) && action == MLX_PRESS)
+		draw = rotate_key(key, scene->camera, scene->display);
+	return (draw);
+}
+
+static bool	modify_elements(keys_t key, action_t action, t_scene *scene,
+		bool *mods)
+{
+	bool	draw;
+
+	draw = NO_DRAW;
+	if (action == MLX_PRESS && (key == MLX_KEY_EQUAL
+			|| key == MLX_KEY_MINUS))
 		draw = change_pixelation(key, &scene->pixelation);
-	else if (key == MLX_KEY_PAGE_UP || key == MLX_KEY_PAGE_DOWN)
-	{
-		if (action == MLX_PRESS
-			|| (action == MLX_REPEAT && scene->pixelation > 4))
-			draw = change_fov(key, scene->camera);
-	}
-	else if (key == MLX_KEY_Q || key == MLX_KEY_E)
-	{
-		if (action == MLX_PRESS)
-			draw = rotate_key(key, scene->camera, scene->display);
-	}
 	else if (mods[LIGHT] == true && action != MLX_RELEASE
 		&& (key == MLX_KEY_COMMA || key == MLX_KEY_PERIOD
-		|| key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT))
+			|| key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT || key == MLX_KEY_L))
 		draw = modify_lights(key, scene->lights, scene);
 	else if (mods[OBJ] == true && action != MLX_RELEASE
 		&& (key == MLX_KEY_COMMA || key == MLX_KEY_PERIOD
-		|| key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT || key == MLX_KEY_M))
+			|| key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT
+			|| key == MLX_KEY_M || key == MLX_KEY_O))
 		draw = modify_objs(key, scene->objects, scene);
-	print_menu(scene, NULL);
+	return (draw);
+}
+
+void	key_pressed(mlx_key_data_t keydata, void *param)
+{
+	const keys_t	key = keydata.key;
+	const action_t	action = keydata.action;
+	bool			draw;
+	t_scene			*scene;
+	static bool		mods[2] = {false, false};
+
+	scene = (t_scene *) param;
+	draw = NO_DRAW;
+	if (!type_to_move(key, action, &mods[LIGHT], &mods[OBJ]))
+		return ;
+	if (check_cam_key(key, action, scene)
+		|| modify_elements(key, action, scene, mods))
+		draw = DRAW;
+	print_menu(scene, NULL, mods);
 	if (draw)
 		draw_scene(scene, scene->pixelation);
 }

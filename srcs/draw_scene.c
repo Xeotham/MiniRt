@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:46:14 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/29 23:59:18 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/22 14:13:25 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	draw_scene(t_scene *scene, int pixelation)
 	int			x;
 	int			y;
 	int			pixel_color;
-	const int	pixel_middle = pixelation / 2 + 0.5;
+	const int	pixel_middle = pixelation / 2 - 0.5;
 	t_ray		ray;
 
 	y = 0;
@@ -76,5 +76,4 @@ void	draw_scene(t_scene *scene, int pixelation)
 		}
 		y += pixelation;
 	}
-	// printf("Camera x: %lf, y: %lf, z: %lf\n",scene->camera->orig.x, scene->camera->orig.y, scene->camera->orig.z);
 }

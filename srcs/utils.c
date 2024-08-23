@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 19:44:03 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/08/02 10:31:28 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/22 23:18:19 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,17 @@ double	ft_dclamp(double min, double max, double value)
 		return (value);
 }
 
-void	create_double_color(t_color *color)
+char	*get_line_trim(int fd, char *set)
 {
-	color->d_red = color->red / 255;
-	color->d_green = color->green / 255;
-	color->d_blue = color->blue / 255;
+	char	*str;
+	char	*tmp;
+
+	tmp = NULL;
+	str = get_next_line(fd);
+	if (str)
+		tmp = ft_strtrim(str, set);
+	if (!tmp)
+		return (str);
+	free(str);
+	return (tmp);
 }

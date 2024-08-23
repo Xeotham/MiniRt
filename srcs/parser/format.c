@@ -6,13 +6,13 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:51:57 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/30 15:42:05 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/13 15:11:06 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-static const bool	g_error = true;
+#define ERROR	true
 
 static char	*below_1_format(char *nbr)
 {
@@ -44,7 +44,7 @@ bool	get_light_ratio(char *ratio, double *result)
 	*result = ft_atod(ratio);
 	ratio = below_1_format(ratio);
 	if (*ratio)
-		return (g_error);
+		return (ERROR);
 	return (false);
 }
 
@@ -69,17 +69,17 @@ bool	get_color(char *color, t_color *result)
 	result->red = ft_atoi(color);
 	color = color_format(color);
 	if (!color || !*color)
-		return (g_error);
+		return (ERROR);
 	color++;
 	result->green = ft_atoi(color);
 	color = color_format(color);
 	if (!color || !*color)
-		return (g_error);
+		return (ERROR);
 	color++;
 	result->blue = ft_atoi(color);
 	color = color_format(color);
 	if (!color || *color)
-		return (g_error);
+		return (ERROR);
 	return (false);
 }
 
@@ -109,21 +109,21 @@ bool	get_point(char *point, t_vector3 *vector)
 		point++;
 	point = measure_format(point);
 	if (*point != ',')
-		return (g_error);
+		return (ERROR);
 	point++;
 	vector->y = ft_atod(point);
 	if (*point == '+' || *point == '-')
 		point++;
 	point = measure_format(point);
 	if (*point != ',')
-		return (g_error);
+		return (ERROR);
 	point++;
 	vector->z = ft_atod(point);
 	if (*point == '+' || *point == '-')
 		point++;
 	point = measure_format(point);
 	if (*point)
-		return (g_error);
+		return (ERROR);
 	return (false);
 }
 
@@ -134,21 +134,21 @@ bool	get_vector(char *vector, t_vector3 *result)
 		vector++;
 	vector = below_1_format(vector);
 	if (*vector != ',')
-		return (g_error);
+		return (ERROR);
 	vector++;
 	result->y = ft_atod(vector);
 	if (*vector == '-' || *vector == '+')
 		vector++;
 	vector = below_1_format(vector);
 	if (*vector != ',')
-		return (g_error);
+		return (ERROR);
 	vector++;
 	result->z = ft_atod(vector);
 	if (*vector == '-' || *vector == '+')
 		vector++;
 	vector = below_1_format(vector);
 	if (*vector != '\0')
-		return (g_error);
+		return (ERROR);
 	*result = normalize_vector(*result);
 	return (false);
 }
@@ -164,9 +164,9 @@ bool	get_fov(char *fov, int *result)
 	while (ft_isdigit(fov[i]) && i < 3)
 		i++;
 	if (!i || fov[i])
-		return (g_error);
+		return (ERROR);
 	if (i == 3 && ft_strncmp(fov, "180", 3) > 0)
-		return (g_error);
+		return (ERROR);
 	return (false);
 }
 
@@ -175,6 +175,6 @@ bool	get_measure(char *measure, double *result)
 	*result = ft_atod(measure);
 	measure = measure_format(measure);
 	if (*measure)
-		return (g_error);
+		return (ERROR);
 	return (false);
 }

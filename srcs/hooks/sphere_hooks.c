@@ -6,16 +6,16 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:08:18 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/06 08:56:08 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/13 14:29:45 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
 
-static void modify_sphere_coordinate(keys_t key, t_sphere **sphere,
-    mlx_t *display)
+static void	modify_sphere_coordinate(keys_t key, t_sphere **sphere,
+	mlx_t *display)
 {
-    if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_Z))
+	if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_Z))
 		(*sphere)->coord.z -= 0.25;
 	else if (key == MLX_KEY_RIGHT && mlx_is_key_down(display, MLX_KEY_Z))
 		(*sphere)->coord.z += 0.25;
@@ -29,10 +29,10 @@ static void modify_sphere_coordinate(keys_t key, t_sphere **sphere,
 		(*sphere)->coord.y += 0.25;
 }
 
-static void modify_sphere_color(keys_t key, t_sphere **sphere,
-    mlx_t *display)
+static void	modify_sphere_color(keys_t key, t_sphere **sphere,
+	mlx_t *display)
 {
-    if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_1)
+	if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_1)
 		&& (*sphere)->color.red - 1 >= 0)
 		(*sphere)->color.red--;
 	else if (key == MLX_KEY_RIGHT && mlx_is_key_down(display, MLX_KEY_1)
@@ -52,10 +52,10 @@ static void modify_sphere_color(keys_t key, t_sphere **sphere,
 		(*sphere)->color.blue++;
 }
 
-static void modify_sphere_radius(keys_t key, t_sphere **sphere,
-    mlx_t *display)
+static void	modify_sphere_radius(keys_t key, t_sphere **sphere,
+	mlx_t *display)
 {
-    if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_R)
+	if (key == MLX_KEY_LEFT && mlx_is_key_down(display, MLX_KEY_R)
 		&& (*sphere)->radius - 0.1 > 0)
 		(*sphere)->radius -= 0.1;
 	else if (key == MLX_KEY_RIGHT && mlx_is_key_down(display, MLX_KEY_R))
@@ -68,16 +68,16 @@ void	modify_sphere(keys_t key, void **ptr, mlx_t *display)
 
 	sphere = (t_sphere **)ptr;
 	if ((key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
-        && (mlx_is_key_down(display, MLX_KEY_Z)
-        || mlx_is_key_down(display, MLX_KEY_X)
-        || mlx_is_key_down(display, MLX_KEY_C)))
-        modify_sphere_coordinate(key, sphere, display);
+		&& (mlx_is_key_down(display, MLX_KEY_Z)
+			|| mlx_is_key_down(display, MLX_KEY_X)
+			|| mlx_is_key_down(display, MLX_KEY_C)))
+		modify_sphere_coordinate(key, sphere, display);
 	else if ((key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
-        && mlx_is_key_down(display, MLX_KEY_R))
+		&& mlx_is_key_down(display, MLX_KEY_R))
 		modify_sphere_radius(key, sphere, display);
 	else if ((key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
-        && (mlx_is_key_down(display, MLX_KEY_1)
-        || mlx_is_key_down(display, MLX_KEY_2)
-        || mlx_is_key_down(display, MLX_KEY_3)))
+		&& (mlx_is_key_down(display, MLX_KEY_1)
+			|| mlx_is_key_down(display, MLX_KEY_2)
+			|| mlx_is_key_down(display, MLX_KEY_3)))
 		modify_sphere_color(key, sphere, display);
 }

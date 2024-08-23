@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 21:54:04 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/28 22:27:18 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:59:43 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	mouse_scrolling(double xdelta, double ydelta, void *param)
 
 	(void) xdelta;
 	scene = (t_scene *) param;
-	angle = 0.1;
+	angle = 0.035;
 	if (ydelta < 0)
 		angle *= -1;
 	if (rotate_cam(angle, scene->camera, scene->display))

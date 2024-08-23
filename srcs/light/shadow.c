@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:16:28 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/07/30 13:16:57 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/13 15:21:54 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	test_shadow(t_ray int_to_light, t_inter poi, t_obj_list *objs)
 	t_inter		intersection;
 	double		light_distance;
 
-	light_distance = vector_norm(create_vector(int_to_light.origin,\
+	light_distance = vector_norm(create_vector(int_to_light.origin, \
 		int_to_light.dest));
 	tmp = objs;
 	while (tmp)

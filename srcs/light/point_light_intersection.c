@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:07:18 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/02 11:41:55 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/13 15:21:23 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_color	compute_point_light(double angle, t_obj_list *lights)
 {
-	double				tmp_color;
+	double			tmp_color;
 	t_color			light_color;
 	t_point_light	*point_light;
 
