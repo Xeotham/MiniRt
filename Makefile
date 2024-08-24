@@ -141,6 +141,7 @@ $(NAME) : $(LIBFT) $(OBJ)
 	@ echo "miniRT Compiled !"
 
 bonus : libmlx clean $(LIBFT) $(OBJ_BONUS)
+	@ mkdir -p Screenshots
 	@ $(CC) $(OBJ_BONUS) -o $(BONUS_NAME) $(LIBFT) $(LIBMLX)
 	@ echo "miniRT BONUS Compiled !"
 

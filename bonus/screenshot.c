@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:39:53 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/23 16:41:01 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/24 13:18:21 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ void	take_screenshot(t_scene *scene)
 		return ;
 	ft_fprintf(fd, "P3\n%d %d\n255\n", SCREEN_WIDTH, SCREEN_HEIGHT);
 	compute_scene(scene, fd);
+	printf("\033cScreenshot added to the Screenshots folder.\n");
 	close(fd);
 }

@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:33:21 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/15 21:27:29 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/24 13:12:48 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,7 @@ static void	modify_ambiant_light(keys_t key, void **ptr, mlx_t *display)
 bool	modify_lights(keys_t key, t_obj_list *lights, t_scene *scene)
 {
 	static t_obj_list	*actual_light = NULL;
-	bool				ret;
 
-	ret = DRAW;
 	change_actual_obj(key, &actual_light, lights);
 	if (actual_light->obj_id == ID_LIGHT)
 		modify_point_light(key, &actual_light->obj_struct, scene->display);

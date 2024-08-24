@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 09:05:32 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/23 15:00:44 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/24 13:13:23 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static t_color	multi_light_color(t_inter poi, t_scene *scene, t_color base_color
 	t_color			color;
 	t_obj_list		*amb_light;
 	t_obj_list		*actual_light;
-	t_point_light	*light;
 
 	amb_light = ft_objfind_id(scene->lights, ID_AMB_LIGHT);
 	actual_light = ft_objfind_id(scene->lights, ID_LIGHT);
@@ -26,7 +25,6 @@ static t_color	multi_light_color(t_inter poi, t_scene *scene, t_color base_color
 	ft_bzero(&color, sizeof(t_color));
 	while (actual_light)
 	{
-		light = (t_point_light *)actual_light->obj_struct;
 		poi_to_light = create_ray(poi.point, ((t_point_light *)(actual_light->obj_struct))->coord);
 		if (!test_shadow(poi_to_light, poi, scene->objects))
 			ft_bzero(&color, sizeof(t_color));
