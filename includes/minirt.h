@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/22 23:16:25 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 17:56:07 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <math.h>
 # include <errno.h>
 # include <string.h>
-# include <mrt_matrix.h>
 # include <mrt_vector.h>
 # include <fcntl.h>
 # include <stdio.h>
@@ -72,6 +71,7 @@ typedef enum e_error
 	ERR_CYL_COLOR,
 	ERR_NO_CAM,
 	ERR_NO_LIGHT,
+	ERR_NO_AMB_LIGHT,
 	ERR_EMPTY_FILE,
 	ERR_FILE_NAME,
 	ERR_MLX
@@ -80,6 +80,7 @@ typedef enum e_error
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
 # define ASPECT 1.77778
+# define PIE 3.14159265
 
 /* ==== STRUCT ==== */
 
@@ -165,6 +166,7 @@ typedef struct s_plane
 	t_vector3		coord;
 	t_vector3		normal;
 	t_color			color;
+	bool			hooks_mod;
 }						t_plane;
 
 typedef struct s_cylinder
@@ -175,6 +177,7 @@ typedef struct s_cylinder
 	double			radius;
 	double			height;
 	t_color			color;
+	bool			hooks_mod;
 }						t_cylinder;
 
 typedef struct s_scene
@@ -186,6 +189,14 @@ typedef struct s_scene
 	t_obj_list	*objects;
 	int			pixelation;
 }						t_scene;
+
+/* ==== PARSER ==== */
+
+t_error		read_file(int fd, t_scene *scene, int *line_index);
+void		close_file(int fd);
+char		*measure_format(char *measure);
+char		*color_format(char *color);
+char		*below_1_format(char *nbr);
 
 /* ==== MAP ==== */
 
@@ -258,7 +269,8 @@ t_inter		test_sphere(t_ray ray, void *element);
 /* ==== PLANE INTERSECTION ==== */
 
 t_inter		test_plane(t_ray ray, void *element);
-double		compute_plane_equation(t_vector3 point, t_vector3 normal, t_ray ray);
+double		compute_plane_equation(t_vector3 point, t_vector3 normal,
+				t_ray ray);
 
 /* ==== CYLINDER INTERSECTION ====*/
 
@@ -299,5 +311,8 @@ size_t		get_actual_obj_nb(t_obj_list *obj, t_obj_list *list);
 void		print_sphere_info(t_obj_list *obj, t_obj_list *lst);
 void		print_plane_info(t_obj_list *obj, t_obj_list *lst);
 void		print_cylinder_info(t_obj_list *obj, t_obj_list *lst);
+void		print_sphere_help_menu(void);
+void		print_plane_help_menu(void);
+void		print_cylinder_help_menu(void);
 
 #endif

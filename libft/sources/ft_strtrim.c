@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:50:55 by tde-la-r          #+#    #+#             */
-/*   Updated: 2023/11/07 13:52:56 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:18:44 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (ft_strdup(s1));
 	start = 0;
 	end = ft_strlen(s1) - 1;
-	while (ft_strchr(set, s1[start]))
+	while (s1[start] && ft_strchr(set, s1[start]))
 		start++;
-	while (ft_strchr(set, s1[end]))
+	while (end > -1 && ft_strchr(set, s1[end]))
 		end--;
 	if (start > end)
 		return (ft_strdup(""));

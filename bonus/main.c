@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:47:52 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/22 14:39:33 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 17:23:58 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	check_args(int ac, char **av)
 		exit_scene(NULL, 0, ERR_MALLOC);
 	if (check_pixelation(av[2], max))
 	{
-		ft_putstr_fd("Error\nIncorrect pixelation.\n", STDERR_FILENO);
+		ft_putstr_fd("Error\nPixelation incorrect.\n", STDERR_FILENO);
 		free(max);
 		exit (EXIT_FAILURE);
 	}
@@ -73,5 +73,6 @@ int	main(int ac, char **av)
 	mlx_close_hook(scene->display, &end_display, scene->display);
 	mlx_loop(scene->display);
 	destroy_scene(scene);
+	printf("\033c");
 	return (EXIT_SUCCESS);
 }

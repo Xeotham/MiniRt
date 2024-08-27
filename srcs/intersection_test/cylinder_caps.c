@@ -6,12 +6,11 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 11:02:20 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/16 20:30:12 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:46:16 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
-#include <stdio.h>
 
 #define NO_INTER -1
 
@@ -42,8 +41,8 @@ t_inter	compute_cap(t_ray ray, t_cylinder *cyl)
 	bot_inter = cap_inter(cyl->bot_center, ray, cyl);
 	bot_inter.normal = scalar_prod(cyl->axis, -1);
 	if (top_inter.distance != NO_INTER)
-		if (bot_inter.distance == NO_INTER 
-				|| top_inter.distance < bot_inter.distance)
+		if (bot_inter.distance == NO_INTER
+			|| top_inter.distance < bot_inter.distance)
 			return (top_inter);
 	if (bot_inter.distance != NO_INTER)
 		return (bot_inter);

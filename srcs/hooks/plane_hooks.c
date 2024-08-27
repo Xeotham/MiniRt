@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:37:30 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/12 15:20:44 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 18:07:38 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,17 @@ static void	modify_plane_color(keys_t key, t_plane **plane,
 
 void	modify_plane(keys_t key, void **ptr, mlx_t *display)
 {
-	static bool	normal = false;
 	t_plane		**plane;
 
 	plane = (t_plane **)ptr;
-	check_normal_state(key, &normal);
-	if (!normal && ((key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
-			&& (mlx_is_key_down(display, MLX_KEY_Z)
+	check_normal_state(key, &(*plane)->hooks_mod);
+	if (!(*plane)->hooks_mod && ((key == MLX_KEY_LEFT
+				|| key == MLX_KEY_RIGHT) && (mlx_is_key_down(display, MLX_KEY_Z)
 				|| mlx_is_key_down(display, MLX_KEY_X)
 				|| mlx_is_key_down(display, MLX_KEY_C))))
 		modify_plane_coordinates(key, plane, display);
-	else if (normal && ((key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
-			&& (mlx_is_key_down(display, MLX_KEY_Z)
+	else if ((*plane)->hooks_mod && ((key == MLX_KEY_LEFT
+				|| key == MLX_KEY_RIGHT) && (mlx_is_key_down(display, MLX_KEY_Z)
 				|| mlx_is_key_down(display, MLX_KEY_X)
 				|| mlx_is_key_down(display, MLX_KEY_C))))
 		modify_plane_normal(key, plane, display);

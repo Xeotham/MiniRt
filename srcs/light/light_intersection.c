@@ -6,12 +6,11 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 09:05:32 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/13 15:19:55 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 15:19:10 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
-#include <stdio.h>
 
 static int	test_light(t_ray int_to_light, t_inter poi, t_obj_list *lights,
 	t_obj_list *objects)

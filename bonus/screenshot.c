@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:39:53 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/24 13:18:21 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/27 10:36:57 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,16 @@
 static int	open_screenshot_file(int nb)
 {
 	int		fd;
+	char	*path;
 	char	*name;
 
-	name = join_and_free("./Screenshots/Render_", ft_itoa(nb), 0, 1);
+	fd = open("./Screenshots", O_RDONLY | __O_DIRECTORY);
+	if (fd == -1)
+		path = "Render_";
+	else
+		path = "./Screenshots/Render_";
+	close(fd);
+	name = join_and_free(path, ft_itoa(nb), 0, 1);
 	name = join_and_free(name, ".ppm", 1, 0);
 	if (!name)
 		return (-1);
@@ -66,12 +73,10 @@ void	take_screenshot(t_scene *scene)
 {
 	int	fd;
 
-	(void)scene;
 	fd = open_screenshot_file(0);
 	if (fd == -1)
 		return ;
 	ft_fprintf(fd, "P3\n%d %d\n255\n", SCREEN_WIDTH, SCREEN_HEIGHT);
 	compute_scene(scene, fd);
-	printf("\033cScreenshot added to the Screenshots folder.\n");
 	close(fd);
 }

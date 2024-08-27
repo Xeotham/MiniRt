@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:57:11 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/13 19:09:36 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 19:16:58 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ bool	translate_cam_hold(keys_t key, t_camera *camera)
 	if (key == MLX_KEY_D || key == MLX_KEY_A)
 	{
 		right = normalize_vector(camera->u_screen);
-		right = camera->u_screen;
 		if (key == MLX_KEY_D)
 			camera->orig = vector_add(camera->orig, right);
 		if (key == MLX_KEY_A)
@@ -90,15 +89,16 @@ bool	change_pixelation(keys_t key, int *pixelation)
 	}
 	return (NO_DRAW);
 }
+
 bool	change_fov(keys_t key, t_camera *camera)
 {
-	if (key == MLX_KEY_PAGE_UP && camera->fov + 5 < 180)
+	if (key == MLX_KEY_PAGE_UP && camera->fov + 5 <= 180)
 	{
 		camera->fov += 5;
 		update_camera(camera);
 		return (DRAW);
 	}
-	else if (camera->fov - 5 > 0)
+	else if (key == MLX_KEY_PAGE_DOWN && camera->fov - 5 > 0)
 	{
 		camera->fov -= 5;
 		update_camera(camera);

@@ -6,25 +6,25 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:26:42 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/08/22 14:39:33 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 15:24:41 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt_bonus.h>
 
-static const double	no_solution = -1;
+#define NO_SOLUTION	-1
 
 static double	compute_solution(double b, double discriminant)
 {
 	const double	sqrt_discriminant = sqrt(discriminant);
 	const double	s1 = (-b + sqrt_discriminant) / 2;
 	const double	s2 = (-b - sqrt_discriminant) / 2;
- 
+
 	if (s1 > 0 && (s1 < s2 || s2 < 0))
 		return (s1);
 	if (s2 > 0)
 		return (s2);
-	return (no_solution);
+	return (NO_SOLUTION);
 }
 
 static double	compute_equation(t_ray ray, t_vector3 center, double radius)
@@ -36,7 +36,7 @@ static double	compute_equation(t_ray ray, t_vector3 center, double radius)
 	double			solution;
 
 	if (discriminant < 0)
-		return (no_solution);
+		return (NO_SOLUTION);
 	solution = compute_solution(b, discriminant);
 	return (solution);
 }
@@ -47,7 +47,7 @@ t_inter	test_sphere(t_ray ray, void *element)
 	t_inter			result;
 
 	result.distance = compute_equation(ray, sphere->coord, sphere->radius);
-	if (result.distance == no_solution)
+	if (result.distance == NO_SOLUTION)
 		return (result);
 	result.point = compute_point(ray.origin, ray.dir, result.distance);
 	result.normal = create_vector(sphere->coord, result.point);

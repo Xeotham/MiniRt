@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:49:04 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/13 22:40:10 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 14:57:03 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ t_ray	cast_ray(t_camera *camera, double coord_x, double coord_y)
 	translated_y = scalar_prod(camera->v_screen, coord_y);
 	translated_coordinate = vector_add(camera->screen_center, translated_x);
 	translated_coordinate = vector_add(translated_coordinate, translated_y);
-	ray = create_ray(camera->orig, translated_coordinate);	
+	ray = create_ray(camera->orig, translated_coordinate);
 	return (ray);
 }

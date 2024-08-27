@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:21:09 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/15 18:24:16 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:07:11 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,17 @@ static void	modify_cylinder_color(keys_t key, t_cylinder **cylinder,
 
 void	modify_cylinder(keys_t key, void **ptr, mlx_t *display)
 {
-	static bool	axis = false;
 	t_cylinder	**cylinder;
 
 	cylinder = (t_cylinder **)ptr;
-	check_axis_state(key, &axis);
-	if (!axis && ((key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
-			&& (mlx_is_key_down(display, MLX_KEY_Z)
+	check_axis_state(key, &(*cylinder)->hooks_mod);
+	if (!(*cylinder)->hooks_mod && ((key == MLX_KEY_LEFT
+				|| key == MLX_KEY_RIGHT) && (mlx_is_key_down(display, MLX_KEY_Z)
 				|| mlx_is_key_down(display, MLX_KEY_X)
 				|| mlx_is_key_down(display, MLX_KEY_C))))
 		modify_cylinder_coordinate(key, cylinder, display);
-	else if (axis && ((key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
-			&& (mlx_is_key_down(display, MLX_KEY_Z)
+	else if ((*cylinder)->hooks_mod && ((key == MLX_KEY_LEFT
+				|| key == MLX_KEY_RIGHT) && (mlx_is_key_down(display, MLX_KEY_Z)
 				|| mlx_is_key_down(display, MLX_KEY_X)
 				|| mlx_is_key_down(display, MLX_KEY_C))))
 		modify_cylinder_axis(key, cylinder, display);

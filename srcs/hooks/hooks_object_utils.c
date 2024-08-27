@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 14:03:28 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/13 21:32:50 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 17:42:18 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ bool	modify_objs(keys_t key, t_obj_list *objs, t_scene *scene)
 {
 	static t_obj_list	*actual_obj = NULL;
 
+	if (!objs)
+		return (false);
 	change_actual_obj(key, &actual_obj, objs);
 	if ((actual_obj)->obj_id == ID_SPHERE)
 		modify_sphere(key, &(actual_obj)->obj_struct, scene->display);

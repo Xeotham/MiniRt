@@ -37,20 +37,20 @@ SRCS = \
 	light/light_intersection.c \
 	light/point_light_intersection.c \
 	light/ambiant_light_intersection.c \
-	matrix/matrix.c \
-	matrix/matrix_product.c \
-	matrix/transform_matrix.c \
+	parser/format.c \
+	parser/get_info.c \
+	parser/handle_file.c \
 	parser/create_scene.c \
 	parser/element_list_utils.c \
-	parser/format.c \
 	ray/ray.c \
 	vector/vector.c \
 	vector/vector_math.c \
 	vector/reflect_vector.c \
 	menu/menu.c \
+	menu/menu_obj.c \
 	menu/menu_light.c \
 	menu/menu_utils.c \
-	menu/menu_obj.c \
+	menu/obj_help_menu.c \
 
 BONUS = \
 	main.c \
@@ -83,12 +83,11 @@ BONUS = \
 	light/light_intersection.c \
 	light/point_light_intersection.c \
 	light/ambiant_light_intersection.c \
-	matrix/matrix.c \
-	matrix/matrix_product.c \
-	matrix/transform_matrix.c \
+	parser/format.c \
+	parser/get_info.c \
+	parser/handle_file.c \
 	parser/create_scene.c \
 	parser/element_list_utils.c \
-	parser/format.c \
 	ray/ray.c \
 	vector/vector.c \
 	vector/vector_math.c \
@@ -97,6 +96,7 @@ BONUS = \
 	menu/menu_light.c \
 	menu/menu_utils.c \
 	menu/menu_obj.c \
+	menu/obj_help_menu.c \
 
 #============ TRANSFORM .c TO .o ============#
 MLX_DIR = MLX42
@@ -112,7 +112,7 @@ INCLUDES = -I$(INCLUDE_DIR) -I$(MLX_INCLUDE) -Ilibft/include
 FSANITIZE = -fsanitize=address
 LIBFT = libft/libft.a
 LIBMLX = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
-TEST_ARGS = test.rt 8
+TEST_ARGS = maps/test.rt 8
 V_FLAGS = --leak-check=full --show-leak-kinds=all --track-fds=yes
 
 all : libmlx $(NAME)
@@ -146,6 +146,7 @@ bonus : libmlx clean $(LIBFT) $(OBJ_BONUS)
 	@ echo "miniRT BONUS Compiled !"
 
 fsanitize : new
+	@ mkdir -p Screenshots
 	@ $(CC) $(FSANITIZE) $(OBJ) -o $(NAME) $(LIBFT) $(LIBMLX)
 	@ echo "miniRT Compiled !"
 
@@ -164,7 +165,7 @@ clean :
 
 fclean :
 	@ $(MAKE) -C libft fclean --no-print-directory
-	@ rm -rf $(NAME) $(OBJ_DIR) $(OBJ_B_DIR) $(MLX_DIR)
+	@ rm -rf $(NAME) $(BONUS_NAME) $(OBJ_DIR) $(OBJ_B_DIR) $(MLX_DIR)
 
 re : fclean all
 

@@ -6,11 +6,11 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 21:54:04 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/08/22 14:39:33 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 15:14:59 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt_bonus.h"
+#include <minirt_bonus.h>
 
 static void	compute_rotation(double angle, double *coord1, double *coord2)
 {

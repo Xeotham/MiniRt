@@ -6,12 +6,11 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:57:35 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/22 14:39:33 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 15:18:31 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt_bonus.h>
-#include <stdio.h>
 
 static double	screen_horz(double fov)
 {

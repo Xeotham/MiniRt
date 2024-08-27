@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 20:23:36 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/07/28 18:36:36 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/27 10:45:42 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,6 @@ size_t	ft_array_len(void *array);
 void	ft_multi_free(int n_to_free, ...);
 void	ft_destroy_ptr(void *ptr, void (*f)(void *));
 
-int	ft_numlen(int n);
+int		ft_numlen(int n);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 08:38:49 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/15 21:28:17 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 18:27:30 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	print_point_light(t_obj_list *light, t_obj_list *lst)
 	printf("Actually Modifying Point_light %zu\n",
 		get_actual_obj_nb(light, lst));
 	printf("==========\n");
+	printf("Test %f\n", point_light->ratio);
 	printf("Light Position:\n");
 	printf("\tX: %.5lf, ", point_light->coord.x);
 	printf("\tY: %.5lf, ", point_light->coord.y);

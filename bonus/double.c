@@ -6,11 +6,11 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:15:42 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/12 15:15:43 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 15:16:52 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include <minirt_bonus.h>
 #include <libft.h>
 #include <stdbool.h>
 

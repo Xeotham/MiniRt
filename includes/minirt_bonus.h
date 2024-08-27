@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:01 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/23 15:59:24 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 17:55:05 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <math.h>
 # include <errno.h>
 # include <string.h>
-# include <mrt_matrix.h>
 # include <mrt_vector.h>
 # include <fcntl.h>
 # include <stdio.h>
@@ -72,6 +71,7 @@ typedef enum e_error
 	ERR_CYL_COLOR,
 	ERR_NO_CAM,
 	ERR_NO_LIGHT,
+	ERR_NO_AMB_LIGHT,
 	ERR_EMPTY_FILE,
 	ERR_FILE_NAME,
 	ERR_MLX
@@ -80,21 +80,9 @@ typedef enum e_error
 # define SCREEN_WIDTH 1280
 # define SCREEN_HEIGHT 720
 # define ASPECT 1.77778
+# define PIE 3.14159265
 
 /* ==== STRUCT ==== */
-
-typedef struct s_obj_transform
-{
-	double				resize_x;
-	double				resize_y;
-	double				resize_z;
-	double				translate_x;
-	double				translate_y;
-	double				translate_z;
-	double				teta_x;
-	double				teta_y;
-	double				teta_z;
-}						t_obj_transform;
 
 typedef struct s_ray
 {
@@ -159,7 +147,6 @@ typedef struct s_sphere
 	t_vector3		coord;
 	double			radius;
 	t_color			color;
-	t_obj_transform	*matrix;
 }						t_sphere;
 
 typedef struct s_plane
@@ -167,7 +154,7 @@ typedef struct s_plane
 	t_vector3		coord;
 	t_vector3		normal;
 	t_color			color;
-	t_obj_transform	*matrix;
+	bool			hooks_mod;
 }						t_plane;
 
 typedef struct s_cylinder
@@ -178,6 +165,7 @@ typedef struct s_cylinder
 	double			radius;
 	double			height;
 	t_color			color;
+	bool			hooks_mod;
 }						t_cylinder;
 
 typedef struct s_scene
@@ -202,6 +190,15 @@ t_obj_list	*ft_objlast(t_obj_list *lst);
 t_obj_list	*ft_objfind_id(t_obj_list *lst, t_identifier id);
 void		set_prev(t_obj_list *lst, t_obj_list *actual_prev);
 
+/* ==== PARSER ==== */
+
+bool		get_light_ratio(char *ratio, double *result);
+bool		get_color(char *color, t_color *result);
+bool		get_point(char *point, t_vector3 *vector);
+bool		get_vector(char *vector, t_vector3 *result);
+bool		get_fov(char *fov, int *result);
+bool		get_measure(char *measure, double *result);
+
 /* ==== COLOR ==== */
 int			set_rgba(int r, int g, int b, int a);
 
@@ -224,7 +221,11 @@ void		destroy_scene(t_scene *scene);
 char		*get_line_trim(int fd, char *set);
 
 /* ==== PARSER ==== */
-
+t_error		read_file(int fd, t_scene *scene, int *line_index);
+void		close_file(int fd);
+char		*measure_format(char *measure);
+char		*color_format(char *color);
+char		*below_1_format(char *nbr);
 bool		get_light_ratio(char *ratio, double *result);
 bool		get_color(char *color, t_color *result);
 bool		get_point(char *point, t_vector3 *vector);
@@ -247,7 +248,8 @@ t_ray		cast_ray(t_camera *camera, double coord_x, double coord_y);
 int			light_test_inter(t_inter poi, t_scene *scene);
 bool		test_shadow(t_ray int_to_light, t_inter poi, t_obj_list *objs);
 t_color		compute_amb_light(t_obj_list *lights);
-t_color		compute_point_light(t_inter poi, t_ray poi_to_light, t_obj_list *lights, t_vector3 camera_pos);
+t_color		compute_point_light(t_inter poi, t_ray poi_to_light,
+				t_obj_list *lights, t_vector3 camera_pos);
 
 /* ==== SPHERE INTERSECTION ====*/
 
@@ -263,7 +265,8 @@ t_inter		test_cylinder(t_ray ray, void *element);
 double		test_cylinder_height(t_ray ray, t_cylinder *cylinder, double t);
 void		swap_double(double *to_swap_1, double *to_swap_2);
 t_inter		compute_cap(t_ray ray, t_cylinder *cyl);
-double		compute_plane_equation(t_vector3 point, t_vector3 normal, t_ray ray);
+double		compute_plane_equation(t_vector3 point, t_vector3 normal,
+				t_ray ray);
 
 t_vector3	compute_point(t_vector3 orig, t_vector3 dir, double distance);
 
@@ -285,7 +288,6 @@ bool		translate_cam_press(keys_t key, t_camera *camera);
 bool		type_to_move(keys_t key, action_t action, bool *light,
 				bool *object);
 bool		modify_objs(keys_t key, t_obj_list *objs, t_scene *scene);
-
 void		draw_scene(t_scene *scene, int pixelation);
 bool		change_actual_obj(keys_t key, t_obj_list **actual_obj,
 				t_obj_list *objs);
@@ -299,10 +301,11 @@ size_t		get_actual_obj_nb(t_obj_list *obj, t_obj_list *list);
 void		print_sphere_info(t_obj_list *obj, t_obj_list *lst);
 void		print_plane_info(t_obj_list *obj, t_obj_list *lst);
 void		print_cylinder_info(t_obj_list *obj, t_obj_list *lst);
+void		print_sphere_help_menu(void);
+void		print_plane_help_menu(void);
+void		print_cylinder_help_menu(void);
 
 void		take_screenshot(t_scene *scene);
 int			compute_pixel(t_ray ray, t_scene *scene);
-
-
 
 #endif

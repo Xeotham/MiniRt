@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 17:47:07 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/23 17:18:59 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 18:29:04 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,27 @@ static void	print_camera_info(t_camera *camera)
 	printf("\033[1;4mCamera FOV:\033[0m %d\n", camera->fov);
 }
 
+static void	print_info(t_obj_list *actual_obj, bool *mods_type, t_scene *scene)
+{
+	if (mods_type && mods_type[0] && actual_obj
+		&& actual_obj->obj_id == ID_AMB_LIGHT)
+		print_amb_light(actual_obj->obj_struct);
+	else if (mods_type && mods_type[0] && actual_obj
+		&& actual_obj->obj_id == ID_LIGHT)
+		print_point_light(actual_obj, scene->lights);
+	else if (mods_type && mods_type[1] && actual_obj
+		&& actual_obj->obj_id == ID_SPHERE)
+		print_sphere_info(actual_obj, scene->objects);
+	else if (mods_type && mods_type[1] && actual_obj
+		&& actual_obj->obj_id == ID_PLANE)
+		print_plane_info(actual_obj, scene->objects);
+	else if (mods_type && mods_type[1] && actual_obj
+		&& actual_obj->obj_id == ID_CYLINDER)
+		print_cylinder_info(actual_obj, scene->objects);
+	else
+		print_mini_help_menu();
+}
+
 void	print_menu(t_scene *scene, t_obj_list *obj, bool *mods)
 {
 	static t_camera		*camera = NULL;
@@ -73,21 +94,5 @@ void	print_menu(t_scene *scene, t_obj_list *obj, bool *mods)
 		printf("Actual Mod: Idle\n");
 	if (camera)
 		print_camera_info(camera);
-	if (mods_type && mods_type[0] && actual_obj
-		&& actual_obj->obj_id == ID_AMB_LIGHT)
-		print_amb_light(actual_obj->obj_struct);
-	else if (mods_type && mods_type[0] && actual_obj
-		&& actual_obj->obj_id == ID_LIGHT)
-		print_point_light(actual_obj, scene->lights);
-	else if (mods_type && mods_type[1] && actual_obj
-		&& actual_obj->obj_id == ID_SPHERE)
-		print_sphere_info(actual_obj, scene->objects);
-	else if (mods_type && mods_type[1] && actual_obj
-		&& actual_obj->obj_id == ID_PLANE)
-		print_plane_info(actual_obj, scene->objects);
-	else if (mods_type && mods_type[1] && actual_obj
-		&& actual_obj->obj_id == ID_CYLINDER)
-		print_cylinder_info(actual_obj, scene->objects);
-	else
-		print_mini_help_menu();
+	print_info(actual_obj, mods_type, scene);
 }

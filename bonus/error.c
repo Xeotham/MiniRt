@@ -6,13 +6,13 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:55:41 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/08/22 19:45:14 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 17:36:08 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt_bonus.h"
+#include <minirt_bonus.h>
 
-static char	*err_msg2(t_error code, char *msg[36])
+static char	*err_msg2(t_error code, char *msg[37])
 {
 	msg[ERR_SP_INFO] = "There must be four sphere informations";
 	msg[ERR_SP_COORD] = "Sphere coordinates misconfigurated";
@@ -26,6 +26,7 @@ static char	*err_msg2(t_error code, char *msg[36])
 	msg[ERR_CYL_COLOR] = "Cylinder color misconfigurated";
 	msg[ERR_NO_CAM] = "Scene cannot be displayed without camera";
 	msg[ERR_NO_LIGHT] = "Scene cannot be displayed without any kind of light";
+	msg[ERR_NO_AMB_LIGHT] = "Scene cannot be displayed without ambient light";
 	msg[ERR_EMPTY_FILE] = "Empty file";
 	msg[ERR_FILE_NAME] = "";
 	msg[ERR_MLX] = (char *) mlx_strerror(mlx_errno);
@@ -34,7 +35,7 @@ static char	*err_msg2(t_error code, char *msg[36])
 
 static char	*err_msg(t_error code)
 {
-	char	*msg[36];
+	char	*msg[37];
 
 	if (code > ERR_PL_COLOR)
 		return (err_msg2(code, msg));

@@ -6,79 +6,11 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 08:57:31 by mhaouas           #+#    #+#             */
-/*   Updated: 2024/08/15 18:27:50 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:09:00 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
-
-static void	print_sphere_help_menu(void)
-{
-	printf("==========\n");
-	printf("Keys:\n");
-	printf("Sphere Mod:\n");
-	printf("\t- ←: Decrease selected value.\n");
-	printf("\t- →: Increase selected value.\n");
-	printf("\t- Hold Z: Select Z Axis modification.\n");
-	printf("\t- Hold X: Select X Axis modification.\n");
-	printf("\t- Hold C: Select Y Axis modification.\n");
-	printf("\t- Hold R: Select radius modification.\n");
-	printf("\t- Hold 1: Select Red modification.\n");
-	printf("\t- Hold 2: Select Green modification.\n");
-	printf("\t- Hold 3: Select Blue modification.\n");
-	printf("\nMods:\n");
-	printf("\t- L: Unable/Disable Light Mod.\n");
-	printf("\t- O: Unable/Disable Object Mod.\n");
-	printf("\t- <: Switch to previous object.\n");
-	printf("\t- >: Switch to next object.\n");
-	printf("\t- Enter: Render the scene\n");
-}
-
-static void	print_plane_help_menu(void)
-{
-	printf("==========\n");
-	printf("Keys:\n");
-	printf("Plane Mod:\n");
-	printf("\t- M: Switch to coord/normal modification.\n");
-	printf("\t- ←: Decrease selected value.\n");
-	printf("\t- →: Increase selected value.\n");
-	printf("\t- Hold Z: Select Z Axis modification.\n");
-	printf("\t- Hold X: Select X Axis modification.\n");
-	printf("\t- Hold C: Select Y Axis modification.\n");
-	printf("\t- Hold 1: Select Red modification.\n");
-	printf("\t- Hold 2: Select Green modification.\n");
-	printf("\t- Hold 3: Select Blue modification.\n");
-	printf("\nMods:\n");
-	printf("\t- L: Unable/Disable Light Mod.\n");
-	printf("\t- O: Unable/Disable Object Mod.\n");
-	printf("\t- <: Switch to previous object.\n");
-	printf("\t- >: Switch to next object.\n");
-	printf("\t- Enter: Render the scene\n");
-}
-
-static void	print_cylinder_help_menu(void)
-{
-	printf("==========\n");
-	printf("Keys:\n");
-	printf("Cylinder Mod:\n");
-	printf("\t- M: Switch to coord/normal modification.\n");
-	printf("\t- ←: Decrease selected value.\n");
-	printf("\t- →: Increase selected value.\n");
-	printf("\t- Hold Z: Select Z Axis modification.\n");
-	printf("\t- Hold X: Select X Axis modification.\n");
-	printf("\t- Hold C: Select Y Axis modification.\n");
-	printf("\t- Hold R: Select radius modification.\n");
-	printf("\t- Hold H: Select height modification.\n");
-	printf("\t- Hold 1: Select Red modification.\n");
-	printf("\t- Hold 2: Select Green modification.\n");
-	printf("\t- Hold 3: Select Blue modification.\n");
-	printf("\nMods:\n");
-	printf("\t- L: Unable/Disable Light Mod.\n");
-	printf("\t- O: Unable/Disable Object Mod.\n");
-	printf("\t- <: Switch to previous object.\n");
-	printf("\t- >: Switch to next object.\n");
-	printf("\t- Enter: Render the scene\n");
-}
 
 void	print_sphere_info(t_obj_list *obj, t_obj_list *lst)
 {
@@ -110,6 +42,11 @@ void	print_plane_info(t_obj_list *obj, t_obj_list *lst)
 	printf("Actually Modifying Plane number %zu\n",
 		get_actual_obj_nb(obj, lst));
 	printf("==========\n");
+	printf("Plane mod: ");
+	if (!plane->hooks_mod)
+		printf("Coordinate modification\n");
+	else
+		printf("Normal modification\n");
 	printf("Plane Position:\n");
 	printf("\tX: %.5lf, ", plane->coord.x);
 	printf("\tY: %.5lf, ", plane->coord.y);
@@ -134,10 +71,13 @@ void	print_cylinder_info(t_obj_list *obj, t_obj_list *lst)
 	printf("Actually Modifying Cylinder number %zu\n",
 		get_actual_obj_nb(obj, lst));
 	printf("==========\n");
-	printf("Cylinder Position:\n");
-	printf("\tX: %.5lf, ", cylinder->center.x);
-	printf("\tY: %.5lf, ", cylinder->center.y);
-	printf("\tZ: %.5lf\n", cylinder->center.z);
+	printf("Cylinder mod: ");
+	if (!cylinder->hooks_mod)
+		printf("Coordinate modification\n");
+	else
+		printf("axis modification\n");
+	printf("Cylinder Position:\n\tX: %.5lf, \tY: %.5lf, \tZ: %.5lf\n",
+		cylinder->center.x, cylinder->center.y, cylinder->center.z);
 	printf("Cylinder Axis:\n");
 	printf("\tX: %.5lf, ", cylinder->axis.x);
 	printf("\tY: %.5lf, ", cylinder->axis.y);

@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42angouleme.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:46:14 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/08/23 15:59:10 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/08/26 16:33:34 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ static void	draw_screen(t_scene *scene, int x, int y, int color)
 
 void	draw_scene(t_scene *scene, int pixelation)
 {
-	int			x;
-	int			y;
-	int			pixel_color;
-	const int	pixel_middle = pixelation / 2 + 0.5;
-	t_ray		ray;
+	int				x;
+	int				y;
+	int				pixel_color;
+	const double	pixel_middle = pixelation / 2 + 0.5;
+	t_ray			ray;
 
 	y = 0;
 	while (y < SCREEN_HEIGHT)
